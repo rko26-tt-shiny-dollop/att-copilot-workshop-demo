@@ -75,7 +75,7 @@ build toward is one repeatable loop:
 - **Model picker** — switch to a higher-reasoning model for hard problems, then
   switch back.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 In **Ask** mode, have the codebase explain itself:
 
@@ -90,7 +90,7 @@ Then open `api/src/utils/identifiers.ts` and use **inline chat** (`Cmd+I`):
 Explain what this Luhn check does.
 ```
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Reproduce the tour yourself, then go one step further — in **Ask** mode:
 
@@ -113,7 +113,7 @@ The payoff is concrete: a vague prompt makes Agent mode stop and ask *you* a pil
 clarifying questions before it does anything, while a precise prompt gives it
 everything it needs to just act. We'll watch that difference live.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 Run both prompts in **Agent** mode and compare what comes back.
 
@@ -137,7 +137,7 @@ change afterward — the point is the prompt, not the change.
 **The lesson:** specificity plus a clear stopping point removes the back-and-forth.
 Every detail you add is one question Agent *doesn't* have to ask you.
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Prove the same effect on a different task. First run the vague version and watch it
 ask:
@@ -173,7 +173,7 @@ Critique the prompt I just wrote and propose a stronger version.
 Copilot already knows this team's stack, the IMEI/ICCID rules, and the
 model → repository → route → `app.ts` → Swagger pattern — no setup required.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 With `.github/copilot-instructions.md` open for reference, in **Agent** mode:
 
@@ -184,7 +184,7 @@ Add a color field to the Device model following our conventions.
 Watch it touch the model, seed data, and types without being told to — then discard
 the change.
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Try the same idea with a different field, in **Agent** mode:
 
@@ -203,7 +203,7 @@ that shaped the output, and which files it changed because of them. Discard when
 > **Background:** Agent mode doesn't just suggest code — it plans, edits across
 > files, and runs commands (build/test) to verify its own work.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 In **Agent** mode:
 
@@ -214,7 +214,7 @@ Run the API test suite and summarize what passes, fails, and is skipped.
 Notice it reports a few **skipped** tests — that's the Add-a-Line starter we'll pick up
 in Section 4.
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Run the suite yourself, then ask Agent:
 
@@ -236,7 +236,7 @@ there.
 > like code, and run from Chat by typing `/<name>`. They become shared team assets and
 > work out of the box in current VS Code.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 Run the scaffold prompt and ask it to add a read-only **"markets by region"** query
 endpoint:
@@ -248,7 +248,7 @@ endpoint:
 Walk the diff to show it followed the model → store → route → `app.ts` → Swagger →
 tests steps baked into the prompt.
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Run the same prompt yourself, but scaffold a *different* read-only endpoint:
 
@@ -277,7 +277,7 @@ write-ups — you'll use it in Section 6.
 > domain-specific know-how that Copilot loads on demand. We ship
 > `identifier-validator` (IMEI/ICCID + Luhn) and `api-endpoint`.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 In **Agent** mode:
 
@@ -288,7 +288,7 @@ Generate three valid test IMEIs and one valid ICCID for seed data.
 It applies the identifier skill's Luhn guidance and reuses the existing validator
 instead of inventing one.
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Go one step further and *prove* it, in **Agent** mode:
 
@@ -310,7 +310,7 @@ when you'd reach for a **skill** vs. a **prompt file** vs. **custom instructions
 > **Background:** Looking before you leap — mapping the blast radius — is the cheapest
 > place to catch a wrong turn.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 Run the impact-analysis prompt on a Device `status` change:
 
@@ -322,7 +322,7 @@ discontinued devices from the catalog.
 Read the report: which models, seed data, routes, Swagger, front-end types/pages, and
 tests are affected.
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Run it on a *different* change:
 
@@ -352,7 +352,7 @@ Which step in your plan carries the most risk, and why?
 > The agent can then implement against a concrete, runnable target and self-correct
 > until it's green.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 Open `api/src/routes/addALine.acceptance.test.ts` — the **skipped** Add-a-Line suite —
 and `docs/design/add-a-line.png` for the target, then:
@@ -372,7 +372,7 @@ and `docs/design/add-a-line.png` for the target, then:
    /acceptance-test-first implement the cart API so the Add-a-Line acceptance suite passes
    ```
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Do the full red → green loop yourself. Then go one step further: **add one new
 acceptance test** of your own — for example, *"checking out an empty cart returns a 400
@@ -399,7 +399,7 @@ broke.
 > **Background:** A branch keeps a feature isolated until it's reviewed and merged.
 > You'll build against the provided design so the result matches what was specified.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 Create a branch:
 
@@ -417,7 +417,7 @@ count, using the cart API from the previous step.
 
 Review the plan, hand it to **Agent** to build, and verify in the browser on **:5137**.
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 On your own `feat/add-a-line` branch, build the page and wire the badge. Then take it
 one step past the demo — add a small touch of your own, planned in **Plan** mode first,
@@ -441,7 +441,7 @@ matches the mockup.
 > **Background:** The repo ships a PR template and written standards so every PR
 > arrives in a consistent, reviewable shape.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 Draft the description from the diff:
 
@@ -457,7 +457,7 @@ gh pr create --fill
 
 Check it against `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Open your own PR for your Add-a-Line work the same way. Then go further: self-audit it
 against `docs/PR-STANDARDS.md` line by line and fix anything that falls short before
@@ -475,13 +475,13 @@ reviewer.
 > skills) and leaves inline comments. It's a force multiplier, not a replacement for
 > judgment.
 
-#### ▶️ Example — watch the demo
+#### ▶️ Example (follow along)
 
 Request a **Copilot code review** and triage the comments — fix the valid ones, dismiss
 the noise — using a reference example PR that already exists:
 [#1 — provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1).
 
-#### 🧑‍💻 Participant Exercise — now you try
+#### 🧑‍💻 Participant Exercise
 
 Request a **Copilot code review** on *your own* PR (in VS Code via the Copilot review
 action on your changes, and/or on GitHub.com by requesting a review from **Copilot**).
