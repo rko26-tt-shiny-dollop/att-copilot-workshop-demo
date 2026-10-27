@@ -60,6 +60,10 @@ run-sheet (agenda map, per-segment scenarios, talk track, timing, answer keys). 
 participants `docs/workshop/participant-handout-workshop-1.md` (self-guided exercises) and
 `docs/workshop/participant-setup.md` (pre-work). The workshop surface is **VS Code**.
 
+For a single run-along document that merges the instructor demos and participant
+exercises into one client-facing flow (Scenario → Example → Participant Exercise per
+lesson), use `docs/workshop/workshop-1-playbook.md`.
+
 ## Scripts
 
 | Command | Does |
