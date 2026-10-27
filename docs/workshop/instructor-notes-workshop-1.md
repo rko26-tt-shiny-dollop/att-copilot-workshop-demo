@@ -81,10 +81,17 @@ when*, and what a good prompt looks like.
   (`Cmd+I`); the model picker. Line: *"Ask to understand, Agent to change code and run
   commands, Plan to produce a reviewable plan you hand to Agent."* (Note: the old
   standalone **Edit** mode is gone — its diff-based editing now lives inside Agent.)
-- **0b. Prompt engineering (demo ~8m).** Put the ❌ vs ✅ prompts side by side
-  (handout 0b). Name the shape out loud: **Role + Goal + Context + Constraints +
-  Output format.** Emphasize `#file:` context and stating the error pattern to
-  follow. Frame this explicitly as the agenda's "effective prompting" item.
+- **0b. Prompt engineering (demo ~8m).** Run both prompts **live in Agent mode** so
+  the contrast is behavioral, not just visual: the vague one (*"add validation."*)
+  makes Agent stop and show a **clarifying panel**; the engineered one proceeds
+  straight to a diff because it names the file, rule, and exact error *and* says *"do
+  not ask clarifying questions — make reasonable assumptions, list them, proceed."*
+  Teaching line: *"every detail you add is one question Agent doesn't have to ask
+  you."* Name the shape out loud: **Role + Goal + Context + Constraints + Output
+  format.** Frame this explicitly as the agenda's "effective prompting" item.
+  (Heads-up: without the "don't ask" clause, current Agent/Plan models tend to ask
+  clarifying questions on *both* prompts, which flattens the contrast — that clause is
+  what makes the demo reliable.)
 - **0c. Custom instructions (demo ~6m).** Open `.github/copilot-instructions.md`.
   Line: *"Expert in TypeScript is one thing; expert in **our** conventions is
   another."* Demo the Device field add; point out it respected the

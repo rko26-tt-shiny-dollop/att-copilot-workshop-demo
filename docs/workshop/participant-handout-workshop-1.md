@@ -64,23 +64,32 @@ there if you finish early.
 ### 0b. Effective prompting (prompt engineering)
 
 A good prompt is specific, gives context, states constraints, and often shows an
-example. Compare:
+example. The payoff is concrete: a vague prompt makes Agent stop and ask *you* a pile
+of clarifying questions, while a precise prompt answers them up front so it just acts.
+Compare:
 
-- ❌ Vague: *"add validation."*
+- ❌ Vague: *"add validation."* — expect a **clarifying panel** (which route? which
+  rules? what error shape?) that stalls until you answer.
 - ✅ Engineered: *"In `#file:api/src/routes/activation.ts`, reject an activation line
-  when its IMEI fails `isValidImei`. Return HTTP 400 via `badRequest` with the
-  message `Invalid IMEI`. Follow the error pattern already used in this file."*
+  when its IMEI fails `isValidImei`. Return HTTP 400 via `badRequest` with the exact
+  message `Invalid IMEI`, following the error-handling pattern already used in this
+  file. Do not ask clarifying questions — make reasonable assumptions, list them
+  briefly, and proceed to the change."* — proceeds straight to a diff.
 
-A reusable shape: **Role + Goal + Context + Constraints + Output format.**
+A reusable shape: **Role + Goal + Context + Constraints + Output format.** Every detail
+you add is one question Agent *doesn't* have to ask you.
 
 > **You try:** Write two versions of a prompt to "list rate plans by data
 > allowance." Make the second one name the file/pattern
-> (`#file:api/src/routes/crud.ts`), the endpoint shape, and that it must update
-> Swagger. Run the better one in **Agent** mode and read the proposed diff — then
-> discard it (we're just comparing prompts here).
+> (`#file:api/src/routes/crud.ts`), the endpoint shape, that it must update Swagger,
+> and that Copilot should *not ask clarifying questions* (make reasonable assumptions
+> and proceed). Run both in **Agent** mode: watch the vague one stop to ask and the
+> engineered one go straight to a diff — then discard it (we're just comparing
+> prompts here).
 >
-> **Done when:** you can point to three concrete things your second prompt added that
-> the first lacked.
+> **Done when:** the vague prompt made Agent stop to ask, the engineered one did not,
+> and you can point to three concrete things your second prompt added that removed
+> those questions.
 >
 > **Stretch:** Ask Copilot to *critique your prompt* and propose a stronger version.
 

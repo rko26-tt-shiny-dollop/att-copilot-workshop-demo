@@ -101,37 +101,52 @@ returns when an IMEI is invalid.
 A good prompt is specific, gives context, states constraints, and often shows an
 example. A reusable shape: **Role + Goal + Context + Constraints + Output format.**
 
-**Example.** Compare a vague prompt to an engineered one.
+The payoff is concrete: a vague prompt makes Agent mode stop and ask *you* a pile of
+clarifying questions before it does anything, while a precise prompt answers those
+questions up front so it just acts. We'll watch that difference live.
 
-❌ Vague:
+**Example.** Run both prompts in **Agent** mode and compare what comes back.
+
+❌ Vague — expect Agent to respond with a **clarifying panel** (which route? which
+rules? what error shape?), stalling until you answer:
 
 ```text
 add validation.
 ```
 
-✅ Engineered:
+✅ Engineered — names the file, the rule, the exact error, *and* tells Agent not to
+stop for questions, so it proceeds straight to a diff:
 
 ```text
-In #file:api/src/routes/activation.ts, reject an activation line when its IMEI
-fails isValidImei. Return HTTP 400 via badRequest with the message "Invalid IMEI".
-Follow the error pattern already used in this file.
+In #file:api/src/routes/activation.ts, reject an activation line when its IMEI fails
+isValidImei. Return HTTP 400 via badRequest with the exact message "Invalid IMEI",
+following the error-handling pattern already used in this file. Do not ask clarifying
+questions — make reasonable assumptions, list them briefly, and proceed to the change.
 ```
 
-Run the engineered version in **Agent** mode, read the proposed diff, then discard it —
-the point is the prompt, not the change.
+Read the proposed diff, then discard it — the point is the prompt, not the change.
+**The lesson:** the precise prompt eliminated the back-and-forth. Every detail you add
+is one question Agent *doesn't* have to ask you.
 
-**Participant Exercise.** Write two prompts to "list rate plans by data allowance."
-Make the second one name the file and pattern, the endpoint shape, and that it must
-update Swagger — for example:
+**Participant Exercise.** Prove the same effect yourself on a different task. First run
+the vague version and watch it ask:
+
+```text
+add an endpoint for rate plans.
+```
+
+Then run an engineered version that preempts every clarifying question:
 
 ```text
 In #file:api/src/routes/crud.ts, add a read-only GET endpoint that lists rate plans
-sorted by data allowance. Follow the existing route + store pattern in this file and
-update the Swagger annotations.
+sorted by data allowance (highest first). Follow the existing route + store pattern in
+this file and update the Swagger annotations. Do not ask clarifying questions — make
+reasonable assumptions, list them briefly, and proceed to the change.
 ```
 
-Run the better one in **Agent** mode, read the diff, then discard it. **Done when** you
-can point to three concrete things your second prompt added that the first lacked.
+Read the diff, then discard it. **Done when** the vague prompt made Agent stop to ask,
+the engineered one did not, and you can point to three concrete things your second
+prompt added that removed those questions.
 **Go further:**
 
 ```text
