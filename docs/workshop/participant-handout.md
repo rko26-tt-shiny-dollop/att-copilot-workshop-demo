@@ -1,4 +1,4 @@
-# Participant Handout — GitHub Copilot: Basics, Team Practices & Safe Changes
+# Participant Handout — GitHub Copilot: Basics, Team Practices & Safe Changes (Workshop 1 of 3)
 
 Welcome! Today you'll practice using GitHub Copilot the way a working engineering
 team does: establishing a shared baseline, then making real, well-tested changes
@@ -42,10 +42,11 @@ there if you finish early.
 - **Copilot Chat view** — open with `Ctrl+Alt+I` / `Cmd+Ctrl+I` (or Command Palette →
   *Chat: Focus on Chat View*).
 - **Chat modes** (dropdown in the Chat view):
-  - **Ask** — questions and explanations; doesn't edit files.
-  - **Edit** — proposes edits across the files you name; you review a diff.
-  - **Agent** — plans, edits multiple files, and runs terminal commands to reach a
-    goal.
+  - **Ask** — questions and explanations; doesn't change files.
+  - **Agent** — plans, edits across files, and runs terminal commands to reach a
+    goal; you review (and can accept or discard) its diffs.
+  - **Plan** — produces a structured implementation plan you can review, then hand off
+    to Agent to execute.
 - **Context variables** — pull the right things into a prompt: `#file`,
   `#selection`, `#codebase` (and `@workspace` where available).
 - **Inline chat** — `Cmd+I` / `Ctrl+I` inside the editor for a focused change.
@@ -75,8 +76,8 @@ A reusable shape: **Role + Goal + Context + Constraints + Output format.**
 > **You try:** Write two versions of a prompt to "list rate plans by data
 > allowance." Make the second one name the file/pattern
 > (`#file:api/src/routes/crud.ts`), the endpoint shape, and that it must update
-> Swagger. Run the better one in **Edit** mode and read the proposed diff (don't keep
-> it yet).
+> Swagger. Run the better one in **Agent** mode and read the proposed diff — then
+> discard it (we're just comparing prompts here).
 >
 > **Done when:** you can point to three concrete things your second prompt added that
 > the first lacked.
@@ -90,10 +91,9 @@ A reusable shape: **Role + Goal + Context + Constraints + Output format.**
 
 `.github/copilot-instructions.md` is applied automatically to every request, so
 Copilot already knows this team's stack, the IMEI/ICCID rules, and the
-model → repository → route → `app.ts` → Swagger pattern. (In VS Code, ensure *Use
-Instruction Files* is enabled in settings.)
+model → repository → route → `app.ts` → Swagger pattern — no setup required.
 
-> **You try:** Skim `.github/copilot-instructions.md`. Then, in **Edit** mode: *"Add a
+> **You try:** Skim `.github/copilot-instructions.md`. Then, in **Agent** mode: *"Add a
 > `color` field to the Device model following our conventions."* Notice how it touches
 > the model, seed data, and types without being told to. Discard the change when done.
 >
@@ -119,8 +119,8 @@ Instruction Files* is enabled in settings.)
 > times this month. Stop retyping it — version it with the repo.
 >
 > **Background:** Prompt files live in `.github/prompts/*.prompt.md`, are committed
-> like code, and run from Chat by typing `/<name>`. They become shared team assets.
-> (Enable **prompt files** in VS Code settings if `/` doesn't list them.)
+> like code, and run from Chat by typing `/<name>`. They become shared team assets and
+> work out of the box in current VS Code.
 
 > **You try:** Run `/scaffold-endpoint` and ask it to add a read-only **"markets by
 > region"** query endpoint. Review the diff; confirm it followed the
@@ -203,11 +203,12 @@ Review `docs/design/add-a-line.png` for the target.
 
 > **You try:**
 > 1. Create a branch: `git checkout -b feat/add-a-line`.
-> 2. In **Agent** mode, attach the design: *"Using `#file:docs/design/add-a-line.png`,
->    implement the Add-a-Line page and wire the nav-bar cart badge in
+> 2. In **Plan** mode, attach the design: *"Using `#file:docs/design/add-a-line.png`,
+>    plan the Add-a-Line page and wiring the nav-bar cart badge in
 >    `#file:frontend/src/components/Navigation.tsx` to the cart's line count, using the
 >    cart API from the previous step."*
-> 3. Approve its plan, let it build, then verify in the browser on **:5137**.
+> 3. Review the plan, then hand it to **Agent** to build. Verify in the browser on
+>    **:5137**.
 >
 > **Done when:** the cart badge count updates and the page matches the mockup.
 

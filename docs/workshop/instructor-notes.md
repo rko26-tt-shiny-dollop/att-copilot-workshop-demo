@@ -1,4 +1,8 @@
-# Instructor Notes (Internal) — AT&T Copilot Workshop
+# Instructor Notes (Internal) — AT&T Copilot Workshop (Workshop 1 of 3)
+
+> **Series note:** This is **Workshop 1 of 3**; the three build on one another. Keep
+> foundational assets (the app, instructions, prompts, skills) stable so Workshops 2
+> and 3 can extend them.
 
 **This is the single internal run-sheet.** It is the only doc you need to facilitate:
 it combines the agenda map, per-segment scenarios/background, talk track, timing,
@@ -39,8 +43,7 @@ answer keys, and recovery plays. Participants get `participant-handout.md`; they
 - [ ] `make build` → clean; `make test` → green (3 skipped); `make lint` → clean.
 - [ ] VS Code on your demo machine:
   - Copilot + Copilot Chat extensions signed in.
-  - **Use Instruction Files** enabled (so `.github/copilot-instructions.md` applies).
-  - **Prompt files** enabled (so `/scaffold-endpoint` etc. appear in Chat).
+  - (Custom instructions and prompt files work by default — nothing to toggle.)
 - [ ] Open `docs/design/add-a-line.png` in a tab, ready to show.
 - [ ] Open the reference PR:
   [#1 provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1).
@@ -74,9 +77,10 @@ touch anything, let's agree how we use Copilot."*
 when*, and what a good prompt looks like.
 
 - **0a. Surfaces (demo ~5m).** Show, in order: inline ghost text (`Tab`); Chat view;
-  the **Ask / Edit / Agent** dropdown; `#file` / `#selection` context; inline chat
-  (`Cmd+I`); the model picker. Line: *"Ask to understand, Edit to change named files,
-  Agent to accomplish a goal that spans files and the terminal."*
+  the **Ask / Agent / Plan** dropdown; `#file` / `#selection` context; inline chat
+  (`Cmd+I`); the model picker. Line: *"Ask to understand, Agent to change code and run
+  commands, Plan to produce a reviewable plan you hand to Agent."* (Note: the old
+  standalone **Edit** mode is gone — its diff-based editing now lives inside Agent.)
 - **0b. Prompt engineering (demo ~8m).** Put the ❌ vs ✅ prompts side by side
   (handout 0b). Name the shape out loud: **Role + Goal + Context + Constraints +
   Output format.** Emphasize `#file:` context and stating the error pattern to
@@ -94,7 +98,9 @@ when*, and what a good prompt looks like.
 - *Do instructions cost context / slow it down?* Keep them concise; ours is short and
   worth it.
 - *Does VS Code support prompt files/skills?* Yes — `.github/prompts` and
-  `.github/skills`; just enable the settings (pre-flight).
+  `.github/skills` work by default; no settings to toggle.
+- *What happened to Edit mode?* It's been folded into **Agent**; diff review happens
+  there now. **Plan** is the newer mode for producing a plan before Agent executes.
 
 ---
 
@@ -151,10 +157,10 @@ spec the agent self-heals against.
 
 **Scenario:** *"The cart API works; build its UI on an isolated branch."*
 **Background:** a branch keeps the feature isolated until it's reviewed and merged.
-**Demo:** `git checkout -b feat/add-a-line`; in Agent mode attach the PNG and wire the
-badge in `frontend/src/components/Navigation.tsx` (ships with
-`data-testid="cart-badge"`, count 0). Consider a higher-reasoning model for the
-**plan**, then back to Auto to build.
+**Demo:** `git checkout -b feat/add-a-line`; use **Plan** mode to plan against the PNG,
+then hand off to **Agent** to wire the badge in `frontend/src/components/Navigation.tsx`
+(ships with `data-testid="cart-badge"`, count 0). Consider a higher-reasoning model for
+the **Plan** step, then back to Auto to build.
 **They do:** build the page + badge; verify on **:5137**.
 **Pitfall:** time sink — time-box hard; the backend cart from Seg 4 is the real win.
 

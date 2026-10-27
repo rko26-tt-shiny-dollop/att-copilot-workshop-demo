@@ -10,14 +10,8 @@ Complete these steps **before** the workshop so we can start on time.
   extensions, signed in.
 - A GitHub account with Copilot enabled.
 
-### VS Code settings to enable
-
-So the repo's customizations work during the workshop, enable both in VS Code
-Settings:
-
-- **Use Instruction Files** — applies `.github/copilot-instructions.md` automatically.
-- **Prompt Files** — makes `/scaffold-endpoint` and the other prompt files appear in
-  Chat.
+> Custom instructions (`.github/copilot-instructions.md`) and prompt files
+> (`.github/prompts`) work out of the box in current VS Code — no settings to enable.
 
 ## Get the code
 
@@ -66,15 +60,6 @@ make lint
 
 Everything should pass. `make test` shows a few **skipped** tests — that's the
 Add-a-Line acceptance starter we'll use in the workshop.
-
-## Optional: end-to-end tests
-
-```bash
-cd frontend
-npx playwright install chromium
-cd ..
-make e2e
-```
 
 ## Using GitHub Codespaces instead
 
