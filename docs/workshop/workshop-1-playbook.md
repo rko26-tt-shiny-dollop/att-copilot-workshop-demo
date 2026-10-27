@@ -77,18 +77,18 @@ build toward is one repeatable loop:
 
 #### ▶️ Example (follow along)
 
-In **Ask** mode, have the codebase explain itself:
-
-```text
-Give me a tour of this codebase: how is the API structured and where does
-IMEI/ICCID validation live?
-```
-
-Then open `api/src/utils/identifiers.ts` and use **inline chat** (`Cmd+I`):
-
-```text
-Explain what this Luhn check does.
-```
+> In **Ask** mode, have the codebase explain itself:
+>
+> ```text
+> Give me a tour of this codebase: how is the API structured and where does
+> IMEI/ICCID validation live?
+> ```
+>
+> Then open `api/src/utils/identifiers.ts` and use **inline chat** (`Cmd+I`):
+>
+> ```text
+> Explain what this Luhn check does.
+> ```
 
 #### 🧑‍💻 Participant Exercise
 
