@@ -77,6 +77,8 @@ build toward is one repeatable loop:
 
 #### ▶️ Example (follow along)
 
+> [!NOTE]
+>
 > In **Ask** mode, have the codebase explain itself:
 >
 > ```text
@@ -93,6 +95,7 @@ build toward is one repeatable loop:
 #### 🧑‍💻 Participant Exercise
 
 > [!TIP]
+>
 > Reproduce the tour yourself, then go one step further — in **Ask** mode:
 >
 > ```text
@@ -116,52 +119,56 @@ everything it needs to just act. We'll watch that difference live.
 
 #### ▶️ Example (follow along)
 
-Run both prompts in **Agent** mode and compare what comes back.
-
-❌ Vague — expect a **clarifying panel** (which route? which rules? what error shape?)
-that stalls until you answer:
-
-```text
-add validation.
-```
-
-✅ Engineered — names the file, the rule, the exact error, the pattern to follow, and
-a clear done-condition, so Agent has everything it needs to just act:
-
-```text
-In #file:api/src/routes/activation.ts, reject an activation line when its IMEI fails isValidImei. Return HTTP 400 via badRequest with the exact message "Invalid IMEI", following the error-handling pattern already used in this file. Stop once green
-```
-
-Let it implement and run the tests; it stops when the suite is green. Discard the
-change afterward — the point is the prompt, not the change.
-
-**The lesson:** specificity plus a clear stopping point removes the back-and-forth.
-Every detail you add is one question Agent *doesn't* have to ask you.
+> [!NOTE]
+>
+> Run both prompts in **Agent** mode and compare what comes back.
+>
+> ❌ Vague — expect a **clarifying panel** (which route? which rules? what error shape?)
+> that stalls until you answer:
+>
+> ```text
+> add validation.
+> ```
+>
+> ✅ Engineered — names the file, the rule, the exact error, the pattern to follow, and
+> a clear done-condition, so Agent has everything it needs to just act:
+>
+> ```text
+> In #file:api/src/routes/activation.ts, reject an activation line when its IMEI fails isValidImei. Return HTTP 400 via badRequest with the exact message "Invalid IMEI", following the error-handling pattern already used in this file. Stop once green
+> ```
+>
+> Let it implement and run the tests; it stops when the suite is green. Discard the
+> change afterward — the point is the prompt, not the change.
+>
+> **The lesson:** specificity plus a clear stopping point removes the back-and-forth.
+> Every detail you add is one question Agent *doesn't* have to ask you.
 
 #### 🧑‍💻 Participant Exercise
 
-Prove the same effect on a different task. First run the vague version and watch it
-ask:
-
-```text
-add an endpoint for rate plans.
-```
-
-Then run an engineered version that gives Agent everything up front:
-
-```text
-In #file:api/src/routes/crud.ts, add a read-only GET endpoint that lists rate plans sorted by data allowance (highest first). Follow the existing route + store pattern in this file and update the Swagger annotations. Stop once the build and tests pass.
-```
-
-Read the diff, then discard it. **Done when** the vague prompt made Agent stop to ask,
-the engineered one did not, and you can point to three concrete things your second
-prompt added that removed those questions.
-
-**Go further:**
-
-```text
-Critique the prompt I just wrote and propose a stronger version.
-```
+> [!TIP]
+>
+> Prove the same effect on a different task. First run the vague version and watch it
+> ask:
+>
+> ```text
+> add an endpoint for rate plans.
+> ```
+>
+> Then run an engineered version that gives Agent everything up front:
+>
+> ```text
+> In #file:api/src/routes/crud.ts, add a read-only GET endpoint that lists rate plans sorted by data allowance (highest first). Follow the existing route + store pattern in this file and update the Swagger annotations. Stop once the build and tests pass.
+> ```
+>
+> Read the diff, then discard it. **Done when** the vague prompt made Agent stop to ask,
+> the engineered one did not, and you can point to three concrete things your second
+> prompt added that removed those questions.
+>
+> **Go further:**
+>
+> ```text
+> Critique the prompt I just wrote and propose a stronger version.
+> ```
 
 ---
 
@@ -176,26 +183,30 @@ model → repository → route → `app.ts` → Swagger pattern — no setup req
 
 #### ▶️ Example (follow along)
 
-With `.github/copilot-instructions.md` open for reference, in **Agent** mode:
-
-```text
-Add a color field to the Device model following our conventions.
-```
-
-Watch it touch the model, seed data, and types without being told to — then discard
-the change.
+> [!NOTE]
+>
+> With `.github/copilot-instructions.md` open for reference, in **Agent** mode:
+>
+> ```text
+> Add a color field to the Device model following our conventions.
+> ```
+>
+> Watch it touch the model, seed data, and types without being told to — then discard
+> the change.
 
 #### 🧑‍💻 Participant Exercise
 
-Try the same idea with a different field, in **Agent** mode:
-
-```text
-Add a releaseYear number to the Device model following our conventions.
-```
-
-Before you accept anything, read the diff and confirm it updated every layer the
-instructions imply. **Done when** you can name two rules from the instructions file
-that shaped the output, and which files it changed because of them. Discard when done.
+> [!TIP]
+>
+> Try the same idea with a different field, in **Agent** mode:
+>
+> ```text
+> Add a releaseYear number to the Device model following our conventions.
+> ```
+>
+> Before you accept anything, read the diff and confirm it updated every layer the
+> instructions imply. **Done when** you can name two rules from the instructions file
+> that shaped the output, and which files it changed because of them. Discard when done.
 
 ---
 
@@ -206,25 +217,29 @@ that shaped the output, and which files it changed because of them. Discard when
 
 #### ▶️ Example (follow along)
 
-In **Agent** mode:
-
-```text
-Run the API test suite and summarize what passes, fails, and is skipped.
-```
-
-Notice it reports a few **skipped** tests — that's the Add-a-Line starter we'll pick up
-in Section 4.
+> [!NOTE]
+>
+> In **Agent** mode:
+>
+> ```text
+> Run the API test suite and summarize what passes, fails, and is skipped.
+> ```
+>
+> Notice it reports a few **skipped** tests — that's the Add-a-Line starter we'll pick up
+> in Section 4.
 
 #### 🧑‍💻 Participant Exercise
 
-Run the suite yourself, then ask Agent:
-
-```text
-Which test files contain the skipped tests, and what feature are they describing?
-```
-
-**Done when** you can name the file holding the skipped Add-a-Line suite before we get
-there.
+> [!TIP]
+>
+> Run the suite yourself, then ask Agent:
+>
+> ```text
+> Which test files contain the skipped tests, and what feature are they describing?
+> ```
+>
+> **Done when** you can name the file holding the skipped Add-a-Line suite before we get
+> there.
 
 ---
 
@@ -239,33 +254,37 @@ there.
 
 #### ▶️ Example (follow along)
 
-Run the scaffold prompt and ask it to add a read-only **"markets by region"** query
-endpoint:
-
-```text
-/scaffold-endpoint add a read-only "markets by region" query endpoint
-```
-
-Walk the diff to show it followed the model → store → route → `app.ts` → Swagger →
-tests steps baked into the prompt.
+> [!NOTE]
+>
+> Run the scaffold prompt and ask it to add a read-only **"markets by region"** query
+> endpoint:
+>
+> ```text
+> /scaffold-endpoint add a read-only "markets by region" query endpoint
+> ```
+>
+> Walk the diff to show it followed the model → store → route → `app.ts` → Swagger →
+> tests steps baked into the prompt.
 
 #### 🧑‍💻 Participant Exercise
 
-Run the same prompt yourself, but scaffold a *different* read-only endpoint:
-
-```text
-/scaffold-endpoint add a read-only "devices by manufacturer" query endpoint
-```
-
-Review the diff against the prompt's numbered steps. **Done when** the following is
-green with your new endpoint:
-
-```bash
-cd api && npm run build && npm test
-```
-
-**Go further:** open `pr-description.prompt.md` and note how a team standardizes PR
-write-ups — you'll use it in Section 6.
+> [!TIP]
+>
+> Run the same prompt yourself, but scaffold a *different* read-only endpoint:
+>
+> ```text
+> /scaffold-endpoint add a read-only "devices by manufacturer" query endpoint
+> ```
+>
+> Review the diff against the prompt's numbered steps. **Done when** the following is
+> green with your new endpoint:
+>
+> ```bash
+> cd api && npm run build && npm test
+> ```
+>
+> **Go further:** open `pr-description.prompt.md` and note how a team standardizes PR
+> write-ups — you'll use it in Section 6.
 
 ---
 
@@ -280,26 +299,30 @@ write-ups — you'll use it in Section 6.
 
 #### ▶️ Example (follow along)
 
-In **Agent** mode:
-
-```text
-Generate three valid test IMEIs and one valid ICCID for seed data.
-```
-
-It applies the identifier skill's Luhn guidance and reuses the existing validator
-instead of inventing one.
+> [!NOTE]
+>
+> In **Agent** mode:
+>
+> ```text
+> Generate three valid test IMEIs and one valid ICCID for seed data.
+> ```
+>
+> It applies the identifier skill's Luhn guidance and reuses the existing validator
+> instead of inventing one.
 
 #### 🧑‍💻 Participant Exercise
 
-Go one step further and *prove* it, in **Agent** mode:
-
-```text
-Write a quick test that runs each generated IMEI through isValidImei and asserts it
-passes, then run it.
-```
-
-**Done when** your generated identifiers pass the real validator, and you can explain
-when you'd reach for a **skill** vs. a **prompt file** vs. **custom instructions**.
+> [!TIP]
+>
+> Go one step further and *prove* it, in **Agent** mode:
+>
+> ```text
+> Write a quick test that runs each generated IMEI through isValidImei and asserts it
+> passes, then run it.
+> ```
+>
+> **Done when** your generated identifiers pass the real validator, and you can explain
+> when you'd reach for a **skill** vs. a **prompt file** vs. **custom instructions**.
 
 ---
 
@@ -313,33 +336,37 @@ when you'd reach for a **skill** vs. a **prompt file** vs. **custom instructions
 
 #### ▶️ Example (follow along)
 
-Run the impact-analysis prompt on a Device `status` change:
-
-```text
-/impact-analysis Add a status field to Device (active/discontinued) and hide
-discontinued devices from the catalog.
-```
-
-Read the report: which models, seed data, routes, Swagger, front-end types/pages, and
-tests are affected.
+> [!NOTE]
+>
+> Run the impact-analysis prompt on a Device `status` change:
+>
+> ```text
+> /impact-analysis Add a status field to Device (active/discontinued) and hide
+> discontinued devices from the catalog.
+> ```
+>
+> Read the report: which models, seed data, routes, Swagger, front-end types/pages, and
+> tests are affected.
 
 #### 🧑‍💻 Participant Exercise
 
-Run it on a *different* change:
-
-```text
-/impact-analysis Let a subscriber have more than one active line, each with its own
-rate plan.
-```
-
-Read the radius it maps. **Done when** you have an ordered implementation plan and know
-which tests you'd touch — without having written any code yet.
-
-**Go further:**
-
-```text
-Which step in your plan carries the most risk, and why?
-```
+> [!TIP]
+>
+> Run it on a *different* change:
+>
+> ```text
+> /impact-analysis Let a subscriber have more than one active line, each with its own
+> rate plan.
+> ```
+>
+> Read the radius it maps. **Done when** you have an ordered implementation plan and know
+> which tests you'd touch — without having written any code yet.
+>
+> **Go further:**
+>
+> ```text
+> Which step in your plan carries the most risk, and why?
+> ```
 
 ---
 
@@ -355,38 +382,42 @@ Which step in your plan carries the most risk, and why?
 
 #### ▶️ Example (follow along)
 
-Open `api/src/routes/addALine.acceptance.test.ts` — the **skipped** Add-a-Line suite —
-and `docs/design/add-a-line.png` for the target, then:
-
-1. remove `.skip` from the `describe`,
-2. run the suite and watch it go **red**:
-
-   ```bash
-   cd api && npm test
-   ```
-
-3. run the acceptance-test-first prompt and let Copilot implement the cart API
-   (`POST /api/carts`, `/api/carts/:id/lines`, `/api/carts/:id/checkout`) until the
-   suite is **green**:
-
-   ```text
-   /acceptance-test-first implement the cart API so the Add-a-Line acceptance suite passes
-   ```
+> [!NOTE]
+>
+> Open `api/src/routes/addALine.acceptance.test.ts` — the **skipped** Add-a-Line suite —
+> and `docs/design/add-a-line.png` for the target, then:
+>
+> 1. remove `.skip` from the `describe`,
+> 2. run the suite and watch it go **red**:
+>
+>    ```bash
+>    cd api && npm test
+>    ```
+>
+> 3. run the acceptance-test-first prompt and let Copilot implement the cart API
+>    (`POST /api/carts`, `/api/carts/:id/lines`, `/api/carts/:id/checkout`) until the
+>    suite is **green**:
+>
+>    ```text
+>    /acceptance-test-first implement the cart API so the Add-a-Line acceptance suite passes
+>    ```
 
 #### 🧑‍💻 Participant Exercise
 
-Do the full red → green loop yourself. Then go one step further: **add one new
-acceptance test** of your own — for example, *"checking out an empty cart returns a 400
-and does not create an activation order"* — and drive it to green the same way:
-
-```text
-/acceptance-test-first make my new "empty cart checkout returns 400" test pass without
-breaking the others
-```
-
-**Done when** the Add-a-Line suite (including your new test) passes and nothing else
-broke.
-
+> [!TIP]
+>
+> Do the full red → green loop yourself. Then go one step further: **add one new
+> acceptance test** of your own — for example, *"checking out an empty cart returns a 400
+> and does not create an activation order"* — and drive it to green the same way:
+>
+> ```text
+> /acceptance-test-first make my new "empty cart checkout returns 400" test pass without
+> breaking the others
+> ```
+>
+> **Done when** the Add-a-Line suite (including your new test) passes and nothing else
+> broke.
+>
 > **Tip:** if the agent stalls, describe the **symptom** (*"POST /carts/:id/lines
 > returns 404"*), not the fix, and let it investigate.
 
@@ -402,35 +433,39 @@ broke.
 
 #### ▶️ Example (follow along)
 
-Create a branch:
-
-```bash
-git checkout -b feat/add-a-line
-```
-
-In **Plan** mode, attach the design and plan the page + badge wiring:
-
-```text
-Using #file:docs/design/add-a-line.png, plan the Add-a-Line page and wiring the
-nav-bar cart badge in #file:frontend/src/components/Navigation.tsx to the cart's line
-count, using the cart API from the previous step.
-```
-
-Review the plan, hand it to **Agent** to build, and verify in the browser on **:5137**.
+> [!NOTE]
+>
+> Create a branch:
+>
+> ```bash
+> git checkout -b feat/add-a-line
+> ```
+>
+> In **Plan** mode, attach the design and plan the page + badge wiring:
+>
+> ```text
+> Using #file:docs/design/add-a-line.png, plan the Add-a-Line page and wiring the
+> nav-bar cart badge in #file:frontend/src/components/Navigation.tsx to the cart's line
+> count, using the cart API from the previous step.
+> ```
+>
+> Review the plan, hand it to **Agent** to build, and verify in the browser on **:5137**.
 
 #### 🧑‍💻 Participant Exercise
 
-On your own `feat/add-a-line` branch, build the page and wire the badge. Then take it
-one step past the demo — add a small touch of your own, planned in **Plan** mode first,
-then built in **Agent**:
-
-```text
-Plan a "remove line" control on the Add-a-Line cart that updates the cart total and
-the nav-bar badge count, using the existing cart API.
-```
-
-**Done when** the cart badge count updates, your extra touch works, and the page
-matches the mockup.
+> [!TIP]
+>
+> On your own `feat/add-a-line` branch, build the page and wire the badge. Then take it
+> one step past the demo — add a small touch of your own, planned in **Plan** mode first,
+> then built in **Agent**:
+>
+> ```text
+> Plan a "remove line" control on the Add-a-Line cart that updates the cart total and
+> the nav-bar badge count, using the existing cart API.
+> ```
+>
+> **Done when** the cart badge count updates, your extra touch works, and the page
+> matches the mockup.
 
 ---
 
@@ -444,26 +479,30 @@ matches the mockup.
 
 #### ▶️ Example (follow along)
 
-Draft the description from the diff:
-
-```text
-/pr-description
-```
-
-Open a PR so the template (`.github/pull_request_template.md`) auto-populates:
-
-```bash
-gh pr create --fill
-```
-
-Check it against `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
+> [!NOTE]
+>
+> Draft the description from the diff:
+>
+> ```text
+> /pr-description
+> ```
+>
+> Open a PR so the template (`.github/pull_request_template.md`) auto-populates:
+>
+> ```bash
+> gh pr create --fill
+> ```
+>
+> Check it against `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
 
 #### 🧑‍💻 Participant Exercise
 
-Open your own PR for your Add-a-Line work the same way. Then go further: self-audit it
-against `docs/PR-STANDARDS.md` line by line and fix anything that falls short before
-requesting review. **Done when** build/lint/tests pass and your PR reads cleanly to a
-reviewer.
+> [!TIP]
+>
+> Open your own PR for your Add-a-Line work the same way. Then go further: self-audit it
+> against `docs/PR-STANDARDS.md` line by line and fix anything that falls short before
+> requesting review. **Done when** build/lint/tests pass and your PR reads cleanly to a
+> reviewer.
 
 ---
 
@@ -478,17 +517,21 @@ reviewer.
 
 #### ▶️ Example (follow along)
 
-Request a **Copilot code review** and triage the comments — fix the valid ones, dismiss
-the noise — using a reference example PR that already exists:
-[#1 — provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1).
+> [!NOTE]
+>
+> Request a **Copilot code review** and triage the comments — fix the valid ones, dismiss
+> the noise — using a reference example PR that already exists:
+> [#1 — provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1).
 
 #### 🧑‍💻 Participant Exercise
 
-Request a **Copilot code review** on *your own* PR (in VS Code via the Copilot review
-action on your changes, and/or on GitHub.com by requesting a review from **Copilot**).
-Triage every comment: fix the valid ones, consciously dismiss the noise, and leave a
-short reply explaining each dismissal. **Done when** you've resolved or explicitly
-dismissed every review comment, and you — a human — have made the final call.
+> [!TIP]
+>
+> Request a **Copilot code review** on *your own* PR (in VS Code via the Copilot review
+> action on your changes, and/or on GitHub.com by requesting a review from **Copilot**).
+> Triage every comment: fix the valid ones, consciously dismiss the noise, and leave a
+> short reply explaining each dismissal. **Done when** you've resolved or explicitly
+> dismissed every review comment, and you — a human — have made the final call.
 
 ---
 
