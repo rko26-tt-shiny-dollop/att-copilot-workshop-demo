@@ -6,14 +6,14 @@
 
 **This is the single internal run-sheet.** It is the only doc you need to facilitate:
 it combines the agenda map, per-segment scenarios/background, talk track, timing,
-answer keys, and recovery plays. Participants get `participant-handout.md`; they do
+answer keys, and recovery plays. Participants get `participant-handout-workshop-1.md`; they do
 **not** see this file.
 
 - **Audience:** intermediate Copilot users (AT&T wireless engineering).
 - **Duration:** ~2 hours, hands-on.
 - **Surface:** **VS Code** + GitHub Copilot / Copilot Chat extensions.
 - **App:** Wireless Activation Console (this repo) — in-memory data, **no database**.
-- **Docs:** `participant-handout.md` (give to attendees), `participant-setup.md`
+- **Docs:** `participant-handout-workshop-1.md` (give to attendees), `participant-setup.md`
   (pre-work), this file (internal).
 
 ## Internal context (do not put in client materials)

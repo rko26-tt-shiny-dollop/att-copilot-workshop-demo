@@ -55,9 +55,9 @@ during the workshop.
 
 ## Workshop
 
-Facilitators: start with `docs/workshop/instructor-notes.md` — the single internal
+Facilitators: start with `docs/workshop/instructor-notes-workshop-1.md` — the single internal
 run-sheet (agenda map, per-segment scenarios, talk track, timing, answer keys). Hand
-participants `docs/workshop/participant-handout.md` (self-guided exercises) and
+participants `docs/workshop/participant-handout-workshop-1.md` (self-guided exercises) and
 `docs/workshop/participant-setup.md` (pre-work). The workshop surface is **VS Code**.
 
 ## Scripts
