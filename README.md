@@ -17,8 +17,8 @@ standards, and Copilot review.
 - **`frontend/`** — React + Vite + Tailwind console (catalog, plans, subscribers,
   orders, provisioning).
 - **`.github/`** — `copilot-instructions.md`, reusable **prompts**, and **skills**.
-- **`docs/`** — workshop facilitator guide + participant setup, PR standards, and
-  the Add-a-Line design mockup.
+- **`docs/`** — workshop participant handout, instructor notes, participant setup,
+  PR standards, and the Add-a-Line design mockup.
 
 ## Domain model
 
@@ -55,10 +55,10 @@ during the workshop.
 
 ## Workshop
 
-Facilitators: start with `docs/workshop/instructor-notes.md` (internal run-sheet,
-talk track, timing). Hand participants `docs/workshop/participant-handout.md`
-(self-guided exercises). `docs/workshop/facilitator-guide.md` is the higher-level
-agenda map. The workshop surface is **VS Code**.
+Facilitators: start with `docs/workshop/instructor-notes.md` — the single internal
+run-sheet (agenda map, per-segment scenarios, talk track, timing, answer keys). Hand
+participants `docs/workshop/participant-handout.md` (self-guided exercises) and
+`docs/workshop/participant-setup.md` (pre-work). The workshop surface is **VS Code**.
 
 ## Scripts
 

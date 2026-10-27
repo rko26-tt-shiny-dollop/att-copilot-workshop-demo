@@ -14,7 +14,7 @@
  *  - Checking out a cart creates an ActivationOrder with matching lines.
  *
  * See docs/design/add-a-line.png for the target UI and
- * docs/workshop/facilitator-guide.md for the full exercise.
+ * docs/workshop/participant-handout.md (Section 4) for the full exercise.
  */
 import { describe, it, expect } from "vitest";
 import request from "supertest";

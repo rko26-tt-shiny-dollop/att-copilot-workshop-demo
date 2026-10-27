@@ -6,9 +6,18 @@ Complete these steps **before** the workshop so we can start on time.
 
 - **Node.js 20+** and npm (`node --version`).
 - **Git**.
-- An editor with Copilot: the **GitHub Copilot app** (recommended) or **VS Code**
-  with the GitHub Copilot extension.
+- **Visual Studio Code** with the **GitHub Copilot** and **GitHub Copilot Chat**
+  extensions, signed in.
 - A GitHub account with Copilot enabled.
+
+### VS Code settings to enable
+
+So the repo's customizations work during the workshop, enable both in VS Code
+Settings:
+
+- **Use Instruction Files** — applies `.github/copilot-instructions.md` automatically.
+- **Prompt Files** — makes `/scaffold-endpoint` and the other prompt files appear in
+  Chat.
 
 ## Get the code
 
@@ -29,14 +38,33 @@ make dev
 
 You can also run them separately with `make dev-api` and `make dev-frontend`.
 
+## Make targets
+
+The repo is driven by a `Makefile`. The ones you'll use:
+
+| Command | What it does |
+|---------|--------------|
+| `make install` | Install API + frontend dependencies |
+| `make dev` | Run the API (:3000) and frontend (:5137) together |
+| `make dev-api` / `make dev-frontend` | Run just one side |
+| `make build` | Type-check and build both packages |
+| `make test` | Run the API test suite |
+| `make lint` | Lint both packages |
+| `make e2e` | Run the frontend Playwright end-to-end tests |
+| `make clean` | Remove `node_modules` and build output |
+
+> This app uses in-memory data — there is no database to set up or seed, so there's
+> no `db-init` step.
+
 ## Verify your environment
 
 ```bash
-cd api && npm run build && npm test && npm run lint
-cd ../frontend && npm run build && npm run lint
+make build
+make test
+make lint
 ```
 
-Everything should pass. The API suite shows a few **skipped** tests — that's the
+Everything should pass. `make test` shows a few **skipped** tests — that's the
 Add-a-Line acceptance starter we'll use in the workshop.
 
 ## Optional: end-to-end tests
@@ -44,7 +72,8 @@ Add-a-Line acceptance starter we'll use in the workshop.
 ```bash
 cd frontend
 npx playwright install chromium
-npm run test:e2e
+cd ..
+make e2e
 ```
 
 ## Using GitHub Codespaces instead
@@ -56,5 +85,6 @@ identical to local.
 ## What to expect
 
 We'll build the **Add-a-Line / service cart** feature together using Copilot —
-planning, writing acceptance tests first, implementing on a branch, opening a PR,
-and running a Copilot review. See `docs/workshop/facilitator-guide.md` for the flow.
+planning, writing acceptance tests first, implementing on a branch, opening a PR, and
+running a Copilot review. Your step-by-step exercises are in
+`docs/workshop/participant-handout.md`.
