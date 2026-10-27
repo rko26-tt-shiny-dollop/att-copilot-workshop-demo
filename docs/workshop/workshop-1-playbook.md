@@ -92,15 +92,16 @@ build toward is one repeatable loop:
 
 #### 🧑‍💻 Participant Exercise
 
-Reproduce the tour yourself, then go one step further — in **Ask** mode:
-
-```text
-Trace one activation request end to end: which route handles it, what does it
-validate, and what does it return on success and on a bad IMEI?
-```
-
-**Done when** you can name the route that handles activation and the exact response it
-returns when an IMEI is invalid.
+> [!TIP]
+> Reproduce the tour yourself, then go one step further — in **Ask** mode:
+>
+> ```text
+> Trace one activation request end to end: which route handles it, what does it
+> validate, and what does it return on success and on a bad IMEI?
+> ```
+>
+> **Done when** you can name the route that handles activation and the exact response
+> it returns when an IMEI is invalid.
 
 ---
 
