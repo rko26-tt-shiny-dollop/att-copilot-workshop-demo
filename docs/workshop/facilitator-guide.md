@@ -5,12 +5,19 @@ then moves through team practices for making safe, well-tested changes using the
 **Wireless Activation Console** demo app.
 
 Audience: intermediate Copilot users (telecom/wireless engineering context).
-Surface: GitHub Copilot app (recommended) or VS Code with Copilot; the prompts are
-the same in both.
+Surface: **VS Code** with the GitHub Copilot + Copilot Chat extensions.
 
+> This is the higher-level agenda map. For running the workshop, use the two
+> detailed docs:
+> - **`docs/workshop/participant-handout.md`** — client-facing, self-guided exercises.
+> - **`docs/workshop/instructor-notes.md`** — internal run-sheet, talk track, timing.
+>
 > This guide is tailored from the public
-> [Copilot Immersive Experience](https://copilot-academy.github.io/workshops/immersive-experience)
-> and trimmed to two hours around one domain.
+> [Copilot Immersive Experience](https://copilot-academy.github.io/workshops/immersive-experience),
+> trimmed to two hours around one domain. Note the source is written for the Copilot
+> **desktop app**; this workshop runs in **VS Code**, so "sessions/worktrees" become
+> **branches + Agent mode**. The handout and instructor notes already make that
+> translation.
 
 ## Before you start (facilitator)
 

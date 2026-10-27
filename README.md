@@ -55,8 +55,10 @@ during the workshop.
 
 ## Workshop
 
-Facilitators: start with `docs/workshop/facilitator-guide.md`. It maps each agenda
-item to concrete files, prompts, skills, and the Add-a-Line build exercise.
+Facilitators: start with `docs/workshop/instructor-notes.md` (internal run-sheet,
+talk track, timing). Hand participants `docs/workshop/participant-handout.md`
+(self-guided exercises). `docs/workshop/facilitator-guide.md` is the higher-level
+agenda map. The workshop surface is **VS Code**.
 
 ## Scripts
 
