@@ -1,7 +1,7 @@
 {
   "name": "@att-workshop/api",
   "version": "1.0.0",
-  "description": "Wireless activation & provisioning API for the AT&T Copilot workshop demo",
+  "description": "Wireless activation & provisioning API for the Wireless Activation Console",
   "license": "MIT",
   "type": "module",
   "scripts": {

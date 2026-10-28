@@ -5,7 +5,7 @@ export const swaggerDocument = {
     title: "Wireless Activation & Provisioning API",
     version: "1.0.0",
     description:
-      "Demo API for the AT&T Copilot workshop: device catalog, SIMs, rate plans, subscribers, activation orders, and provisioning.",
+      "Wireless activation & provisioning API: device catalog, SIMs, rate plans, subscribers, activation orders, and provisioning.",
   },
   servers: [{ url: "http://localhost:3000" }],
   paths: {
