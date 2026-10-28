@@ -520,9 +520,10 @@ flow: merge the API, then branch the feature that consumes it.
 
 #### 🧑‍💻 Participant Exercise
 
-> Now practice the part the Example *didn't* show: **isolation**. Your Add-a-Line work
-> lives on `feat/add-a-line`. This next feature is **unrelated**, so it gets its **own**
-> branch off `main` — not another commit on top of your cart branch.
+> Make sure you've followed along with the Example — we'll now practice using separate
+> branches to keep features isolated. Your Add-a-Line work lives on `feat/add-a-line`.
+> This next feature is **unrelated**, so it gets its **own** branch off `main` — not
+> another commit on top of your cart branch.
 >
 > 1. Commit your Add-a-Line work so it's safely captured on its branch:
 >
