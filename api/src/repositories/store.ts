@@ -9,6 +9,7 @@ import type { Subscriber } from "../models/subscriber.js";
 import type { ActivationOrder } from "../models/activationOrder.js";
 import type { ActivationOrderLine } from "../models/activationOrderLine.js";
 import type { Provisioning } from "../models/provisioning.js";
+import type { Cart, CartLine } from "../models/cart.js";
 
 export interface Store {
   markets: InMemoryRepository<Market>;
@@ -20,6 +21,8 @@ export interface Store {
   activationOrders: InMemoryRepository<ActivationOrder>;
   activationOrderLines: InMemoryRepository<ActivationOrderLine>;
   provisionings: InMemoryRepository<Provisioning>;
+  carts: InMemoryRepository<Cart>;
+  cartLines: InMemoryRepository<CartLine>;
 }
 
 /** Build a fresh store from seed data (used by the app and by tests). */
@@ -35,5 +38,7 @@ export function createStore(): Store {
     activationOrders: new InMemoryRepository(seed.activationOrders),
     activationOrderLines: new InMemoryRepository(seed.activationOrderLines),
     provisionings: new InMemoryRepository(seed.provisionings),
+    carts: new InMemoryRepository<Cart>([]),
+    cartLines: new InMemoryRepository<CartLine>([]),
   };
 }

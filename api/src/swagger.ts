@@ -38,5 +38,32 @@ export const swaggerDocument = {
     "/api/provisionings": {
       get: { summary: "List provisioning records", responses: { "200": { description: "Provisioning list" } } },
     },
+    "/api/carts": {
+      post: {
+        summary: "Create an Add-a-Line cart for a subscriber",
+        responses: { "201": { description: "Created" }, "404": { description: "Subscriber not found" } },
+      },
+    },
+    "/api/carts/{id}": {
+      get: { summary: "Get a cart with its lines and line count", responses: { "200": { description: "Cart" }, "404": { description: "Not found" } } },
+    },
+    "/api/carts/{id}/lines": {
+      post: {
+        summary: "Add a device + rate plan line to a cart",
+        responses: { "201": { description: "Updated cart" }, "400": { description: "Cart not open" }, "404": { description: "Not found" } },
+      },
+    },
+    "/api/carts/{id}/lines/{lineId}": {
+      delete: {
+        summary: "Remove a line from a cart",
+        responses: { "200": { description: "Updated cart" }, "400": { description: "Cart not open" }, "404": { description: "Not found" } },
+      },
+    },
+    "/api/carts/{id}/checkout": {
+      post: {
+        summary: "Check out a cart into an activation order",
+        responses: { "201": { description: "Activation order created" }, "400": { description: "Empty or closed cart" }, "404": { description: "Not found" } },
+      },
+    },
   },
 };
