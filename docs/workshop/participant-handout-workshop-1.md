@@ -99,12 +99,14 @@ you add is one question Agent *doesn't* have to ask you.
 > *your team's* conventions is another. Custom instructions bridge that gap.
 
 `.github/copilot-instructions.md` is applied automatically to every request, so
-Copilot already knows this team's stack, the IMEI/ICCID rules, and the
-model → repository → route → `app.ts` → Swagger pattern — no setup required.
+Copilot already knows this team's stack and rules — for example, that new entities
+follow a fixed chain: model → repository (`InMemoryRepository`) → route (`crudRouter`)
+→ register in `app.ts` → Swagger → seed data. No setup required.
 
-> **You try:** Skim `.github/copilot-instructions.md`. Then, in **Agent** mode: *"Add a
-> `color` field to the Device model following our conventions."* Notice how it touches
-> the model, seed data, and types without being told to. Discard the change when done.
+> **You try:** Skim `.github/copilot-instructions.md`. Then, in **Agent** mode: *"Add
+> an `Accessory` entity (id, sku, name, priceUsd) following our conventions."* Notice
+> how it walks that whole chain — model, repository, `crudRouter` in `app.ts`, Swagger,
+> seed data — without being told the steps. Discard the change when done.
 >
 > **Done when:** you can name two rules from the instructions file that shaped the
 > output.

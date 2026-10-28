@@ -178,35 +178,42 @@ everything it needs to just act. We'll watch that difference live.
 > *your team's* conventions is another. Custom instructions bridge that gap.
 
 `.github/copilot-instructions.md` is applied automatically to every request, so
-Copilot already knows this team's stack, the IMEI/ICCID rules, and the
-model → repository → route → `app.ts` → Swagger pattern — no setup required.
+Copilot already knows this team's stack and rules — for example, that **new entities
+follow a fixed chain**: model → repository (`InMemoryRepository`) → route
+(`crudRouter`) → register in `app.ts` → add to Swagger → seed data. No setup required;
+you'll watch Copilot follow that chain without being told the steps.
 
 #### ▶️ Example (follow along)
 
 > [!NOTE]
 >
-> With `.github/copilot-instructions.md` open for reference, in **Agent** mode:
+> With `.github/copilot-instructions.md` open for reference, in **Agent** mode add a
+> brand-new entity — notice the prompt says *nothing* about the steps:
 >
 > ```text
-> Add a color field to the Device model following our conventions.
+> Add an Accessory entity (id, sku, name, priceUsd) following our conventions.
 > ```
 >
-> Watch it touch the model, seed data, and types without being told to — then discard
-> the change.
+> Watch it walk the documented chain on its own: a typed `Accessory` model, a
+> repository in the store, a `crudRouter` wired in `app.ts`, a Swagger entry, and seed
+> data — none of which you asked for by name. That's the instructions file steering it.
+> Discard the change when done.
 
 #### 🧑‍💻 Participant Exercise
 
 > [!TIP]
 >
-> Try the same idea with a different field, in **Agent** mode:
+> Add a *different* new entity, in **Agent** mode:
 >
 > ```text
-> Add a releaseYear number to the Device model following our conventions.
+> Add a Promotion entity (id, code, description, percentOff) following our conventions.
 > ```
 >
-> Before you accept anything, read the diff and confirm it updated every layer the
-> instructions imply. **Done when** you can name two rules from the instructions file
-> that shaped the output, and which files it changed because of them. Discard when done.
+> Before you accept anything, read the diff and confirm it followed the same chain
+> (model → repository → `crudRouter` in `app.ts` → Swagger → seed data) and the stack
+> rules (explicit TypeScript interface, `.js` import specifiers). **Done when** you can
+> name two rules from the instructions file that shaped the output, and which files it
+> changed because of them. Discard when done.
 
 ---
 
