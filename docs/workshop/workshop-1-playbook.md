@@ -77,8 +77,6 @@ on output quality.
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > In **Ask** mode, have the codebase explain itself:
 >
 > ```text
@@ -94,8 +92,6 @@ on output quality.
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Reproduce the tour yourself, then go one step further — in **Ask** mode:
 >
 > ```text
@@ -119,8 +115,6 @@ everything it needs to just act. We'll watch that difference live.
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > Run both prompts in **Agent** mode and compare what comes back.
 >
 > ❌ Vague — expect a **clarifying panel** (which route? which rules? what error shape?)
@@ -145,8 +139,6 @@ everything it needs to just act. We'll watch that difference live.
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Prove the same effect on a different task. First run the vague version and watch it
 > ask:
 >
@@ -186,8 +178,6 @@ even when the prompt doesn't mention them.
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > With `.github/copilot-instructions.md` open for reference, in **Agent** mode hand
 > Copilot a snippet that *deliberately* uses `any` and ask it to add the code:
 >
@@ -209,8 +199,6 @@ even when the prompt doesn't mention them.
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Now exercise the *other* kind of rule — the new-entity chain. In **Agent** mode:
 >
 > ```text
@@ -232,8 +220,6 @@ files, and runs commands (build/test) to verify its own work.
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > In **Agent** mode:
 >
 > ```text
@@ -245,8 +231,6 @@ files, and runs commands (build/test) to verify its own work.
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Run the suite yourself, then ask Agent:
 >
 > ```text
@@ -269,8 +253,6 @@ work out of the box in current VS Code.
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > Run the scaffold prompt and ask it to add a read-only **"markets by region"** query
 > endpoint:
 >
@@ -283,8 +265,6 @@ work out of the box in current VS Code.
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Run the same prompt yourself, but scaffold a *different* read-only endpoint:
 >
 > ```text
@@ -314,8 +294,6 @@ domain-specific know-how that Copilot loads on demand. We ship
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > In **Agent** mode:
 >
 > ```text
@@ -327,8 +305,6 @@ domain-specific know-how that Copilot loads on demand. We ship
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Go one step further and *prove* it, in **Agent** mode:
 >
 > ```text
@@ -351,8 +327,6 @@ place to catch a wrong turn.
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > Run the impact-analysis prompt on a Device `status` change:
 >
 > ```text
@@ -365,8 +339,6 @@ place to catch a wrong turn.
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Run it on a *different* change:
 >
 > ```text
@@ -397,8 +369,6 @@ until it's green.
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > Open `api/src/routes/addALine.acceptance.test.ts` — the **skipped** Add-a-Line suite —
 > and `docs/design/add-a-line.png` for the target, then:
 >
@@ -419,8 +389,6 @@ until it's green.
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Do the full red → green loop yourself. Then go one step further: **add one new
 > acceptance test** of your own — for example, *"checking out an empty cart returns a 400
 > and does not create an activation order"* — and drive it to green the same way:
@@ -448,8 +416,6 @@ You'll build against the provided design so the result matches what was specifie
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > Create a branch:
 >
 > ```bash
@@ -468,8 +434,6 @@ You'll build against the provided design so the result matches what was specifie
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > On your own `feat/add-a-line` branch, build the page and wire the badge. Then take it
 > one step past the demo — add a small touch of your own, planned in **Plan** mode first,
 > then built in **Agent**:
@@ -494,8 +458,6 @@ arrives in a consistent, reviewable shape.
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > Draft the description from the diff:
 >
 > ```text
@@ -512,8 +474,6 @@ arrives in a consistent, reviewable shape.
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Open your own PR for your Add-a-Line work the same way. Then go further: self-audit it
 > against `docs/PR-STANDARDS.md` line by line and fix anything that falls short before
 > requesting review. **Done when** build/lint/tests pass and your PR reads cleanly to a
@@ -532,16 +492,12 @@ judgment.
 
 #### ▶️ Example (follow along)
 
-> [!NOTE]
->
 > Request a **Copilot code review** and triage the comments — fix the valid ones, dismiss
 > the noise — using a reference example PR that already exists:
 > [#1 — provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1).
 
 #### 🧑‍💻 Participant Exercise
 
-> [!TIP]
->
 > Request a **Copilot code review** on *your own* PR (in VS Code via the Copilot review
 > action on your changes, and/or on GitHub.com by requesting a review from **Copilot**).
 > Triage every comment: fix the valid ones, consciously dismiss the noise, and leave a
