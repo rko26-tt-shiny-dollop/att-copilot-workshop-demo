@@ -239,7 +239,9 @@ Review `docs/design/add-a-line.png` for the target.
 >    otherwise ask: *"Using `#file:docs/design/add-a-line.png`, plan a new Add-a-Line page
 >    (route `/add-a-line`) and wire the nav-bar cart badge. Use the first seeded subscriber
 >    (id 1), no subscriber picker; load devices and rate plans from their APIs; clicking
->    **Add** on a device creates a cart line (device + selected rate plan) via the cart API;
+>    **Add** on a device creates a cart line (device + selected rate plan) via the cart API
+>    (`POST /api/carts`, then `POST /api/carts/:id/lines`, and `POST /api/carts/:id/checkout`
+>    to check out);
 >    the Service Cart shows **Due today** (sum of device prices) and **Monthly** (sum of
 >    plan prices); wire the `#file:frontend/src/components/Navigation.tsx` badge
 >    (`data-testid="cart-badge"`) to the cart's `lineCount`; **Review & check out** calls
