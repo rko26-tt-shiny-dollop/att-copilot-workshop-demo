@@ -29,6 +29,17 @@ touches them.
    value is valid. Never paste arbitrary digits.
 3. When debugging a rejected activation, confirm length first, then the Luhn digit.
 
+## Reference data
+
+The first **8 digits** of an IMEI are the **TAC** (Type Allocation Code), which
+identifies the device make/model. When explaining or debugging an IMEI, look up its
+TAC in [`data/tac-reference.csv`](./data/tac-reference.csv) (relative to this skill)
+to name the device. Do not guess the model from the digits — if the TAC is not in the
+table, say so.
+
+> The TAC values in that file are **illustrative sample data** for this workshop, not
+> real GSMA allocations.
+
 ## Generating a valid check digit (reference)
 
 Double every second digit from the right; if a doubled value exceeds 9, subtract 9;

@@ -56,7 +56,7 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 |-----|-------|------|---------------------|----------|---------|
 | 0 | Basics recap (surfaces, prompting, instructions, Agent) | 25 | app + `.github/copilot-instructions.md` | all of 0a–0d | tour, prompt rewrite, field add, run tests |
 | 1 | Reusable prompts | 15 | `.github/prompts/*.prompt.md` | `/scaffold-endpoint` | add a query endpoint |
-| 2 | Skills | 15 | `.github/skills/*` | identifier skill | generate valid IMEIs/ICCID |
+| 2 | Skills | 15 | `.github/skills/*` | identifier skill + bundled TAC data | validate & identify an IMEI |
 | 3 | Impact analysis | 15 | `impact-analysis.prompt.md` | run on Device.status | run it themselves |
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
 | 5 | Branch-based build | 15 | Add-a-Line + `Navigation.tsx` | plan + badge wiring | build the page |
@@ -127,13 +127,17 @@ edits outside `api/`, remind them the prompt scopes to `api/`.
 ## Segment 2 — Skills (15 min)
 
 **Scenario:** *"New hires keep hand-rolling IMEI/ICCID checks and getting them wrong."*
-**Background:** skills package domain knowledge the agent loads on demand.
-**Demo:** ask for valid IMEIs/ICCID; open `identifier-validator/SKILL.md` and show the
-Luhn guidance it pulled in.
+**Background:** skills package domain knowledge the agent loads on demand — including
+**bundled data**, not just prose. `identifier-validator` ships a
+`data/tac-reference.csv` (TAC → device) alongside its Luhn rules.
+**Demo:** *"Is IMEI 352090081234564 valid, and what device is it?"* — it runs the Luhn
+check **and** resolves TAC `35209008` → Apple iPhone 15 from the CSV. Open
+`identifier-validator/SKILL.md` and the `data/` folder to show where that came from.
 **Teaching line:** *instructions = always-on; prompt file = an action you invoke;
-skill = domain knowledge loaded when relevant.*
-**Pitfall:** someone will hand-make an invalid IMEI — use it to show the validator
-catching it (ties into Segment 4 / the activation route).
+skill = domain knowledge (and data) loaded when relevant.*
+**Pitfall:** someone will hand-make an invalid IMEI, or use a TAC not in the table — use
+it to show the validator catching the bad check digit and the skill saying "not in the
+table" instead of guessing (ties into Segment 4 / the activation route).
 
 ## Segment 3 — Impact analysis (15 min)
 

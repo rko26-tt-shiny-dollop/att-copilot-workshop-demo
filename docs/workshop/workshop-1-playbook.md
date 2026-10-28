@@ -293,31 +293,38 @@ team assets and work out of the box in current VS Code.
 wrong, and new hires keep hand-rolling them. Teach Copilot the rule once.
 
 **Background:** Agent skills (`.github/skills/*/SKILL.md`) package reusable,
-domain-specific know-how that Copilot loads on demand. We ship
-`identifier-validator` (IMEI/ICCID + Luhn) and `api-endpoint`.
+domain-specific know-how that Copilot loads on demand — and a skill can **ship its own
+data**, not just instructions. Our `identifier-validator` skill bundles a
+`data/tac-reference.csv` lookup table (TAC → device make/model) alongside its IMEI/ICCID
+Luhn rules; we also ship `api-endpoint`.
 
 #### ▶️ Example (follow along)
 
-> In **Agent** mode:
+> In **Agent** mode, hand Copilot a valid IMEI and ask it to both validate *and*
+> identify the device:
 >
 > ```text
-> Generate three valid test IMEIs and one valid ICCID for seed data.
+> Is IMEI 352090081234564 valid, and what device is it?
 > ```
 >
-> It applies the identifier skill's Luhn guidance and reuses the existing validator
-> instead of inventing one.
+> It runs the skill's Luhn check **and** resolves the make/model from the bundled
+> `data/tac-reference.csv` (TAC `35209008` → Apple iPhone 15) — answering from the
+> skill's own data, not a guess.
 
 #### 🧑‍💻 Participant Exercise
 
-> Go one step further and *prove* it, in **Agent** mode:
+> Exercise the skill's data yourself, in **Agent** mode — try one IMEI that's in the
+> table and one that isn't:
 >
 > ```text
-> Write a quick test that runs each generated IMEI through isValidImei and asserts it
-> passes, then run it.
+> Identify these two IMEIs and say whether each is valid: 353145117782108 and
+> 357777779999996.
 > ```
 >
-> **Done when** your generated identifiers pass the real validator, and you can explain
-> when you'd reach for a **skill** vs. a **prompt file** vs. **custom instructions**.
+> **Done when** Copilot names the first device from `data/tac-reference.csv` (TAC
+> `35314511` → Samsung Galaxy S24), reports the second as *valid but not in the table*
+> rather than guessing a device, and you can explain when you'd reach for a **skill**
+> (with bundled data) vs. a **prompt file** vs. **custom instructions**.
 
 ---
 

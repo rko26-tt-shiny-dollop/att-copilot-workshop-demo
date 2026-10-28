@@ -151,15 +151,19 @@ data. No setup required.
 > wrong, and new hires keep hand-rolling them. Teach Copilot the rule once.
 >
 > **Background:** Agent skills (`.github/skills/*/SKILL.md`) package reusable,
-> domain-specific know-how that Copilot loads on demand. We ship
-> `identifier-validator` (IMEI/ICCID + Luhn) and `api-endpoint`.
+> domain-specific know-how that Copilot loads on demand — and a skill can **ship its own
+> data**, not just instructions. Our `identifier-validator` bundles a
+> `data/tac-reference.csv` lookup table (TAC → device) next to its IMEI/ICCID Luhn
+> rules; we also ship `api-endpoint`.
 
-> **You try:** In **Agent** mode: *"Generate three valid test IMEIs and one valid
-> ICCID for seed data."* Watch it apply the identifier skill's Luhn guidance and reuse
-> the existing validator instead of inventing one.
+> **You try:** In **Agent** mode, try one IMEI in the table and one that isn't:
+> *"Identify these two IMEIs and say whether each is valid: 353145117782108 and
+> 357777779999996."* Watch it run the Luhn check **and** name the first device from
+> `data/tac-reference.csv`, while reporting the second as valid but not in the table.
 >
-> **Done when:** you can explain when you'd reach for a **skill** vs. a **prompt file**
-> vs. **custom instructions**.
+> **Done when:** Copilot answers the device from the skill's bundled data (not a guess)
+> and you can explain when you'd reach for a **skill** vs. a **prompt file** vs.
+> **custom instructions**.
 
 ---
 
