@@ -48,14 +48,14 @@ build toward is one repeatable loop:
 
 ## 0. Copilot basics recap in VS Code (~25 min)
 
-> **Scenario:** A new engineer joins the activation team. Before they touch the
-> service, everyone needs to agree on *how* we use Copilot — which surface for which
-> job, and what a good prompt looks like.
->
-> **Background:** Copilot isn't one thing. In VS Code it shows up as inline
-> completions, a Chat view with different modes, and context tools that decide what
-> the model actually "sees." Knowing which to reach for is the single biggest lever
-> on output quality.
+**Scenario:** A new engineer joins the activation team. Before they touch the
+service, everyone needs to agree on *how* we use Copilot — which surface for which
+job, and what a good prompt looks like.
+
+**Background:** Copilot isn't one thing. In VS Code it shows up as inline
+completions, a Chat view with different modes, and context tools that decide what
+the model actually "sees." Knowing which to reach for is the single biggest lever
+on output quality.
 
 ### 0a. Know your surfaces
 
@@ -174,8 +174,8 @@ everything it needs to just act. We'll watch that difference live.
 
 ### 0c. Custom instructions
 
-> **Background:** Being an expert in TypeScript is one thing; being an expert in
-> *your team's* conventions is another. Custom instructions bridge that gap.
+**Background:** Being an expert in TypeScript is one thing; being an expert in
+*your team's* conventions is another. Custom instructions bridge that gap.
 
 `.github/copilot-instructions.md` is applied automatically to every request, so
 Copilot already knows this team's stack and rules — for example, **"TypeScript only.
@@ -227,8 +227,8 @@ even when the prompt doesn't mention them.
 
 ### 0d. Agent mode
 
-> **Background:** Agent mode doesn't just suggest code — it plans, edits across
-> files, and runs commands (build/test) to verify its own work.
+**Background:** Agent mode doesn't just suggest code — it plans, edits across
+files, and runs commands (build/test) to verify its own work.
 
 #### ▶️ Example (follow along)
 
@@ -260,12 +260,12 @@ even when the prompt doesn't mention them.
 
 ## 1. Reusable prompts (~15 min)
 
-> **Scenario:** You've written the same "scaffold a new endpoint our way" prompt five
-> times this month. Stop retyping it — version it with the repo.
->
-> **Background:** Prompt files live in `.github/prompts/*.prompt.md`, are committed
-> like code, and run from Chat by typing `/<name>`. They become shared team assets and
-> work out of the box in current VS Code.
+**Scenario:** You've written the same "scaffold a new endpoint our way" prompt five
+times this month. Stop retyping it — version it with the repo.
+
+**Background:** Prompt files live in `.github/prompts/*.prompt.md`, are committed
+like code, and run from Chat by typing `/<name>`. They become shared team assets and
+work out of the box in current VS Code.
 
 #### ▶️ Example (follow along)
 
@@ -305,12 +305,12 @@ even when the prompt doesn't mention them.
 
 ## 2. Skills (~15 min)
 
-> **Scenario:** The rules for a valid IMEI/ICCID (length + Luhn check) are easy to get
-> wrong, and new hires keep hand-rolling them. Teach Copilot the rule once.
->
-> **Background:** Agent skills (`.github/skills/*/SKILL.md`) package reusable,
-> domain-specific know-how that Copilot loads on demand. We ship
-> `identifier-validator` (IMEI/ICCID + Luhn) and `api-endpoint`.
+**Scenario:** The rules for a valid IMEI/ICCID (length + Luhn check) are easy to get
+wrong, and new hires keep hand-rolling them. Teach Copilot the rule once.
+
+**Background:** Agent skills (`.github/skills/*/SKILL.md`) package reusable,
+domain-specific know-how that Copilot loads on demand. We ship
+`identifier-validator` (IMEI/ICCID + Luhn) and `api-endpoint`.
 
 #### ▶️ Example (follow along)
 
@@ -343,11 +343,11 @@ even when the prompt doesn't mention them.
 
 ## 3. Impact analysis (~15 min)
 
-> **Scenario:** Product wants to mark devices as discontinued and hide them from the
-> catalog. Before anyone writes code, you need to know what that touches.
->
-> **Background:** Looking before you leap — mapping the blast radius — is the cheapest
-> place to catch a wrong turn.
+**Scenario:** Product wants to mark devices as discontinued and hide them from the
+catalog. Before anyone writes code, you need to know what that touches.
+
+**Background:** Looking before you leap — mapping the blast radius — is the cheapest
+place to catch a wrong turn.
 
 #### ▶️ Example (follow along)
 
@@ -387,13 +387,13 @@ even when the prompt doesn't mention them.
 
 ## 4. Acceptance-test-first development (~20 min)
 
-> **Scenario:** We're adding an **Add-a-Line / service cart**: a subscriber builds a
-> cart of device + rate-plan lines and checks out to create an activation order.
-> We'll write the acceptance tests *first*, then make them pass.
->
-> **Background:** When the test encodes the acceptance criteria, it becomes the spec.
-> The agent can then implement against a concrete, runnable target and self-correct
-> until it's green.
+**Scenario:** We're adding an **Add-a-Line / service cart**: a subscriber builds a
+cart of device + rate-plan lines and checks out to create an activation order.
+We'll write the acceptance tests *first*, then make them pass.
+
+**Background:** When the test encodes the acceptance criteria, it becomes the spec.
+The agent can then implement against a concrete, runnable target and self-correct
+until it's green.
 
 #### ▶️ Example (follow along)
 
@@ -440,11 +440,11 @@ even when the prompt doesn't mention them.
 
 ## 5. Branch-based implementation (~15 min)
 
-> **Scenario:** The cart API works; now build the UI for it — on its own branch, so it
-> never collides with anyone else's work.
->
-> **Background:** A branch keeps a feature isolated until it's reviewed and merged.
-> You'll build against the provided design so the result matches what was specified.
+**Scenario:** The cart API works; now build the UI for it — on its own branch, so it
+never collides with anyone else's work.
+
+**Background:** A branch keeps a feature isolated until it's reviewed and merged.
+You'll build against the provided design so the result matches what was specified.
 
 #### ▶️ Example (follow along)
 
@@ -486,11 +486,11 @@ even when the prompt doesn't mention them.
 
 ## 6. PR standards (~10 min)
 
-> **Scenario:** Your change is ready. A good pull request is small, tested, and easy
-> for a reviewer to trust.
->
-> **Background:** The repo ships a PR template and written standards so every PR
-> arrives in a consistent, reviewable shape.
+**Scenario:** Your change is ready. A good pull request is small, tested, and easy
+for a reviewer to trust.
+
+**Background:** The repo ships a PR template and written standards so every PR
+arrives in a consistent, reviewable shape.
 
 #### ▶️ Example (follow along)
 
@@ -523,12 +523,12 @@ even when the prompt doesn't mention them.
 
 ## 7. Copilot review (~10 min)
 
-> **Scenario:** Reviews pile up and get shallow. Use Copilot as a fast first-pass
-> reviewer — then keep a human accountable for the final call.
->
-> **Background:** Copilot code review reads your diff (and the repo's instructions and
-> skills) and leaves inline comments. It's a force multiplier, not a replacement for
-> judgment.
+**Scenario:** Reviews pile up and get shallow. Use Copilot as a fast first-pass
+reviewer — then keep a human accountable for the final call.
+
+**Background:** Copilot code review reads your diff (and the repo's instructions and
+skills) and leaves inline comments. It's a force multiplier, not a replacement for
+judgment.
 
 #### ▶️ Example (follow along)
 
