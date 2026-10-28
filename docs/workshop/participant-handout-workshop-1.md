@@ -248,11 +248,11 @@ Review `docs/design/add-a-line.png` for the target.
 >
 > Requirements:
 > - Use seeded subscriber id 1; no subscriber picker.
-> - Load devices and rate plans from their APIs.
-> - "Add" on a device creates a cart line (device + selected rate plan) via the cart API.
+> - Load devices and rate plans from their APIs; join device oemId to its name via the device-oems API ("OEM · category · SKU").
+> - "Add" on a device creates the cart lazily on first Add, then adds a line (device + selected rate plan); one line per device, button becomes a disabled "Added".
 > - Service Cart shows "Due today" (sum of device prices) and "Monthly" (sum of plan prices).
-> - Wire the nav badge to the cart's lineCount.
 > - Keep the cart in client state only; no persistence across reloads.
+> - Wire the nav badge to the cart's lineCount and make it link to /add-a-line.
 > - "Review & check out" calls checkout, then goes to Activation Orders.
 >
 > Constraints:

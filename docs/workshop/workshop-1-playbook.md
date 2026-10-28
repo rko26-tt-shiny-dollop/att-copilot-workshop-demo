@@ -491,11 +491,11 @@ was specified.
 >
 > Requirements:
 > - Use the first seeded subscriber (id 1); no subscriber picker.
-> - Load devices from the devices API and rate plans from the rate-plans API.
-> - The user selects one rate plan; clicking "Add" on a device creates a cart line (device + selected rate plan) via the cart API.
+> - Load devices from the devices API and rate plans from the rate-plans API; join each device's oemId to its name via the device-oems API, and label each device "OEM · category · SKU" as in the mockup.
+> - The user selects one rate plan; clicking "Add" on a device creates the cart lazily on the first Add (if none exists yet), then adds a line (device + selected rate plan) via the cart API. One line per device: once added, show that device's button as a disabled "Added" state.
 > - The Service Cart panel lists the lines and shows "Due today" (sum of device retail prices) and "Monthly" (sum of rate-plan prices), computed client-side.
-> - Wire the nav badge to the cart's lineCount.
 > - Keep the cart in client state for the session only; no persistence across reloads (no GET cart endpoint exists).
+> - Wire the nav badge to the cart's lineCount, and make the badge link to /add-a-line.
 > - "Review & check out" calls checkout, then navigates to the Activation Orders page.
 >
 > Constraints:
