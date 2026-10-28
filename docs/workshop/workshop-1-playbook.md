@@ -248,8 +248,8 @@ files, and runs commands (build/test) to verify its own work.
 times this month. Stop retyping it — version it with the repo.
 
 **Background:** Prompt files live in `.github/prompts/*.prompt.md`, are committed
-like code, and run from Chat by typing `/<name>`. They become shared team assets and
-work out of the box in current VS Code.
+like code, and run from Chat by typing `/<name>` as a slash command. They become shared
+team assets and work out of the box in current VS Code.
 
 #### ▶️ Example (follow along)
 
