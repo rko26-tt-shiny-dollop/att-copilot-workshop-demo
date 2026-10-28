@@ -473,11 +473,29 @@ was specified.
 > git checkout -b feat/add-a-line
 > ```
 >
-> In **Plan** mode, attach the design and plan the page + badge wiring. The prompt
-> pre-answers the decisions Plan would otherwise stop to ask about:
+> In **Plan** mode, attach the design and plan the page + badge wiring. Notice the
+> **structure** — a clear goal, the context files, then grouped requirements and
+> constraints. That shape is the lesson here: it pre-answers what Plan would otherwise
+> stop to ask, so you get a plan instead of a Q&A.
 >
 > ```text
-> Using #file:docs/design/add-a-line.png, plan a new Add-a-Line page (route /add-a-line) and wire the nav-bar cart badge. Details so you don't need to ask: use the first seeded subscriber (id 1) with no subscriber picker; load devices from the devices API and rate plans from the rate-plans API; the user picks one rate plan, and clicking "Add" on a device creates a cart line (that device + the selected rate plan) via the cart API (POST /api/carts to create a cart, POST /api/carts/:id/lines to add a line, POST /api/carts/:id/checkout to check out); the Service Cart panel lists those lines and shows "Due today" (sum of device retail prices) and "Monthly" (sum of rate-plan prices), computed client-side; wire the #file:frontend/src/components/Navigation.tsx badge (data-testid="cart-badge") to the cart's lineCount; and "Review & check out" calls checkout, then navigates to the Activation Orders page. Match the mockup's layout and Tailwind styling.
+> Goal: Plan a new Add-a-Line page (route /add-a-line) and wire the nav-bar cart badge to the cart.
+>
+> Context:
+> - Design mockup: #file:docs/design/add-a-line.png
+> - Nav badge to wire: #file:frontend/src/components/Navigation.tsx (data-testid="cart-badge")
+> - Cart API: POST /api/carts (create), POST /api/carts/:id/lines (add line), POST /api/carts/:id/checkout (check out)
+>
+> Requirements:
+> - Use the first seeded subscriber (id 1); no subscriber picker.
+> - Load devices from the devices API and rate plans from the rate-plans API.
+> - The user selects one rate plan; clicking "Add" on a device creates a cart line (device + selected rate plan) via the cart API.
+> - The Service Cart panel lists the lines and shows "Due today" (sum of device retail prices) and "Monthly" (sum of rate-plan prices), computed client-side.
+> - Wire the nav badge to the cart's lineCount.
+> - "Review & check out" calls checkout, then navigates to the Activation Orders page.
+>
+> Constraints:
+> - Match the mockup's layout and Tailwind styling.
 > ```
 >
 > Review the plan, hand it to **Agent** to build, and verify in the browser on **:5137**.

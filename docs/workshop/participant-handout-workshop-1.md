@@ -235,17 +235,29 @@ Review `docs/design/add-a-line.png` for the target.
 
 > **You try:**
 > 1. Create a branch: `git checkout -b feat/add-a-line`.
-> 2. In **Plan** mode, attach the design with a prompt that pre-answers what Plan would
->    otherwise ask: *"Using `#file:docs/design/add-a-line.png`, plan a new Add-a-Line page
->    (route `/add-a-line`) and wire the nav-bar cart badge. Use the first seeded subscriber
->    (id 1), no subscriber picker; load devices and rate plans from their APIs; clicking
->    **Add** on a device creates a cart line (device + selected rate plan) via the cart API
->    (`POST /api/carts`, then `POST /api/carts/:id/lines`, and `POST /api/carts/:id/checkout`
->    to check out);
->    the Service Cart shows **Due today** (sum of device prices) and **Monthly** (sum of
->    plan prices); wire the `#file:frontend/src/components/Navigation.tsx` badge
->    (`data-testid="cart-badge"`) to the cart's `lineCount`; **Review & check out** calls
->    checkout, then goes to Activation Orders. Match the mockup's Tailwind styling."*
+> 2. In **Plan** mode, write a *structured* prompt — goal, context, requirements,
+>    constraints — so Plan builds a plan instead of asking clarifying questions:
+>
+> ```text
+> Goal: Plan a new Add-a-Line page (route /add-a-line) and wire the nav-bar cart badge.
+>
+> Context:
+> - Mockup: #file:docs/design/add-a-line.png
+> - Nav badge: #file:frontend/src/components/Navigation.tsx (data-testid="cart-badge")
+> - Cart API: POST /api/carts, POST /api/carts/:id/lines, POST /api/carts/:id/checkout
+>
+> Requirements:
+> - Use seeded subscriber id 1; no subscriber picker.
+> - Load devices and rate plans from their APIs.
+> - "Add" on a device creates a cart line (device + selected rate plan) via the cart API.
+> - Service Cart shows "Due today" (sum of device prices) and "Monthly" (sum of plan prices).
+> - Wire the nav badge to the cart's lineCount.
+> - "Review & check out" calls checkout, then goes to Activation Orders.
+>
+> Constraints:
+> - Match the mockup's Tailwind styling.
+> ```
+>
 > 3. Review the plan, then hand it to **Agent** to build. Verify in the browser on
 >    **:5137**.
 > 4. **Go further — practice isolation:** commit your Add-a-Line work
