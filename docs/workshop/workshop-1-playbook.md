@@ -80,8 +80,7 @@ on output quality.
 > In **Ask** mode, have the codebase explain itself:
 >
 > ```text
-> Give me a tour of this codebase: how is the API structured and where does
-> IMEI/ICCID validation live?
+> Give me a tour of this codebase: how is the API structured and where does IMEI/ICCID validation live?
 > ```
 >
 > Then open `api/src/utils/identifiers.ts` and use **inline chat** (`Cmd+I`):
@@ -95,8 +94,7 @@ on output quality.
 > Reproduce the tour yourself, then go one step further — in **Ask** mode:
 >
 > ```text
-> Trace one activation request end to end: which route handles it, what does it
-> validate, and what does it return on success and on a bad IMEI?
+> Trace one activation request end to end: which route handles it, what does it validate, and what does it return on success and on a bad IMEI?
 > ```
 >
 > **Done when** you can name the route that handles activation and the exact response
@@ -317,8 +315,7 @@ Luhn rules; we also ship `api-endpoint`.
 > table and one that isn't:
 >
 > ```text
-> Identify these two IMEIs and say whether each is valid: 353145117782108 and
-> 357777779999996.
+> Identify these two IMEIs and say whether each is valid: 353145117782108 and 357777779999996.
 > ```
 >
 > **Done when** Copilot names the first device from `data/tac-reference.csv` (TAC
@@ -341,8 +338,7 @@ place to catch a wrong turn.
 > Run the impact-analysis prompt on a Device `status` change:
 >
 > ```text
-> /impact-analysis Add a status field to Device (active/discontinued) and hide
-> discontinued devices from the catalog.
+> /impact-analysis Add a status field to Device (active/discontinued) and hide discontinued devices from the catalog.
 > ```
 >
 > Read the report: which models, seed data, routes, Swagger, front-end types/pages, and
@@ -353,8 +349,7 @@ place to catch a wrong turn.
 > Run it on a *different* change:
 >
 > ```text
-> /impact-analysis Let a subscriber have more than one active line, each with its own
-> rate plan.
+> /impact-analysis Let a subscriber have more than one active line, each with its own rate plan.
 > ```
 >
 > Read the radius it maps. **Done when** you have an ordered implementation plan and know
@@ -407,8 +402,7 @@ until it's green.
 > to green the same way:
 >
 > ```text
-> /acceptance-test-first make my new "remove a cart line decrements lineCount" test pass
-> without breaking the others
+> /acceptance-test-first make my new "remove a cart line decrements lineCount" test pass without breaking the others
 > ```
 >
 > Pick a behavior that genuinely doesn't exist yet so you get a real red → green loop —
@@ -442,9 +436,7 @@ You'll build against the provided design so the result matches what was specifie
 > In **Plan** mode, attach the design and plan the page + badge wiring:
 >
 > ```text
-> Using #file:docs/design/add-a-line.png, plan the Add-a-Line page and wiring the
-> nav-bar cart badge in #file:frontend/src/components/Navigation.tsx to the cart's line
-> count, using the cart API from the previous step.
+> Using #file:docs/design/add-a-line.png, plan the Add-a-Line page and wiring the nav-bar cart badge in #file:frontend/src/components/Navigation.tsx to the cart's line count, using the cart API from the previous step.
 > ```
 >
 > Review the plan, hand it to **Agent** to build, and verify in the browser on **:5137**.
@@ -456,8 +448,7 @@ You'll build against the provided design so the result matches what was specifie
 > then built in **Agent**:
 >
 > ```text
-> Plan a "remove line" control on the Add-a-Line cart that updates the cart total and
-> the nav-bar badge count, using the existing cart API.
+> Plan a "remove line" control on the Add-a-Line cart that updates the cart total and the nav-bar badge count, using the existing cart API.
 > ```
 >
 > **Done when** the cart badge count updates, your extra touch works, and the page
