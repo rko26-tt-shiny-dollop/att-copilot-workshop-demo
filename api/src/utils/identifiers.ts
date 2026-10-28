@@ -4,8 +4,8 @@
  * IMEI  - 15 digits, Luhn check digit (device identity).
  * ICCID - 19 or 20 digits, Luhn check digit (SIM identity).
  *
- * These validators back the activation workflow and are exercised directly
- * in the workshop (see the identifier-validator agent skill).
+ * These validators back the activation workflow and are the canonical IMEI/ICCID
+ * checks across the API (see the identifier-validator agent skill).
  */
 
 /** Luhn checksum validation for a numeric string. */

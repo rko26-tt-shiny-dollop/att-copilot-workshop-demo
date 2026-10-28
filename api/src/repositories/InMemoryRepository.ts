@@ -1,7 +1,6 @@
 /**
- * Minimal generic in-memory repository used by every entity in the demo.
- * Keeps the architecture close to octocat_supply's repository pattern while
- * staying dependency-free for the workshop.
+ * Minimal generic in-memory repository used by every entity. Keeps the data
+ * layer dependency-free so the API runs without an external datastore.
  */
 export interface Identified {
   id: number;

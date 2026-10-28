@@ -10,7 +10,7 @@ const links = [
 ];
 
 export default function Navigation() {
-  // Add-a-Line exercise: wire this badge to the service cart line count.
+  // TODO: wire this badge to the service cart line count once the cart API exists.
   const cartCount = 0;
 
   return (

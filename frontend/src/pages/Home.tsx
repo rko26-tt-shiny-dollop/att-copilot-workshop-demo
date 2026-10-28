@@ -8,8 +8,7 @@ export default function Home() {
         <p className="mt-2 max-w-2xl text-slate-600">
           A demo retail/care console for activating wireless lines: browse the
           device catalog and rate plans, manage subscribers, submit activation
-          orders, and track network provisioning. Built for the GitHub Copilot
-          workshop.
+          orders, and track network provisioning.
         </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-3">

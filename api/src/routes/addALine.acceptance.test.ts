@@ -1,11 +1,10 @@
 /**
- * ACCEPTANCE-TEST-FIRST STARTER — Add-a-Line / Service Cart
- * ---------------------------------------------------------
- * This suite is intentionally skipped (`describe.skip`). It is the starting
- * point for the "acceptance-test-first development" portion of the workshop.
- *
- * Exercise: remove `.skip`, watch these tests FAIL (red), then use Copilot to
- * implement a service-cart / add-a-line API that makes them pass (green).
+ * Add-a-Line / Service Cart — acceptance specification
+ * ----------------------------------------------------
+ * These acceptance tests define the service-cart ("Add-a-Line") feature that is
+ * not yet implemented: a subscriber assembles a cart of device + rate-plan lines
+ * and checks out to create an activation order. The suite is skipped until the
+ * cart API exists.
  *
  * Acceptance criteria encoded below:
  *  - A cart can be created for a subscriber.
@@ -13,8 +12,7 @@
  *  - The cart reports a line count (drives the nav-bar badge).
  *  - Checking out a cart creates an ActivationOrder with matching lines.
  *
- * See docs/design/add-a-line.png for the target UI and
- * docs/workshop/participant-handout-workshop-1.md (Section 4) for the full exercise.
+ * Target UI: docs/design/add-a-line.png
  */
 import { describe, it, expect } from "vitest";
 import request from "supertest";
