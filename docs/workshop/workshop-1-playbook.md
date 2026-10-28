@@ -495,6 +495,7 @@ was specified.
 > - The user selects one rate plan; clicking "Add" on a device creates a cart line (device + selected rate plan) via the cart API.
 > - The Service Cart panel lists the lines and shows "Due today" (sum of device retail prices) and "Monthly" (sum of rate-plan prices), computed client-side.
 > - Wire the nav badge to the cart's lineCount.
+> - Keep the cart in client state for the session only; no persistence across reloads (no GET cart endpoint exists).
 > - "Review & check out" calls checkout, then navigates to the Activation Orders page.
 >
 > Constraints:

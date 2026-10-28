@@ -252,6 +252,7 @@ Review `docs/design/add-a-line.png` for the target.
 > - "Add" on a device creates a cart line (device + selected rate plan) via the cart API.
 > - Service Cart shows "Due today" (sum of device prices) and "Monthly" (sum of plan prices).
 > - Wire the nav badge to the cart's lineCount.
+> - Keep the cart in client state only; no persistence across reloads.
 > - "Review & check out" calls checkout, then goes to Activation Orders.
 >
 > Constraints:
