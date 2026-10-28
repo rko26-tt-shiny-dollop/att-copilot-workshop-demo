@@ -55,6 +55,6 @@ ActivationOrder, ActivationOrderLine, Provisioning.
 ## Planned: Add-a-Line / service cart
 
 - A subscriber assembles a cart of device + rate-plan lines and checks out to create an
-  activation order. The design lives in `docs/design/add-a-line.png`; the endpoints aren't
-  implemented yet, so the acceptance tests in `api/src/routes/addALine.acceptance.test.ts`
-  are committed as `describe.skip`. Build it following the "new entities" pattern above.
+  activation order. The design lives in `docs/design/add-a-line.png`, and the acceptance
+  tests in `api/src/routes/addALine.acceptance.test.ts` define the contract for the
+  endpoints. Build it following the "new entities" pattern above.
