@@ -454,8 +454,10 @@ until it's green.
 **Scenario:** The cart API works; now build the UI for it — on its own branch, so it
 never collides with anyone else's work.
 
-**Background:** A branch keeps a feature isolated until it's reviewed and merged.
-You'll build against the provided design so the result matches what was specified.
+**Background:** A branch keeps one unit of work isolated until it's reviewed and merged.
+*Unrelated* features each get their **own** branch off `main`, so two pieces of work in
+flight never collide. You'll build against the provided design so the result matches what
+was specified.
 
 #### ▶️ Example (follow along)
 
@@ -475,16 +477,34 @@ You'll build against the provided design so the result matches what was specifie
 
 #### 🧑‍💻 Participant Exercise
 
-> On your own `feat/add-a-line` branch, build the page and wire the badge. Then take it
-> one step past the demo — add a small touch of your own, planned in **Plan** mode first,
-> then built in **Agent**:
+> Now practice the part the Example *didn't* show: **isolation**. Your Add-a-Line work
+> lives on `feat/add-a-line`. This next feature is **unrelated**, so it gets its **own**
+> branch off `main` — not another commit on top of your cart branch.
 >
-> ```text
-> Plan a "remove line" control on the Add-a-Line cart that updates the cart total and the nav-bar badge count, using the existing cart API.
-> ```
+> 1. Commit your Add-a-Line work so it's safely captured on its branch:
 >
-> **Done when** the cart badge count updates, your extra touch works, and the page
-> matches the mockup.
+>    ```bash
+>    git add -A && git commit -m "Add-a-Line page + cart badge"
+>    ```
+>
+> 2. Start a fresh branch from `main` for this unrelated feature:
+>
+>    ```bash
+>    git checkout main
+>    git checkout -b feat/catalog-filter
+>    ```
+>
+> 3. In **Plan** mode, plan a self-contained feature on a *different* page — a category
+>    filter for the Device Catalog:
+>
+>    ```text
+>    Plan a category filter for the Device Catalog in #file:frontend/src/pages/Catalog.tsx: a row of buttons (one per device category, plus an "All" option) that filters the visible device cards client-side, using the devices already fetched.
+>    ```
+>
+> 4. Review the plan, hand it to **Agent** to build, and verify on **:5137**.
+>
+> **Done when** `git branch` shows both `feat/add-a-line` and `feat/catalog-filter`, the
+> catalog filter works, and your two features never shared a branch.
 
 ---
 

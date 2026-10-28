@@ -222,8 +222,9 @@ Review `docs/design/add-a-line.png` for the target.
 > **Scenario:** The cart API works; now build the UI for it — on its own branch, so it
 > never collides with anyone else's work.
 >
-> **Background:** A branch keeps a feature isolated until it's reviewed and merged.
-> You'll build against the provided design so the result matches what was specified.
+> **Background:** A branch keeps one unit of work isolated until it's reviewed and
+> merged. *Unrelated* features each get their own branch off `main`, so two pieces of
+> work in flight never collide.
 
 > **You try:**
 > 1. Create a branch: `git checkout -b feat/add-a-line`.
@@ -233,8 +234,16 @@ Review `docs/design/add-a-line.png` for the target.
 >    cart API from the previous step."*
 > 3. Review the plan, then hand it to **Agent** to build. Verify in the browser on
 >    **:5137**.
+> 4. **Go further — practice isolation:** commit your Add-a-Line work
+>    (`git add -A && git commit -m "Add-a-Line page + cart badge"`), then start a *fresh*
+>    branch off `main` for an **unrelated** feature: `git checkout main && git checkout -b
+>    feat/catalog-filter`. In **Plan** mode, plan a category filter for the Device Catalog
+>    (`#file:frontend/src/pages/Catalog.tsx`) — a row of category buttons (plus "All") that
+>    filters the cards client-side — then build with **Agent**.
 >
-> **Done when:** the cart badge count updates and the page matches the mockup.
+> **Done when:** the cart badge updates and the page matches the mockup; and, if you went
+> further, `git branch` shows `feat/add-a-line` and `feat/catalog-filter` as two separate
+> branches that never shared work.
 
 ---
 

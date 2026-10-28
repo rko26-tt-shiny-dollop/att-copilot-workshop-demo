@@ -184,8 +184,14 @@ run with no red.
 then hand off to **Agent** to wire the badge in `frontend/src/components/Navigation.tsx`
 (ships with `data-testid="cart-badge"`, count 0). Consider a higher-reasoning model for
 the **Plan** step, then back to Auto to build.
-**They do:** build the page + badge; verify on **:5137**.
-**Pitfall:** time sink — time-box hard; the backend cart from Seg 4 is the real win.
+**They do:** build the page + badge; verify on **:5137**. **Then — the real point:**
+commit the Add-a-Line work, then start a *fresh* branch off `main` (`git checkout main &&
+git checkout -b feat/catalog-filter`) for an **unrelated** feature — a category filter on
+the Device Catalog (`frontend/src/pages/Catalog.tsx`) — planned then built. Payoff: `git
+branch` shows two separate branches; unrelated work never shared a branch.
+**Pitfall:** time sink — time-box hard; the backend cart from Seg 4 is the real win. If
+short on time, they can skip the catalog-filter branch but should still *see* why unrelated
+work gets its own branch.
 
 ## Segment 6 — PR standards (10 min)
 
