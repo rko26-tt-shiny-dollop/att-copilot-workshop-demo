@@ -400,10 +400,11 @@ until it's green.
 
 #### 🧑‍💻 Participant Exercise
 
-> Do the full red → green loop yourself. Then go one step further: **add one new
-> acceptance test** for a behavior the cart doesn't have yet — *"removing a line from a
-> cart decrements its `lineCount`"* (a `DELETE /api/carts/:id/lines/:lineId` endpoint) —
-> watch your new test go **red**, then drive it to green the same way:
+> Make sure you followed along with the previous Example and all tests are passing. Then
+> go one step further: **add one new acceptance test** for a behavior the cart doesn't
+> have yet — *"removing a line from a cart decrements its `lineCount`"* (a `DELETE
+> /api/carts/:id/lines/:lineId` endpoint) — watch your new test go **red**, then drive it
+> to green the same way:
 >
 > ```text
 > /acceptance-test-first make my new "remove a cart line decrements lineCount" test pass
