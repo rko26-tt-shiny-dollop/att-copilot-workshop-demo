@@ -237,8 +237,8 @@ files, and runs commands (build/test) to verify its own work.
 > Which test files contain the skipped tests, and what feature are they describing?
 > ```
 >
-> **Done when** you can name the file holding the skipped Add-a-Line suite before we get
-> there.
+> **Done when** you can name the test file holding the skipped Add-a-Line suite — the
+> feature we'll build in Section 4.
 
 ---
 
