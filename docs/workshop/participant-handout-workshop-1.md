@@ -99,9 +99,10 @@ you add is one question Agent *doesn't* have to ask you.
 > *your team's* conventions is another. Custom instructions bridge that gap.
 
 `.github/copilot-instructions.md` is applied automatically to every request, so
-Copilot already knows this team's stack and rules — for example, that new entities
-follow a fixed chain: model → repository (`InMemoryRepository`) → route (`crudRouter`)
-→ register in `app.ts` → Swagger → seed data. No setup required.
+Copilot already knows this team's stack and rules — for example, *"No `any`; prefer
+explicit interfaces,"* and that new entities follow a fixed chain: model → repository
+(`InMemoryRepository`) → route (`crudRouter`) → register in `app.ts` → Swagger → seed
+data. No setup required.
 
 > **You try:** Skim `.github/copilot-instructions.md`. Then, in **Agent** mode: *"Add
 > an `Accessory` entity (id, sku, name, priceUsd) following our conventions."* Notice

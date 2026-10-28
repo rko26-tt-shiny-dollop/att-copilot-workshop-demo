@@ -178,32 +178,41 @@ everything it needs to just act. We'll watch that difference live.
 > *your team's* conventions is another. Custom instructions bridge that gap.
 
 `.github/copilot-instructions.md` is applied automatically to every request, so
-Copilot already knows this team's stack and rules — for example, that **new entities
-follow a fixed chain**: model → repository (`InMemoryRepository`) → route
-(`crudRouter`) → register in `app.ts` → add to Swagger → seed data. No setup required;
-you'll watch Copilot follow that chain without being told the steps.
+Copilot already knows this team's stack and rules — for example, **"TypeScript only.
+No `any`; prefer explicit interfaces,"** and that **new entities follow a fixed chain**:
+model → repository (`InMemoryRepository`) → route (`crudRouter`) → register in `app.ts` →
+add to Swagger → seed data. No setup required; you'll watch Copilot enforce those rules
+even when the prompt doesn't mention them.
 
 #### ▶️ Example (follow along)
 
 > [!NOTE]
 >
-> With `.github/copilot-instructions.md` open for reference, in **Agent** mode add a
-> brand-new entity — notice the prompt says *nothing* about the steps:
+> With `.github/copilot-instructions.md` open for reference, in **Agent** mode hand
+> Copilot a snippet that *deliberately* uses `any` and ask it to add the code **as
+> written**:
 >
 > ```text
-> Add an Accessory entity (id, sku, name, priceUsd) following our conventions.
+> Add this helper to the API, implemented exactly as written:
+>
+> export function summarizeActivation(payload: any): any {
+>   return {
+>     count: payload.lines.length,
+>     total: payload.lines.reduce((sum: any, line: any) => sum + line.price, 0),
+>   };
+> }
 > ```
 >
-> Watch it walk the documented chain on its own: a typed `Accessory` model, a
-> repository in the store, a `crudRouter` wired in `app.ts`, a Swagger entry, and seed
-> data — none of which you asked for by name. That's the instructions file steering it.
-> Discard the change when done.
+> Even though you handed it `any`, watch Copilot refuse to use it — it rewrites the
+> helper with explicit interfaces (a typed `payload` shape and a concrete return type),
+> because the instructions file forbids `any`. Point out that *your* snippet lost to the
+> *team's* rule. Discard the change when done.
 
 #### 🧑‍💻 Participant Exercise
 
 > [!TIP]
 >
-> Add a *different* new entity, in **Agent** mode:
+> Now exercise the *other* kind of rule — the new-entity chain. In **Agent** mode:
 >
 > ```text
 > Add a Promotion entity (id, code, description, percentOff) following our conventions.

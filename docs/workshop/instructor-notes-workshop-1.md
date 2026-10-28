@@ -94,11 +94,11 @@ when*, and what a good prompt looks like.
   what makes the demo reliable.)
 - **0c. Custom instructions (demo ~6m).** Open `.github/copilot-instructions.md`.
   Line: *"Expert in TypeScript is one thing; expert in **our** conventions is
-  another."* Demo a **new-entity** add (*"Add an Accessory entity (id, sku, name,
-  priceUsd) following our conventions"*); point out it walked the documented
-  model → repository → `crudRouter` in `app.ts` → Swagger → seed data chain unprompted
-  — a `color`-field add wouldn't exercise any instruction, so use a new entity.
-  **Discard.**
+  another."* Demo the **`no any`** rule: hand Copilot a snippet that deliberately
+  uses `any` (*"Add this helper, implemented exactly as written: `summarizeActivation(payload: any): any`…"*)
+  and show it rewrites with explicit interfaces anyway — the team's rule beats your
+  snippet. (The participant exercise then covers the new-entity chain: model →
+  repository → `crudRouter` in `app.ts` → Swagger → seed data.) **Discard.**
 - **0d. Agent mode (demo ~6m).** Run the test suite in Agent mode; show the **3
   skipped** tests. Tee up Segment 4: *"Those skipped tests are our
   acceptance-test-first starter."*
