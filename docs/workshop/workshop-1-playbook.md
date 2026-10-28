@@ -399,9 +399,24 @@ until it's green.
 > you'll play the **acceptance-test-first** role yourself: *you* write the failing spec,
 > then hand the implementation to Copilot.
 >
-> 1. **Write the test by hand.** Add one new `it(...)` to the Add-a-Line suite for a
->    behavior the cart doesn't have yet — *"removing a line from a cart decrements its
->    `lineCount`"* (it should expect a `DELETE /api/carts/:id/lines/:lineId` endpoint).
+> 1. **Write the test by hand.** Open `api/src/routes/addALine.acceptance.test.ts` and paste
+>    this as a new `it(...)` block **just before the closing `});` of the `describe`** (right
+>    after the "checks out a cart" test):
+>
+>    ```ts
+>    it("removes a line from a cart and decrements the count", async () => {
+>      const app = createApp();
+>      const cart = await request(app).post("/api/carts").send({ subscriberId: 1 });
+>      const line = await request(app)
+>        .post(`/api/carts/${cart.body.id}/lines`)
+>        .send({ deviceId: 1, ratePlanId: 1 });
+>      const res = await request(app).delete(
+>        `/api/carts/${cart.body.id}/lines/${line.body.lineId}`
+>      );
+>      expect(res.status).toBe(200);
+>      expect(res.body.lineCount).toBe(0);
+>    });
+>    ```
 > 2. **Run it and watch it go red:**
 >
 >    ```bash
@@ -409,6 +424,9 @@ until it's green.
 >    ```
 >
 >    It fails because no delete route exists yet.
+>
+>    *(This test also assumes the add-line response exposes a `lineId`. That's part of the
+>    contract your test defines — Copilot will add it when it implements the endpoint.)*
 > 3. **Now prompt Copilot to _implement only_** — your test is already written, so don't
 >    let it author the test:
 >
