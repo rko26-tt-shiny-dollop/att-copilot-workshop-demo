@@ -204,10 +204,13 @@ Review `docs/design/add-a-line.png` for the target.
 > 3. Run `/acceptance-test-first` and let Copilot implement the cart API
 >    (`POST /api/carts`, `/api/carts/:id/lines`, `/api/carts/:id/checkout`) until the
 >    suite is **green**.
-> 4. **Go further:** add one new acceptance test for a behavior the cart doesn't have
->    yet — *"removing a line decrements `lineCount`"* (a `DELETE
->    /api/carts/:id/lines/:lineId` endpoint) — watch it go **red**, then drive it to
->    green with `/acceptance-test-first`.
+> 4. **Go further — you write the spec first:** add one new `it(...)` test by hand for a
+>    behavior the cart doesn't have yet — *"removing a line decrements `lineCount`"* (expects
+>    a `DELETE /api/carts/:id/lines/:lineId` endpoint). Run `npm test`, watch it go **red**,
+>    then ask Copilot to **implement only**: `/acceptance-test-first implement a DELETE
+>    /api/carts/:id/lines/:lineId endpoint so my remove-line test passes`. Writing the test
+>    yourself is the point — if you ask it to "make my new test pass" before writing it, it
+>    authors both the test and the code and you never see red.
 >
 > **Done when:** the Add-a-Line suite (including your new remove-line test) passes and
 > nothing else broke.

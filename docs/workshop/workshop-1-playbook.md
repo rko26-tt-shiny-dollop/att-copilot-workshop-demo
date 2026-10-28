@@ -395,19 +395,32 @@ until it's green.
 
 #### 🧑‍💻 Participant Exercise
 
-> Make sure you followed along with the previous Example and all tests are passing. Then
-> go one step further: **add one new acceptance test** for a behavior the cart doesn't
-> have yet — *"removing a line from a cart decrements its `lineCount`"* (a `DELETE
-> /api/carts/:id/lines/:lineId` endpoint) — watch your new test go **red**, then drive it
-> to green the same way:
+> Make sure you followed along with the previous Example and all tests are passing. Now
+> you'll play the **acceptance-test-first** role yourself: *you* write the failing spec,
+> then hand the implementation to Copilot.
 >
-> ```text
-> /acceptance-test-first make my new "remove a cart line decrements lineCount" test pass without breaking the others
-> ```
+> 1. **Write the test by hand.** Add one new `it(...)` to the Add-a-Line suite for a
+>    behavior the cart doesn't have yet — *"removing a line from a cart decrements its
+>    `lineCount`"* (it should expect a `DELETE /api/carts/:id/lines/:lineId` endpoint).
+> 2. **Run it and watch it go red:**
 >
-> Pick a behavior that genuinely doesn't exist yet so you get a real red → green loop —
-> the implementation step already covers the common error cases (unknown subscriber,
-> unknown device, empty-cart checkout), so those tests pass on the first run.
+>    ```bash
+>    cd api && npm test
+>    ```
+>
+>    It fails because no delete route exists yet.
+> 3. **Now prompt Copilot to _implement only_** — your test is already written, so don't
+>    let it author the test:
+>
+>    ```text
+>    /acceptance-test-first implement a DELETE /api/carts/:id/lines/:lineId endpoint so my remove-line test passes, without breaking the others
+>    ```
+>
+> Writing the failing test yourself is the whole point: if you instead ask Copilot to
+> "make my new test pass" before you've written it, it will author *both* the test and the
+> code and you'll never see the red step. Also pick a behavior that genuinely doesn't
+> exist yet — the Example's implementation already covers the common error cases (unknown
+> subscriber, unknown device, empty-cart checkout), so those would pass on the first run.
 >
 > **Done when** the Add-a-Line suite (including your new remove-line test) passes and
 > nothing else broke.
