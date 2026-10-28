@@ -189,11 +189,10 @@ even when the prompt doesn't mention them.
 > [!NOTE]
 >
 > With `.github/copilot-instructions.md` open for reference, in **Agent** mode hand
-> Copilot a snippet that *deliberately* uses `any` and ask it to add the code **as
-> written**:
+> Copilot a snippet that *deliberately* uses `any` and ask it to add the code:
 >
 > ```text
-> Add this helper to the API, implemented exactly as written:
+> Add this helper to the API:
 >
 > export function summarizeActivation(payload: any): any {
 >   return {
