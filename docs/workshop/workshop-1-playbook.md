@@ -417,7 +417,8 @@ until it's green.
 >      expect(res.body.lineCount).toBe(0);
 >    });
 >    ```
-> 2. **Run it and watch it go red:**
+> 2. **Run it and watch it go red.** Run from the root directory and watch for the failing
+>    test:
 >
 >    ```bash
 >    cd api && npm test
