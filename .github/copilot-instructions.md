@@ -41,8 +41,8 @@ ActivationOrder, ActivationOrderLine, Provisioning.
   `*.test.ts`. Every new endpoint needs at least a happy-path and an error test.
 - Frontend end-to-end tests use **Playwright** under `frontend/tests/e2e`.
 - Prefer **acceptance-test-first**: write the failing test, then implement.
-- The default API suite must stay green. Work-in-progress acceptance tests are
-  committed as `describe.skip` with a comment explaining the exercise.
+- The default API suite must stay green. Work-in-progress tests that aren't ready
+  to pass are committed as `describe.skip` with a comment explaining why.
 
 ## Branch & PR standards
 
