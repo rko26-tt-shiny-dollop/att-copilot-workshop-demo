@@ -54,8 +54,8 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 
 | Seg | Topic | Time | Anchor in this repo | You demo | They do |
 |-----|-------|------|---------------------|----------|---------|
-| 0 | Basics recap (surfaces, prompting, instructions, Agent) | 25 | app + `.github/copilot-instructions.md` | all of 0a–0d | tour, prompt rewrite, field add, run tests |
-| 1 | Reusable prompts | 15 | `.github/prompts/*.prompt.md` | `/scaffold-endpoint` | add a query endpoint |
+| 0 | Basics recap (surfaces, prompting, instructions, Agent) | 25 | app + `.github/copilot-instructions.md` | all of 0a–0d | tour, prompt rewrite, entity chain, Agent self-verify loop |
+| 1 | Reusable prompts | 15 | `.github/prompts/*.prompt.md` | `/scaffold-endpoint` | scaffold a new entity (full chain) |
 | 2 | Skills | 15 | `.github/skills/*` | identifier skill + bundled TAC data | validate & identify an IMEI |
 | 3 | Impact analysis | 15 | `impact-analysis.prompt.md` | run on Device.status | run it themselves |
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
@@ -101,7 +101,10 @@ when*, and what a good prompt looks like.
   repository → `crudRouter` in `app.ts` → Swagger → seed data.) **Discard.**
 - **0d. Agent mode (demo ~6m).** Run the test suite in Agent mode; show the **3
   skipped** tests. Tee up Segment 4: *"Those skipped tests are our
-  acceptance-test-first starter."*
+  acceptance-test-first starter."* **They do:** a small self-verifying task — ask Agent to
+  add a `formatImei` helper + a Vitest test under `api/src/utils` and run until green; the
+  point is watching Agent edit two files and verify its own work through the terminal,
+  not a trivia answer. Discard.
 
 **Expect these questions**
 - *Inline vs Chat?* Inline for in-flow completions; Chat for intent you can describe.
@@ -119,8 +122,12 @@ when*, and what a good prompt looks like.
 **Scenario:** *"You've written the same scaffold prompt five times this month."*
 **Background for the room:** prompt files are versioned team assets, not throwaway
 chat.
-**Demo:** run `/scaffold-endpoint`; show the diff maps to the prompt's numbered steps.
-**They do:** add "markets by region"; success = green `npm test`.
+**Demo:** run `/scaffold-endpoint` for a read-only **"markets by region"** query; show
+the diff maps to the prompt's steps — and that it *skips* model/seed/store because the
+`Market` data already exists (the prompt encodes judgment, not a rote script).
+**They do:** scaffold a **brand-new** `TradeIn` entity (full CRUD). The contrast is the
+lesson: a new entity runs the *full* chain (model → seed → store → route → Swagger →
+tests) where the read-only demo skipped three steps. Success = green `npm test`.
 **Pitfalls:** if `/` doesn't list prompts, the prompt-files setting is off. If it
 edits outside `api/`, remind them the prompt scopes to `api/`.
 

@@ -117,11 +117,16 @@ data. No setup required.
 > **Background:** Agent mode doesn't just suggest code — it plans, edits across
 > files, and runs commands (build/test) to verify its own work.
 
-> **You try:** In **Agent** mode: *"Run the API test suite and summarize what passes,
-> fails, and is skipped."*
+> **You try:** (1) In **Agent** mode: *"Run the API test suite and summarize what passes,
+> fails, and is skipped."* It reports a few **skipped** tests — the Add-a-Line starter
+> you'll pick up in Section 4. (2) Then watch Agent's full loop: *"Add a `formatImei(raw:
+> string)` helper in a new file under `api/src/utils` that formats a 15-digit IMEI as
+> NN-NNNNNN-NNNNNN-N, with a Vitest test for a valid IMEI and a too-short input. Run the
+> tests and fix until green."*
 >
-> **Done when:** you see the suite result. It reports a few **skipped** tests — that's
-> our Add-a-Line starter you'll pick up in Section 4.
+> **Done when:** you've seen the skipped tests *and* watched Agent create the helper + its
+> test, run the suite itself, and iterate to green without you touching the terminal.
+> Discard the helper afterward.
 
 ---
 
@@ -134,11 +139,13 @@ data. No setup required.
 > like code, and run from Chat by typing `/<name>`. They become shared team assets and
 > work out of the box in current VS Code.
 
-> **You try:** Run `/scaffold-endpoint` and ask it to add a read-only **"markets by
-> region"** query endpoint. Review the diff; confirm it followed the
-> model → store → route → `app.ts` → Swagger → tests steps from the prompt.
+> **You try:** Run `/scaffold-endpoint` to add a **brand-new** `TradeIn` entity
+> (`id, deviceId, conditionGrade, quotedValueUsd`) with full CRUD. Because it doesn't exist
+> yet, the prompt runs the *full* chain — model → seed → store → route → `app.ts` → Swagger
+> → tests — unlike the demo's read-only query, which skipped model/seed/store.
 >
-> **Done when:** `cd api && npm run build && npm test` is green with your new endpoint.
+> **Done when:** `cd api && npm run build && npm test` is green and you can name the steps
+> that ran here but were skipped in the demo.
 >
 > **Stretch:** Skim `pr-description.prompt.md` to see how a team standardizes PR
 > write-ups.

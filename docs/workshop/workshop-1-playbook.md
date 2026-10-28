@@ -229,14 +229,17 @@ files, and runs commands (build/test) to verify its own work.
 
 #### 🧑‍💻 Participant Exercise
 
-> Run the suite yourself, then ask Agent:
+> Now make Agent *do* a small end-to-end task so you watch its full loop — edit, run,
+> self-correct — instead of just answering a question. In **Agent** mode:
 >
 > ```text
-> Which test files contain the skipped tests, and what feature are they describing?
+> Add a formatImei(raw: string) helper in a new file under api/src/utils that formats a 15-digit IMEI as "NN-NNNNNN-NNNNNN-N", with a Vitest test covering a valid IMEI and a too-short input. Run the tests and fix anything until they pass. Stop when green.
 > ```
 >
-> **Done when** you can name the test file holding the skipped Add-a-Line suite — the
-> feature we'll build in Section 4.
+> The helper isn't the point — watching Agent is. It creates **two** files (the util + its
+> test), runs the suite itself, and iterates until green without you touching the terminal.
+> **Done when** Agent reports the new tests passing and you can point to where it ran — and
+> re-ran — the tests to verify its own work. Discard the change afterward.
 
 ---
 
@@ -266,15 +269,18 @@ team assets and work out of the box in current VS Code.
 
 #### 🧑‍💻 Participant Exercise
 
-> Run the same prompt yourself, but scaffold a *different* read-only endpoint:
+> Run the same prompt yourself — but this time scaffold a **brand-new entity**, not a
+> read-only query, and watch it run the *full* chain the Example skipped:
 >
 > ```text
-> /scaffold-endpoint add a read-only "devices by manufacturer" query endpoint
+> /scaffold-endpoint add a TradeIn entity (id, deviceId, conditionGrade, quotedValueUsd) with full CRUD
 > ```
 >
-> Review the diff against the prompt's numbered steps — and note which steps it skipped
-> and why (this one is a read-only query too). **Done when** the following is green with
-> your new endpoint:
+> Because `TradeIn` doesn't exist yet, Copilot runs **every** step — model → seed → store
+> → route → `app.ts` → Swagger → tests — where the read-only Example correctly *skipped*
+> model, seed, and store. That contrast is the real lesson: one committed prompt adapts to
+> the task in front of it. **Done when** the following is green and you can name which steps
+> ran here that were skipped in the Example:
 >
 > ```bash
 > cd api && npm run build && npm test
