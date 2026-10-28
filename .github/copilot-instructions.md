@@ -37,6 +37,10 @@ ActivationOrder, ActivationOrderLine, Provisioning.
 
 ## Testing expectations
 
+- **Verify, don't assume.** Report the actual output of commands you run. Never
+  state that a test or build passes or fails without executing it, and run the full
+  affected suite before reporting a change as green. If a suite is small, run all of
+  it rather than only the specs you touched.
 - API tests use **Vitest** + **supertest** and live next to the code as
   `*.test.ts`. Every new endpoint needs at least a happy-path and an error test.
 - Frontend end-to-end tests use **Playwright** under `frontend/tests/e2e`.
