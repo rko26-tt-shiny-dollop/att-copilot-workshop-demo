@@ -476,7 +476,10 @@ was specified.
 > In **Plan** mode, attach the design and plan the page + badge wiring. Notice the
 > **structure** — a clear goal, the context files, then grouped requirements and
 > constraints. That shape is the lesson here: it pre-answers what Plan would otherwise
-> stop to ask, so you get a plan instead of a Q&A.
+> stop to ask, so you get a plan instead of a Q&A. Notice too what's *absent* — the
+> prompt never says "use Tailwind" or "use the typed `api` client," because
+> `.github/copilot-instructions.md` already enforces those repo-wide. Don't repeat in a
+> prompt what your instructions file already guarantees.
 >
 > ```text
 > Goal: Plan a new Add-a-Line page (route /add-a-line) and wire the nav-bar cart badge to the cart.
@@ -495,7 +498,7 @@ was specified.
 > - "Review & check out" calls checkout, then navigates to the Activation Orders page.
 >
 > Constraints:
-> - Match the mockup's layout and Tailwind styling.
+> - Match the mockup's layout as closely as the design allows.
 > ```
 >
 > Review the plan, hand it to **Agent** to build, and verify in the browser on **:5137**.

@@ -193,9 +193,12 @@ then hand off to **Agent** to wire the badge in `frontend/src/components/Navigat
 *structured* — **Goal / Context / Requirements / Constraints** — and fully specified
 (subscriber id 1 / no picker, data sources, cart-line = device + plan, the two totals,
 badge binding, checkout → Activation Orders). Call out that structure as the lesson: it's
-what keeps Plan from stalling on clarifying questions. If it still asks, favor the
-simplest seed-matching answer (e.g., hard-code subscriber id 1). Consider a higher-reasoning
-model for the **Plan** step, then back to Auto to build.
+what keeps Plan from stalling on clarifying questions. Also call out what the prompt
+*omits* — no "use Tailwind" / "use the typed `api` client," because
+`.github/copilot-instructions.md` already enforces those; good hygiene is to not repeat
+what the instructions file guarantees. If it still asks, favor the simplest seed-matching
+answer (e.g., hard-code subscriber id 1). Consider a higher-reasoning model for the
+**Plan** step, then back to Auto to build.
 **They do:** build the page + badge; verify on **:5137**. **Then — the real point:**
 commit the Add-a-Line work, then start a *fresh* branch off `main` (`git checkout main &&
 git checkout -b feat/catalog-filter`) for an **unrelated** feature — a category filter on

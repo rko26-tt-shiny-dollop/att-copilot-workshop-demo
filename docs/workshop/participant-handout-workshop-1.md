@@ -255,8 +255,11 @@ Review `docs/design/add-a-line.png` for the target.
 > - "Review & check out" calls checkout, then goes to Activation Orders.
 >
 > Constraints:
-> - Match the mockup's Tailwind styling.
+> - Match the mockup's layout as closely as the design allows.
 > ```
+>
+> *(No "use Tailwind" / "use the typed `api` client" line — `.github/copilot-instructions.md`
+> already enforces those, so don't repeat them in the prompt.)*
 >
 > 3. Review the plan, then hand it to **Agent** to build. Verify in the browser on
 >    **:5137**.
