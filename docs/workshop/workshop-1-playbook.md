@@ -473,10 +473,11 @@ was specified.
 > git checkout -b feat/add-a-line
 > ```
 >
-> In **Plan** mode, attach the design and plan the page + badge wiring:
+> In **Plan** mode, attach the design and plan the page + badge wiring. The prompt
+> pre-answers the decisions Plan would otherwise stop to ask about:
 >
 > ```text
-> Using #file:docs/design/add-a-line.png, plan the Add-a-Line page and wiring the nav-bar cart badge in #file:frontend/src/components/Navigation.tsx to the cart's line count, using the cart API from the previous step.
+> Using #file:docs/design/add-a-line.png, plan a new Add-a-Line page (route /add-a-line) and wire the nav-bar cart badge. Details so you don't need to ask: use the first seeded subscriber (id 1) with no subscriber picker; load devices from the devices API and rate plans from the rate-plans API; the user picks one rate plan, and clicking "Add" on a device creates a cart line (that device + the selected rate plan) via the cart API from the previous step; the Service Cart panel lists those lines and shows "Due today" (sum of device retail prices) and "Monthly" (sum of rate-plan prices), computed client-side; wire the #file:frontend/src/components/Navigation.tsx badge (data-testid="cart-badge") to the cart's lineCount; and "Review & check out" calls checkout, then navigates to the Activation Orders page. Match the mockup's layout and Tailwind styling.
 > ```
 >
 > Review the plan, hand it to **Agent** to build, and verify in the browser on **:5137**.

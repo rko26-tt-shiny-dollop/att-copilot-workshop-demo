@@ -235,10 +235,15 @@ Review `docs/design/add-a-line.png` for the target.
 
 > **You try:**
 > 1. Create a branch: `git checkout -b feat/add-a-line`.
-> 2. In **Plan** mode, attach the design: *"Using `#file:docs/design/add-a-line.png`,
->    plan the Add-a-Line page and wiring the nav-bar cart badge in
->    `#file:frontend/src/components/Navigation.tsx` to the cart's line count, using the
->    cart API from the previous step."*
+> 2. In **Plan** mode, attach the design with a prompt that pre-answers what Plan would
+>    otherwise ask: *"Using `#file:docs/design/add-a-line.png`, plan a new Add-a-Line page
+>    (route `/add-a-line`) and wire the nav-bar cart badge. Use the first seeded subscriber
+>    (id 1), no subscriber picker; load devices and rate plans from their APIs; clicking
+>    **Add** on a device creates a cart line (device + selected rate plan) via the cart API;
+>    the Service Cart shows **Due today** (sum of device prices) and **Monthly** (sum of
+>    plan prices); wire the `#file:frontend/src/components/Navigation.tsx` badge
+>    (`data-testid="cart-badge"`) to the cart's `lineCount`; **Review & check out** calls
+>    checkout, then goes to Activation Orders. Match the mockup's Tailwind styling."*
 > 3. Review the plan, then hand it to **Agent** to build. Verify in the browser on
 >    **:5137**.
 > 4. **Go further — practice isolation:** commit your Add-a-Line work

@@ -189,8 +189,12 @@ run with no red.
 **Background:** a branch keeps the feature isolated until it's reviewed and merged.
 **Demo:** `git checkout -b feat/add-a-line`; use **Plan** mode to plan against the PNG,
 then hand off to **Agent** to wire the badge in `frontend/src/components/Navigation.tsx`
-(ships with `data-testid="cart-badge"`, count 0). Consider a higher-reasoning model for
-the **Plan** step, then back to Auto to build.
+(ships with `data-testid="cart-badge"`, count 0). The playbook prompt is deliberately
+*fully specified* (subscriber id 1 / no picker, data sources, cart-line = device + plan,
+the two totals, badge binding, checkout → Activation Orders) so Plan doesn't stall on
+clarifying questions. If it still asks, favor the simplest seed-matching answer (e.g.,
+hard-code subscriber id 1). Consider a higher-reasoning model for the **Plan** step, then
+back to Auto to build.
 **They do:** build the page + badge; verify on **:5137**. **Then — the real point:**
 commit the Add-a-Line work, then start a *fresh* branch off `main` (`git checkout main &&
 git checkout -b feat/catalog-filter`) for an **unrelated** feature — a category filter on
