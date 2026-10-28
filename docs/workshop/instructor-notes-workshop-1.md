@@ -1,4 +1,4 @@
-# Instructor Notes (Internal) — AT&T Copilot Workshop (Workshop 1 of 3)
+# Instructor Notes (Internal) — Wireless Provider Copilot Workshop (Workshop 1 of 3)
 
 > **Series note:** This is **Workshop 1 of 3**; the three build on one another. Keep
 > foundational assets (the app, instructions, prompts, skills) stable so Workshops 2
@@ -9,7 +9,7 @@ it combines the agenda map, per-segment scenarios/background, talk track, timing
 answer keys, and recovery plays. Participants get `participant-handout-workshop-1.md`; they do
 **not** see this file.
 
-- **Audience:** intermediate Copilot users (AT&T wireless engineering).
+- **Audience:** intermediate Copilot users (wireless provider engineering team).
 - **Duration:** ~2 hours, hands-on.
 - **Surface:** **VS Code** + GitHub Copilot / Copilot Chat extensions.
 - **App:** Wireless Activation Console (this repo) — in-memory data, **no database**.
