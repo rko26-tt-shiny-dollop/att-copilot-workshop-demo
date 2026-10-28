@@ -465,6 +465,10 @@ never collides with anyone else's work.
 flight never collide. You'll build against the provided design so the result matches what
 was specified.
 
+**Prerequisite:** This builds on the cart API from Section 4. Cut `feat/add-a-line` from a
+`main` that already has that work committed, so the new branch inherits it — otherwise Plan
+will (correctly) report the cart endpoints as missing.
+
 #### ▶️ Example (follow along)
 
 > Create a branch:

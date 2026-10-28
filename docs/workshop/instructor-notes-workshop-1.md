@@ -187,6 +187,10 @@ run with no red.
 
 **Scenario:** *"The cart API works; build its UI on an isolated branch."*
 **Background:** a branch keeps the feature isolated until it's reviewed and merged.
+**Sequencing:** this depends on Segment 4's cart API. Make sure that work is committed on
+`main` before anyone cuts `feat/add-a-line`, so the branch inherits it; otherwise Plan
+correctly reports the cart endpoints as missing (the pristine repo ships without them —
+they're the Segment 4 build target).
 **Demo:** `git checkout -b feat/add-a-line`; use **Plan** mode to plan against the PNG,
 then hand off to **Agent** to wire the badge in `frontend/src/components/Navigation.tsx`
 (ships with `data-testid="cart-badge"`, count 0). The playbook prompt is deliberately

@@ -232,6 +232,9 @@ Review `docs/design/add-a-line.png` for the target.
 > **Background:** A branch keeps one unit of work isolated until it's reviewed and
 > merged. *Unrelated* features each get their own branch off `main`, so two pieces of
 > work in flight never collide.
+>
+> **Prereq:** Cut `feat/add-a-line` from a `main` that already has Section 4's cart API
+> committed, so the branch inherits it (otherwise Plan reports the cart endpoints missing).
 
 > **You try:**
 > 1. Create a branch: `git checkout -b feat/add-a-line`.
