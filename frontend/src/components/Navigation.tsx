@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useCart } from "../cart/CartContext";
 
 const links = [
   { to: "/", label: "Home", end: true },
@@ -10,8 +11,8 @@ const links = [
 ];
 
 export default function Navigation() {
-  // TODO: wire this badge to the service cart line count once the cart API exists.
-  const cartCount = 0;
+  const { cart } = useCart();
+  const cartCount = cart?.lineCount ?? 0;
 
   return (
     <header className="bg-carrier-700 text-white">
@@ -34,16 +35,17 @@ export default function Navigation() {
             </li>
           ))}
           <li>
-            <span
+            <NavLink
+              to="/add-a-line"
               aria-label="service cart"
               data-testid="cart-badge"
-              className="relative inline-flex items-center rounded-full bg-carrier-500 px-3 py-1"
+              className="relative inline-flex items-center rounded-full bg-carrier-500 px-3 py-1 hover:bg-carrier-600"
             >
               Cart
               <span className="ml-2 rounded-full bg-white px-2 text-carrier-700">
                 {cartCount}
               </span>
-            </span>
+            </NavLink>
           </li>
         </ul>
       </nav>

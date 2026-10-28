@@ -7,6 +7,7 @@ import Plans from "./pages/Plans";
 import Subscribers from "./pages/Subscribers";
 import Orders from "./pages/Orders";
 import ProvisioningPage from "./pages/Provisioning";
+import AddALine from "./pages/AddALine";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/subscribers" element={<Subscribers />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/provisioning" element={<ProvisioningPage />} />
+          <Route path="/add-a-line" element={<AddALine />} />
         </Routes>
       </main>
       <Footer />
