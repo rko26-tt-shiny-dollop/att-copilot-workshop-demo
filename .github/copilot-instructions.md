@@ -52,10 +52,9 @@ ActivationOrder, ActivationOrderLine, Provisioning.
 - Builds, lint, and the default test suites must pass before review.
 - Request a Copilot code review on every PR.
 
-## Roadmap / known gaps
+## Planned: Add-a-Line / service cart
 
-- The **Add-a-Line / service cart** flow is specified but not yet built: a subscriber
-  assembles a cart of device + rate-plan lines and checks out to create an activation
-  order. The design lives in `docs/design/add-a-line.png`, and the acceptance tests in
-  `api/src/routes/addALine.acceptance.test.ts` are committed as `describe.skip` until the
-  endpoints land. Implement it following the "new entities" pattern above.
+- A subscriber assembles a cart of device + rate-plan lines and checks out to create an
+  activation order. The design lives in `docs/design/add-a-line.png`; the endpoints aren't
+  implemented yet, so the acceptance tests in `api/src/routes/addALine.acceptance.test.ts`
+  are committed as `describe.skip`. Build it following the "new entities" pattern above.
