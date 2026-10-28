@@ -204,8 +204,13 @@ Review `docs/design/add-a-line.png` for the target.
 > 3. Run `/acceptance-test-first` and let Copilot implement the cart API
 >    (`POST /api/carts`, `/api/carts/:id/lines`, `/api/carts/:id/checkout`) until the
 >    suite is **green**.
+> 4. **Go further:** add one new acceptance test for a behavior the cart doesn't have
+>    yet — *"removing a line decrements `lineCount`"* (a `DELETE
+>    /api/carts/:id/lines/:lineId` endpoint) — watch it go **red**, then drive it to
+>    green with `/acceptance-test-first`.
 >
-> **Done when:** the Add-a-Line acceptance suite passes and nothing else broke.
+> **Done when:** the Add-a-Line suite (including your new remove-line test) passes and
+> nothing else broke.
 
 ---
 

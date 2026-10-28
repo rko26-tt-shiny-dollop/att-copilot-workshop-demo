@@ -401,16 +401,21 @@ until it's green.
 #### 🧑‍💻 Participant Exercise
 
 > Do the full red → green loop yourself. Then go one step further: **add one new
-> acceptance test** of your own — for example, *"checking out an empty cart returns a 400
-> and does not create an activation order"* — and drive it to green the same way:
+> acceptance test** for a behavior the cart doesn't have yet — *"removing a line from a
+> cart decrements its `lineCount`"* (a `DELETE /api/carts/:id/lines/:lineId` endpoint) —
+> watch your new test go **red**, then drive it to green the same way:
 >
 > ```text
-> /acceptance-test-first make my new "empty cart checkout returns 400" test pass without
-> breaking the others
+> /acceptance-test-first make my new "remove a cart line decrements lineCount" test pass
+> without breaking the others
 > ```
 >
-> **Done when** the Add-a-Line suite (including your new test) passes and nothing else
-> broke.
+> Pick a behavior that genuinely doesn't exist yet so you get a real red → green loop —
+> the implementation step already covers the common error cases (unknown subscriber,
+> unknown device, empty-cart checkout), so those tests pass on the first run.
+>
+> **Done when** the Add-a-Line suite (including your new remove-line test) passes and
+> nothing else broke.
 >
 > **Tip:** if the agent stalls, describe the **symptom** (*"POST /carts/:id/lines
 > returns 404"*), not the fix, and let it investigate.

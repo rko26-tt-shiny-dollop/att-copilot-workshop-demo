@@ -166,6 +166,12 @@ spec the agent self-heals against.
 **Answer key:** the suite expects `POST /api/carts` (create for a subscriber),
 `POST /api/carts/:id/lines` (add device+plan), a line-count field, and
 `POST /api/carts/:id/checkout` creating an `ActivationOrder` with matching lines.
+**"Go further" (participant):** they add one *new* acceptance test for a behavior the
+cart doesn't have yet — *"removing a line decrements `lineCount`"* (a `DELETE
+/api/carts/:id/lines/:lineId` endpoint). Pick a genuinely missing behavior so they get a
+real red→green loop; `/acceptance-test-first` already generates the common error cases
+(unknown subscriber/device, empty-cart checkout), so suggesting those would pass on the
+first run with no red step.
 
 ## Segment 5 — Branch-based build (15 min)
 
