@@ -170,6 +170,10 @@ spec the agent self-heals against.
 - If the agent stalls, coach them to describe the **symptom** (*"POST /carts/:id/lines
   returns 404"*), not the fix.
 - Keep production changes minimal; it should only add the cart API.
+**Close the segment:** have them **commit the cart API to `main`** (`git add -A && git
+commit -m "Add cart API (Add-a-Line acceptance suite)"`). They've been on `main`, so this
+captures the work and sets up Segment 5 to branch off it. Without this the build floats as
+uncommitted changes — a stray reset/clean would lose it.
 **Answer key:** the suite expects `POST /api/carts` (create for a subscriber),
 `POST /api/carts/:id/lines` (add device+plan), a line-count field, and
 `POST /api/carts/:id/checkout` creating an `ActivationOrder` with matching lines.
@@ -185,12 +189,14 @@ run with no red.
 
 ## Segment 5 — Branch-based build (15 min)
 
-**Scenario:** *"The cart API works; build its UI on an isolated branch."*
+**Scenario:** *"You committed the cart API to `main`; now build its UI on an isolated branch."*
 **Background:** a branch keeps the feature isolated until it's reviewed and merged.
-**Sequencing:** this depends on Segment 4's cart API. Make sure that work is committed on
-`main` before anyone cuts `feat/add-a-line`, so the branch inherits it; otherwise Plan
-correctly reports the cart endpoints as missing (the pristine repo ships without them —
-they're the Segment 4 build target).
+**Sequencing:** this consumes Segment 4's cart API. Because they committed it to `main` at
+the end of Segment 4, cutting `feat/add-a-line` off `main` inherits it automatically —
+that's the taught flow (merge the API, then branch the UI). If someone skipped that commit,
+their build is still in the working tree and `checkout -b` carries it along; have them
+commit on the branch so it's captured. If Plan reports the cart endpoints missing, that
+participant branched off a `main` that never got the Segment 4 work.
 **Demo:** `git checkout -b feat/add-a-line`; use **Plan** mode to plan against the PNG,
 then hand off to **Agent** to wire the badge in `frontend/src/components/Navigation.tsx`
 (ships with `data-testid="cart-badge"`, count 0). The playbook prompt is deliberately

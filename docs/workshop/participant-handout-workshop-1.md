@@ -221,20 +221,27 @@ Review `docs/design/add-a-line.png` for the target.
 >
 > **Done when:** the Add-a-Line suite (including your new remove-line test) passes and
 > nothing else broke.
+>
+> **Before moving on:** you've been on `main`, so commit the cart API now — it's the
+> foundation the next section branches off:
+>
+> ```bash
+> git add -A && git commit -m "Add cart API (Add-a-Line acceptance suite)"
+> ```
 
 ---
 
 ## 5. Branch-based implementation (~15 min)
 
-> **Scenario:** The cart API works; now build the UI for it — on its own branch, so it
-> never collides with anyone else's work.
+> **Scenario:** You committed the cart API to `main` in the last section; now build the
+> UI for it — on its own branch, so it never collides with anyone else's work.
 >
 > **Background:** A branch keeps one unit of work isolated until it's reviewed and
 > merged. *Unrelated* features each get their own branch off `main`, so two pieces of
 > work in flight never collide.
 >
-> **Prereq:** Cut `feat/add-a-line` from a `main` that already has Section 4's cart API
-> committed, so the branch inherits it (otherwise Plan reports the cart endpoints missing).
+> **Why branch off `main`:** `main` now has the cart API you just committed, so your new
+> branch starts with it already in place — merge the API, then branch the UI that uses it.
 
 > **You try:**
 > 1. Create a branch: `git checkout -b feat/add-a-line`.

@@ -453,25 +453,35 @@ until it's green.
 > **Tip:** if the agent stalls, describe the **symptom** (*"POST /carts/:id/lines
 > returns 404"*), not the fix, and let it investigate.
 
+> **Before you move on — commit the cart API to `main`.** You've been working directly on
+> `main`, and this cart API is the foundation the next section's UI builds on. Commit it so
+> it's safely captured and any branch you cut next inherits it:
+>
+> ```bash
+> git add -A && git commit -m "Add cart API (Add-a-Line acceptance suite)"
+> ```
+>
+> That's the real-world handoff: finish and commit the API, *then* branch the UI off it.
+
 ---
 
 ## 5. Branch-based implementation (~15 min)
 
-**Scenario:** The cart API works; now build the UI for it — on its own branch, so it
-never collides with anyone else's work.
+**Scenario:** You committed the cart API to `main` in the last section; now build the UI
+for it — on its own branch, so it never collides with anyone else's work.
 
 **Background:** A branch keeps one unit of work isolated until it's reviewed and merged.
 *Unrelated* features each get their **own** branch off `main`, so two pieces of work in
 flight never collide. You'll build against the provided design so the result matches what
 was specified.
 
-**Prerequisite:** This builds on the cart API from Section 4. Cut `feat/add-a-line` from a
-`main` that already has that work committed, so the new branch inherits it — otherwise Plan
-will (correctly) report the cart endpoints as missing.
+**Why branch off `main`:** `main` now has the cart API you just committed, so cutting your
+branch from it means the UI work starts with that API already in place — that's the normal
+flow: merge the API, then branch the feature that consumes it.
 
 #### ▶️ Example (follow along)
 
-> Create a branch:
+> Create a branch off `main` (it inherits the committed cart API):
 >
 > ```bash
 > git checkout -b feat/add-a-line
