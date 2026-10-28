@@ -260,8 +260,11 @@ team assets and work out of the box in current VS Code.
 > /scaffold-endpoint add a read-only "markets by region" query endpoint
 > ```
 >
-> Walk the diff to show it followed the model → store → route → `app.ts` → Swagger →
-> tests steps baked into the prompt.
+> Walk the diff with the prompt's numbered steps side by side. Because this is a
+> *read-only query over existing data*, Copilot runs the steps that apply — route →
+> `app.ts` → Swagger → tests — and correctly **skips** model, seed, and store (the
+> `Market` entity and its data already exist). That's the real lesson: a committed
+> prompt encodes *judgment*, not a rote script.
 
 #### 🧑‍💻 Participant Exercise
 
@@ -271,8 +274,9 @@ team assets and work out of the box in current VS Code.
 > /scaffold-endpoint add a read-only "devices by manufacturer" query endpoint
 > ```
 >
-> Review the diff against the prompt's numbered steps. **Done when** the following is
-> green with your new endpoint:
+> Review the diff against the prompt's numbered steps — and note which steps it skipped
+> and why (this one is a read-only query too). **Done when** the following is green with
+> your new endpoint:
 >
 > ```bash
 > cd api && npm run build && npm test
