@@ -197,7 +197,7 @@ what keeps Plan from stalling on clarifying questions. Also call out what the pr
 *omits* — no "use Tailwind" / "use the typed `api` client," because
 `.github/copilot-instructions.md` already enforces those; good hygiene is to not repeat
 what the instructions file guarantees. If Plan still asks, the in-contract defaults are:
-cart in client state only / no persistence (no GET cart endpoint); create the cart lazily
+cart in client state only / no persistence (don't re-fetch on load); create the cart lazily
 on first Add; load device-oems for the OEM name; make the badge link to `/add-a-line`;
 disabled "Added" state with one line per device; subscriber hard-coded to id 1. Consider a
 higher-reasoning model for the **Plan** step, then back to Auto to build.
