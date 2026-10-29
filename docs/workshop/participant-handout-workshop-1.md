@@ -279,13 +279,11 @@ Review `docs/design/add-a-line.png` for the target.
 >    branch off `main` for an **unrelated** feature: `git checkout main && git checkout -b
 >    feat/catalog-filter`. In **Plan** mode, plan a category filter for the Device Catalog
 >    (`#file:frontend/src/pages/Catalog.tsx`) — a row of category buttons (plus "All") that
->    filters the cards client-side — then build with **Agent**. Commit it too
->    (`git add -A && git commit -m "Add device catalog category filter"`) so it's ready to
->    open a PR next.
+>    filters the cards client-side — then build with **Agent**.
 >
 > **Done when:** the cart badge updates and the page matches the mockup; and, if you went
-> further, `git branch` shows `feat/add-a-line` and `feat/catalog-filter` as two separate,
-> committed branches that never shared work.
+> further, `git branch` shows `feat/add-a-line` and `feat/catalog-filter` as two separate
+> branches that never shared work.
 
 ---
 
@@ -297,20 +295,20 @@ Review `docs/design/add-a-line.png` for the target.
 > **Background:** The repo ships a PR template and written standards so every PR
 > arrives in a consistent, reviewable shape.
 
-> **▶️ Example — open the Add-a-Line PR.** It's already committed on `feat/add-a-line`.
-> Switch to it and push: `git checkout feat/add-a-line && git push -u origin feat/add-a-line`.
-> Run `/pr-description`, then in the **same chat** ask Copilot to open the PR using that
-> draft as the body — it runs `gh pr create` (review before approving; let it pick a
-> conventional-commit title). The template (`.github/pull_request_template.md`) is applied;
-> check it against `docs/PR-STANDARDS.md`.
+> **▶️ Example — open the catalog-filter PR.** It's the feature you just built. Commit and
+> push it: `git add -A && git commit -m "Add device catalog category filter" && git push -u
+> origin feat/catalog-filter`. Run `/pr-description`, then in the **same chat** ask Copilot
+> to open the PR using that draft as the body — it runs `gh pr create` (review before
+> approving; let it pick a conventional-commit title). The template
+> (`.github/pull_request_template.md`) is applied; check it against `docs/PR-STANDARDS.md`.
 >
-> **🧑‍💻 You try — open your catalog-filter PR.** Switch and push:
-> `git checkout feat/catalog-filter && git push -u origin feat/catalog-filter`. Run
+> **🧑‍💻 You try — open your Add-a-Line PR.** It's already committed on `feat/add-a-line`.
+> Switch and push: `git checkout feat/add-a-line && git push -u origin feat/add-a-line`. Run
 > `/pr-description`, open the PR the same way, then self-audit it against
 > `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
 >
-> **Done when:** build/lint/tests pass, both branches have an open PR, and your catalog PR
-> reads cleanly to a reviewer.
+> **Done when:** build/lint/tests pass, both branches have an open PR, and your add-a-line
+> PR reads cleanly to a reviewer.
 
 ---
 
