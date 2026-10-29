@@ -265,7 +265,7 @@ flow in the demo.
 **Scenario:** *"Reviews pile up and go shallow."*
 **Background:** start with PR basics (diff in **Files changed**, inline comments, CI). Copilot
 adds two review surfaces — a VS Code **chat review** and **Copilot code review** on GitHub.com
-— both reading the diff plus repo instructions/skills. A human still owns the final call;
+— both using repository context, including supported custom instructions. A human still owns the final call;
 Copilot submits *comments*, not an approval.
 **Demo:**
 - **PR basics:** on **PR #1**, walk Files changed, leave an inline comment, show the CI/merge box.
@@ -278,6 +278,18 @@ Copilot submits *comments*, not an approval.
 - **Implementing fixes:** Commit suggestion for small ones; fix-in-VS-Code-and-push for larger;
   if CI is red, open the log and push a fix. Resolve threads as you go.
 PR #1 (pre-made, green, self-contained) keeps live material even if an attendee's PR isn't ready.
+- **Controlled convention check:** use the `feat/catalog-filter` PR opened in Segment 6.
+  Follow the [playbook's Lesson 7](workshop-1-playbook.md#7-code-review-using-copilot-15-min)
+  to compare an initial review with another review after applying repo-root
+  `instruction-demo.patch`. It deliberately adds explicit `any` and ad-hoc CSS. Verify
+  the branch, empty index, and clean target paths; keep the Segment 6 prompt edit
+  unstaged. The patch targets one generated filter, not pristine `main`: stop on a
+  failed `git apply --check` and inspect for already-applied edits or use the documented
+  manual fallback. Never force it. A review with no findings can be valid; compare actual feedback
+  with the two repo rules, without treating a generic `any` warning as proof of
+  instruction influence. Request another review explicitly after pushing, then fix
+  both violations and push corrections even if neither was flagged. Do not merge the
+  planted violations. Time-box discussion to leave room for Add-a-Line review.
 **They do:** review their own add-a-line PR both ways (chat + GitHub.com **Balanced**), triage
 every comment (fix valid, dismiss noise with a reason), and get CI green.
 **Optional (if the Copilot app / agent merge is available):** mention PR-scoped review sessions

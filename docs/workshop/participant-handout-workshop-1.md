@@ -335,10 +335,20 @@ Review `docs/design/add-a-line.png` for the target.
 > **Background:** Start with PR basics — read the **diff** in **Files changed**, leave
 > **inline comments** on specific lines, check **CI**. Copilot adds two review surfaces:
 > a **chat review** in VS Code and **Copilot code review** on GitHub.com, both reading
-> your changes with the repo's instructions and skills. A force multiplier, not a
+> your changes with repository context, including supported custom instructions. A force multiplier, not a
 > replacement for judgment.
 
-> **You try — review your own Add-a-Line PR, two ways:**
+> **Follow along — a controlled convention check:** on the `feat/catalog-filter` PR
+> from Lesson 6, compare an initial review with a second review after deliberately adding
+> `any` and ad-hoc CSS. Use [Lesson 7 in the playbook](workshop-1-playbook.md#7-code-review-using-copilot-15-min)
+> for the repo-root `instruction-demo.patch` commands, clean-state checks, manual fallback
+> for different generated code, and correction commit. Never force a failed patch check
+> or stage the local Lesson 6 prompt edit. A review with no findings can be valid; a generic `any`
+> warning alone does not prove instruction influence. Fix both violations and push
+> corrections before moving on. If you skipped the catalog branch, watch the example
+> rather than applying the patch to Add-a-Line.
+>
+> **You try — return to `feat/add-a-line` and review your own Add-a-Line PR, two ways:**
 > 1. **Chat review (VS Code):** on your branch, ask Copilot Chat to *"review the changes on
 >    this branch for correctness, missing tests, and unintended changes; cite file and line."*
 > 2. **Copilot code review (GitHub.com):** under **Reviewers**, request a review from

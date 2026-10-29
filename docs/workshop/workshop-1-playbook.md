@@ -647,8 +647,9 @@ accountable for the final call.
 **Background:** A review starts with the basics: read the **diff**, leave **inline
 comments** on specific lines, and check **CI**. Copilot adds two review surfaces on top
 of that — a **chat review** in VS Code and **Copilot code review** on GitHub.com — both
-of which read your changes alongside the repo's instructions and skills. They're a force
-multiplier, not a replacement for judgment.
+of which can use repository context, including supported custom instructions. They're a
+force multiplier, not a replacement for judgment. **A review with no findings can be valid**;
+don't invent an issue just to make the review look productive.
 
 #### PR basics (orient first)
 
@@ -682,9 +683,125 @@ multiplier, not a replacement for judgment.
 > fails, open its log, fix the cause, and push. Resolve each thread as you address it. Copilot
 > submits **comments**, not an approval — a human still makes the final call.
 
+#### ▶️ Example (follow along) — plant two convention violations
+
+> Now use the **`feat/catalog-filter` PR you opened in Lesson 6**, not PR #1 or the
+> Add-a-Line PR. Request an initial Copilot review if you haven't already, and note the
+> actual feedback (including no findings). We'll deliberately add two violations of
+> `.github/copilot-instructions.md`: an explicit `any` and an ad-hoc CSS file instead
+> of inline Tailwind classes. This is a temporary workshop exercise, not code to merge.
+>
+> **Prepare in the VS Code terminal, from the repo root.** Save your editor buffers,
+> inspect the working state, and switch only when no unfinished feature edits would
+> be carried onto the wrong branch:
+>
+> ```bash
+> git status --short
+> git checkout feat/catalog-filter
+> git branch --show-current
+> git diff --cached --name-only
+> git status --short -- frontend/src/pages/Catalog.tsx frontend/src/pages/Catalog.css
+> ```
+>
+> **Stop unless** the branch is `feat/catalog-filter`, the staged-file list is empty,
+> and the final status command prints nothing. Commit unfinished feature work on its
+> owning branch before continuing. Lesson 6's local
+> `.github/prompts/pr-description.prompt.md` experiment may remain **unstaged**; do
+> not include it in these commits. If switching branches is blocked, stop and resolve
+> that separately without discarding work.
+>
+> **Apply the teaching artifact.** The repo-root
+> [`instruction-demo.patch`](../../instruction-demo.patch) is plain text. It targets
+> one generated category-filter implementation (`useMemo` / `useState`,
+> `CategoryFilter`, `selected`, and `options`); it is not a patch for pristine `main`.
+> If your workshop branch predates the artifact, save a copy of that file from the
+> workshop repository into your local repo root first; do not stage the patch itself.
+>
+> ```bash
+> git apply --check instruction-demo.patch
+> ```
+>
+> Only if the check succeeds:
+>
+> ```bash
+> git apply instruction-demo.patch
+> git diff -- frontend/src/pages/Catalog.tsx
+> ```
+>
+> Open the new `frontend/src/pages/Catalog.css` in VS Code too: untracked files do
+> not appear in `git diff`. Confirm that only the intended demo edits were introduced.
+>
+> **If the check fails, stop; don't force it or blindly use `--3way`.** Inspect
+> `Catalog.tsx` and `Catalog.css`: the patch may already be applied, or your generated
+> filter may differ. If the exact demo edits are already present, don't apply them
+> twice; inspect their staged/committed state before continuing. If the implementation
+> differs, use this small **manual-edit fallback** in VS Code instead of applying the
+> patch:
+>
+> - Add `import "./Catalog.css";` to `Catalog.tsx`. Create `Catalog.css` with the rule
+>   below and add `catalog-heading` to the existing heading's `className`, keeping its
+>   other classes.
+> - Inside `Catalog`, before the JSX return, add the helper below. Replace the existing
+>   dollar-sign/price JSX with `{formatPrice(device)}` in the device-card loop (use
+>   your loop's device variable if named differently). Preserve the category filter
+>   and all other behavior.
+>
+> ```css
+> .catalog-heading {
+>   letter-spacing: 0.02em;
+> }
+> ```
+>
+> ```tsx
+> const formatPrice = (device: any) => `$${device.retailPrice.toFixed(2)}`;
+> ```
+>
+> **Publish the planted diff** after either successful application or manual editing.
+> Stage only these two paths, inspect the entire staged diff, then commit and push:
+>
+> ```bash
+> git add frontend/src/pages/Catalog.tsx frontend/src/pages/Catalog.css
+> git diff --cached
+> git commit -m "demo: plant catalog convention violations for review"
+> git push
+> ```
+>
+> On the catalog-filter PR, **request another Copilot review** after the push; don't
+> assume a push automatically requests one. Compare the new feedback with the initial
+> review and the two exact repository rules. Record what was actually flagged and what
+> was missed. A generic warning about `any` alone does **not** prove the instructions
+> influenced the review; look for explicit connections to the repository conventions.
+> Findings are not guaranteed, and CI/lint failures are separate evidence from review
+> comments. The deliberate `any` may make lint fail during this exercise.
+>
+> **Clean up before merging, even if no review comments appear.** In VS Code, apply
+> valid feedback: type the helper parameter as `Device` (or restore the original typed
+> price expression), remove the CSS import, replace `catalog-heading` with inline
+> Tailwind `tracking-[0.02em]`, and delete the demo-only `Catalog.css`. Keep the
+> category filter and unrelated work intact; do not use a blanket reset.
+>
+> Run the checks in `docs/PR-STANDARDS.md`, plus the frontend e2e suite
+> (`cd frontend && npm run test:e2e`), and verify the filter and prices in the browser.
+> Return to the repo root, ensure nothing unrelated is staged, then publish corrections:
+>
+> ```bash
+> git add frontend/src/pages/Catalog.tsx frontend/src/pages/Catalog.css
+> git diff --cached
+> git commit -m "fix: restore catalog typing and inline Tailwind styling"
+> git push
+> ```
+>
+> Confirm the latest PR diff has neither violation and CI is green. Resolve addressed
+> threads with a short explanation; a human still decides whether to merge.
+
 #### 🧑‍💻 Participant Exercise
 
-> Review *your own* Add-a-Line PR with both surfaces: a Copilot **chat review** in VS Code,
+> If you built the catalog filter, repeat the planted-diff exercise above on its PR
+> and push the corrections before moving on. If you skipped that branch, follow the
+> example without applying the patch to Add-a-Line.
+>
+> Then switch back to `feat/add-a-line` and review *your own* Add-a-Line PR with both
+> surfaces: a Copilot **chat review** in VS Code,
 > then request **Copilot code review** on GitHub.com (try **Balanced** — the change crosses UI,
 > cart state, and tests). Triage every comment: fix the valid ones (apply the suggestion or
 > push a fix) and consciously dismiss the noise with a short reply saying why. **Done when**
