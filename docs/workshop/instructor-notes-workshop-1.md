@@ -54,21 +54,38 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 
 | Seg | Topic | Time | Anchor in this repo | You demo | They do |
 |-----|-------|------|---------------------|----------|---------|
-| 0 | Basics recap (surfaces, prompting, instructions, Agent) | 25 | app + `.github/copilot-instructions.md` | all of 0a–0d | tour, prompt rewrite, entity chain, Agent self-verify loop |
+| — | **Setup check** | 5 | `make dev`, `make test` | confirm :3000/:5137, extensions signed in, suite green | fix env or pair up |
+| 0 | Basics recap (surfaces, prompting, instructions, Agent) | 10 | app + `.github/copilot-instructions.md` | all of 0a–0d | tour, prompt rewrite, entity chain, Agent self-verify loop |
 | 1 | Reusable prompts | 15 | `.github/prompts/*.prompt.md` | `/scaffold-endpoint` | scaffold a new entity (full chain) |
-| 2 | Skills | 15 | `.github/skills/*` | identifier skill + bundled TAC data | validate & identify an IMEI |
-| 3 | Impact analysis | 15 | `impact-analysis.prompt.md` | run on Device.status | run it themselves |
+| 2 | Skills | 10 | `.github/skills/*` | identifier skill + bundled TAC data | validate & identify an IMEI |
+| 3 | Impact analysis | 10 | `impact-analysis.prompt.md` | run on Device.status | run it themselves |
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
 | 5 | Branch-based build | 15 | Add-a-Line + `Navigation.tsx` | plan + badge wiring | build the page |
 | 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | open the **catalog** PR (`/pr-description` + agent-run `gh pr create`) | customize `/pr-description`, then open + audit their **add-a-line** PR |
-| 7 | Code Review Using Copilot | 10 | PR #1 | PR basics + chat & GitHub.com review on PR #1 | review their add-a-line PR (chat + GitHub.com), triage |
+| 7 | Code Review Using Copilot | 15 | PR #1 | PR basics + chat & GitHub.com review on PR #1 | review their add-a-line PR (chat + GitHub.com), triage |
+| — | **Wrap-up & take-home** | 10 | — | loop recap, takeaways, next steps | reflect; note next steps |
 
-Buffer lives in Segments 1–3. **Critical path is Segment 4** (cart API). If behind,
-compress 1–3 and protect 4–5.
+Buffer is thin now that Segments 2–3 run 10 min each. **Critical path is Segment 4**
+(cart API). If behind, compress 1–3 further and protect 4–5; the setup check and wrap-up
+are fixed bookends.
 
 ---
 
-## Segment 0 — Basics recap (25 min)
+## Setup check (5 min, in room)
+
+An "everyone green?" gate before content — not a re-teach of the pre-work. Project the
+checklist and have people self-confirm:
+
+- `make dev` serves the API on **:3000** and the console on **:5137**,
+- the **Copilot** and **Copilot Chat** extensions are signed in,
+- the repo is cloned and on `main`, `make test` green (**3 skipped** expected).
+
+Stragglers pair with a neighbor; don't debug one laptop in front of the room (see Fallbacks).
+Start Segment 0 on time regardless.
+
+---
+
+## Segment 0 — Basics recap (10 min)
 
 **Scenario to open with:** *"A new engineer joins the activation team. Before they
 touch anything, let's agree how we use Copilot."*
@@ -131,7 +148,7 @@ tests) where the read-only demo skipped three steps. Success = green `npm test`.
 **Pitfalls:** if `/` doesn't list prompts, the prompt-files setting is off. If it
 edits outside `api/`, remind them the prompt scopes to `api/`.
 
-## Segment 2 — Skills (15 min)
+## Segment 2 — Skills (10 min)
 
 **Scenario:** *"New hires keep hand-rolling IMEI/ICCID checks and getting them wrong."*
 **Background:** skills package domain knowledge the agent loads on demand — including
@@ -146,7 +163,7 @@ skill = domain knowledge (and data) loaded when relevant.*
 it to show the validator catching the bad check digit and the skill saying "not in the
 table" instead of guessing (ties into Segment 4 / the activation route).
 
-## Segment 3 — Impact analysis (15 min)
+## Segment 3 — Impact analysis (10 min)
 
 **Scenario:** *"Product wants to mark devices discontinued and hide them from the
 catalog."*
@@ -243,7 +260,7 @@ add-a-line PR — a light callback to the Seg 5 scope-creep lesson; warn them no
 it in. If short on time and they skipped the catalog branch in Seg 5, they still saw the full
 flow in the demo.
 
-## Segment 7 — Code Review Using Copilot (10 min)
+## Segment 7 — Code Review Using Copilot (15 min)
 
 **Scenario:** *"Reviews pile up and go shallow."*
 **Background:** start with PR basics (diff in **Files changed**, inline comments, CI). Copilot
@@ -269,11 +286,22 @@ reviews the diff; it never bypasses branch protection or required approvals.
 
 ---
 
-## Wrap-up (buffer)
+## Wrap-up & take-home (10 min)
 
 Recap the safe-change loop: **instructions → prompt → impact analysis → test-first →
-branch → PR → review.** Point attendees to the prompts/skills in `.github/` as
-reusable assets to take back to their own repos.
+branch → PR → review.** Then land it as a take-home, not just a summary:
+
+- **Reflect (2 min).** Ask the three questions from the handout out loud; take one or two
+  answers. Which practice saves the most time? Where would an instruction/prompt kill
+  repeated effort? Which shared contract would they de-risk with impact analysis?
+- **Takeaways (3 min).** Walk the 8-lesson takeaways table — one line each, tie each back to
+  the thing they actually did today.
+- **Next steps (3 min).** This week / this month / this quarter. Make it concrete: add
+  `copilot-instructions.md` to a real repo *this week*.
+- **Close (2 min).** This is Workshop 1 of 3 — Workshops 2 and 3 build on these assets, so
+  keep the `.github/` library. Point to Resources in the handout.
+
+Keep it tight — this is a fixed 10-min bookend, not spillover buffer.
 
 ## Fallbacks & recovery
 

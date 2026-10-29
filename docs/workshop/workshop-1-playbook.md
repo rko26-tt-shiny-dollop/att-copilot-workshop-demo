@@ -46,7 +46,21 @@ build toward is one repeatable loop:
 
 ---
 
-## 0. Copilot basics recap in VS Code (~25 min)
+## Before we start — setup check (~5 min)
+
+A quick "everyone green?" gate — not a re-run of the pre-work. Confirm you have:
+
+- `make dev` serving the API on **http://localhost:3000** and the console on
+  **http://localhost:5137**,
+- the **Copilot** and **Copilot Chat** extensions signed in,
+- the repo cloned and on `main`, with `make test` green (**3 skipped** is expected).
+
+If something's off, flag it now and pair with a neighbor so we can start on time — we
+sort out individual laptops on the side, not in front of the room.
+
+---
+
+## 0. Copilot basics recap in VS Code (~10 min)
 
 **Scenario:** A new engineer joins the activation team. Before they touch the
 service, everyone needs to agree on *how* we use Copilot — which surface for which
@@ -291,7 +305,7 @@ team assets and work out of the box in current VS Code.
 
 ---
 
-## 2. Skills (~15 min)
+## 2. Skills (~10 min)
 
 **Scenario:** The rules for a valid IMEI/ICCID (length + Luhn check) are easy to get
 wrong, and new hires keep hand-rolling them. Teach Copilot the rule once.
@@ -331,7 +345,7 @@ Luhn rules; we also ship `api-endpoint`.
 
 ---
 
-## 3. Impact analysis (~15 min)
+## 3. Impact analysis (~10 min)
 
 **Scenario:** Product wants to mark devices as discontinued and hide them from the
 catalog. Before anyone writes code, you need to know what that touches.
@@ -624,7 +638,7 @@ arrives in a consistent, reviewable shape.
 
 ---
 
-## 7. Code Review Using Copilot (~10 min)
+## 7. Code Review Using Copilot (~15 min)
 
 **Scenario:** Reviews pile up and get shallow. Use Copilot as a fast first-pass
 reviewer — on your diff in VS Code and on the PR on GitHub.com — then keep a human
@@ -679,9 +693,45 @@ multiplier, not a replacement for judgment.
 
 ---
 
-## The loop to take home
+## Wrap-up & take-home (~10 min)
 
-**instructions → prompt → impact analysis → test-first → branch → PR → review.**
+**The loop:** **instructions → prompt → impact analysis → test-first → branch → PR → review.**
+Everything today was one pass around it. The prompts, skills, and instructions in `.github/`
+are reusable team assets — copy the patterns into your own repos and adapt them to your domain.
 
-The prompts and skills in `.github/` are reusable team assets — copy the pattern into
-your own repos and adapt them to your domain.
+### Reflect
+
+- Which practice from today would save you the most time on your current work?
+- Where could a custom instruction or reusable prompt remove repeated effort on your team?
+- What shared contract (an API or schema) would you de-risk with impact analysis next time?
+
+### Key takeaways
+
+| Lesson | Takeaway |
+|--------|----------|
+| Custom instructions | Encode team standards once; every prompt inherits them. |
+| Reusable prompts | Capture repeatable workflows as shared `/`-commands. |
+| Skills | Package domain logic + data so Copilot applies it consistently. |
+| Impact analysis | Map the blast radius before changing a shared contract. |
+| Acceptance-test-first | Write the contract as tests first; red → green keeps scope honest. |
+| Branch-based build | One feature per branch stays isolated and reviewable. |
+| PR standards | Small, tested, well-described PRs earn a reviewer's trust. |
+| Code review with Copilot | An AI first pass catches more, faster — a human still owns the merge. |
+
+### Next steps
+
+- **This week:** add a `.github/copilot-instructions.md` to one real repo, and capture one
+  workflow you repeat as a reusable prompt.
+- **This month:** build a skill for a recurring domain task, and adopt acceptance-test-first
+  on one feature — with `/pr-description` + a Copilot review on the PR.
+- **This quarter:** grow a shared `.github/` library (instructions, prompts, skills) for your
+  team, and start measuring the impact on your delivery.
+
+This is **Workshop 1 of 3** — Workshops 2 and 3 build directly on what you set up today, so
+keep these assets around.
+
+### Resources
+
+- [GitHub Copilot docs](https://docs.github.com/en/copilot)
+- [VS Code Copilot customization](https://code.visualstudio.com/docs/copilot/copilot-customization) — custom instructions and prompt files
+- [awesome-copilot](https://github.com/github/awesome-copilot) — community prompts, instructions, and skills
