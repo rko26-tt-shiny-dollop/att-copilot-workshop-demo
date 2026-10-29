@@ -55,8 +55,8 @@ A quick "everyone green?" gate — not a re-run of the pre-work. Confirm you hav
 - the **Copilot** and **Copilot Chat** extensions signed in,
 - the repo cloned and on `main`, with `make test` green (**3 skipped** is expected).
 
-If something's off, flag it now and pair with a neighbor so we can start on time — we
-sort out individual laptops on the side, not in front of the room.
+If something's off, flag it in the chat now so we can start on time — we'll troubleshoot
+individual setups in a breakout room or offline, rather than holding up the group.
 
 ---
 

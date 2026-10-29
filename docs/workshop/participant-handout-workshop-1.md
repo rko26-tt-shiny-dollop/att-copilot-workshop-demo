@@ -28,8 +28,8 @@ there if you finish early.
 
 > Confirm before we start: `make dev` serves the API on **:3000** and the console on
 > **:5137**, the **Copilot** and **Copilot Chat** extensions are signed in, and the repo is
-> on `main` with `make test` green (**3 skipped** is expected). Stuck? Pair with a neighbor —
-> we sort out individual laptops on the side, not in front of the room.
+> on `main` with `make test` green (**3 skipped** is expected). Stuck? Flag it in the chat —
+> we'll sort individual setups in a breakout room or offline, not hold up the group.
 
 ---
 

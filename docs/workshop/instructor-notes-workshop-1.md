@@ -54,7 +54,7 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 
 | Seg | Topic | Time | Anchor in this repo | You demo | They do |
 |-----|-------|------|---------------------|----------|---------|
-| — | **Setup check** | 5 | `make dev`, `make test` | confirm :3000/:5137, extensions signed in, suite green | fix env or pair up |
+| — | **Setup check** | 5 | `make dev`, `make test` | confirm :3000/:5137, extensions signed in, suite green | confirm green in chat, or flag a blocker |
 | 0 | Basics recap (surfaces, prompting, instructions, Agent) | 10 | app + `.github/copilot-instructions.md` | all of 0a–0d | tour, prompt rewrite, entity chain, Agent self-verify loop |
 | 1 | Reusable prompts | 15 | `.github/prompts/*.prompt.md` | `/scaffold-endpoint` | scaffold a new entity (full chain) |
 | 2 | Skills | 10 | `.github/skills/*` | identifier skill + bundled TAC data | validate & identify an IMEI |
@@ -71,17 +71,17 @@ are fixed bookends.
 
 ---
 
-## Setup check (5 min, in room)
+## Setup check (5 min, remote)
 
-An "everyone green?" gate before content — not a re-teach of the pre-work. Project the
-checklist and have people self-confirm:
+An "everyone green?" gate before content — not a re-teach of the pre-work. Share the
+checklist on screen and have people self-confirm:
 
 - `make dev` serves the API on **:3000** and the console on **:5137**,
 - the **Copilot** and **Copilot Chat** extensions are signed in,
 - the repo is cloned and on `main`, `make test` green (**3 skipped** expected).
 
-Stragglers pair with a neighbor; don't debug one laptop in front of the room (see Fallbacks).
-Start Segment 0 on time regardless.
+Ask people to confirm green in the chat; anyone blocked goes to a breakout room or offline
+help, rather than holding up the call (see Fallbacks). Start Segment 0 on time regardless.
 
 ---
 
@@ -305,8 +305,8 @@ Keep it tight — this is a fixed 10-min bookend, not spillover buffer.
 
 ## Fallbacks & recovery
 
-- **Someone's build is broken:** have them follow along against `main` / PR #1; don't
-  debug one laptop in front of the room.
+- **Someone's build is broken:** have them follow along against `main` / PR #1; move them
+  to a breakout room or offline help instead of debugging one setup on the main call.
 - **Network/model hiccup:** prompts, skills, and tests run locally; keep moving with
   `make test` / `make build` as ground truth.
 - **Ahead of schedule:** add the handout **Stretch** items (prompt self-critique,
