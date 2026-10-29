@@ -17,6 +17,9 @@ standards, and Copilot review.
 - **`frontend/`** — React + Vite + Tailwind console (catalog, plans, subscribers,
   orders, provisioning).
 - **`.github/`** — `copilot-instructions.md`, reusable **prompts**, and **skills**.
+  Lesson 3 uses the report-only
+  [`impact-analysis` skill](.github/skills/impact-analysis/SKILL.md) to assess changes
+  before implementation.
 - **`docs/`** — workshop participant handout, instructor notes, participant setup,
   PR standards, and the Add-a-Line design mockup.
 

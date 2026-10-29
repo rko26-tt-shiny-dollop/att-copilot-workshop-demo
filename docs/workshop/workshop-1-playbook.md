@@ -38,7 +38,7 @@ shared baseline, then make a real, well-tested change — an **Add-a-Line / serv
 cart** feature — safely, from idea to reviewed pull request. The throughline we'll
 build toward is one repeatable loop:
 
-> **instructions → prompt → impact analysis → test-first → branch → PR → review.**
+> **instructions → prompt → impact-analysis skill → test-first → branch → PR → review.**
 
 **Before you start:** complete `docs/workshop/participant-setup.md` and confirm
 `make dev` serves the API on **http://localhost:3000** and the console on
@@ -311,7 +311,7 @@ team assets and work out of the box in current VS Code.
 wrong, and new hires keep hand-rolling them. Teach Copilot the rule once.
 
 **Background:** Agent skills (`.github/skills/*/SKILL.md`) package reusable,
-domain-specific know-how that Copilot loads on demand — and a skill can **ship its own
+domain-specific know-how that Copilot can load on demand — and a skill can **ship its own
 data**, not just instructions. Our `identifier-validator` skill bundles a
 `data/tac-reference.csv` lookup table (TAC → device make/model) alongside its IMEI/ICCID
 Luhn rules; we also ship `api-endpoint`.
@@ -350,35 +350,53 @@ Luhn rules; we also ship `api-endpoint`.
 **Scenario:** Product wants to mark devices as discontinued and hide them from the
 catalog. Before anyone writes code, you need to know what that touches.
 
-**Background:** Looking before you leap — mapping the blast radius — is the cheapest
-place to catch a wrong turn.
+**Background:** Lesson 2 packaged domain know-how and TAC data; now a skill packages a
+reusable **engineering procedure**. Open
+[`.github/skills/impact-analysis/SKILL.md`](../../.github/skills/impact-analysis/SKILL.md):
+it maps the blast radius before coding. Copilot can discover the skill by its name and
+description and load its instructions on demand — unlike always-on repository
+instructions. Selection isn't guaranteed, so we'll explicitly name the skill.
 
 #### ▶️ Example (follow along)
 
-> Run the impact-analysis prompt on a Device `status` change:
+> In a fresh **Agent** chat, use the skill to assess a Device `status` change:
 >
 > ```text
-> /impact-analysis Add a status field to Device (active/discontinued) and hide discontinued devices from the catalog.
+> Use the impact-analysis skill to assess adding a status field to Device (active/discontinued) and hiding discontinued devices from the catalog. Report only; do not edit files or implement the change.
 > ```
 >
-> Read the report: which models, seed data, routes, Swagger, front-end types/pages, and
-> tests are affected.
+> **Check skill use:** inspect available tool activity for loading or reading
+> `.github/skills/impact-analysis/SKILL.md`, as described in
+> [VS Code's skill verification guidance](https://code.visualstudio.com/docs/agent-customization/agent-skills#_verify-a-skill).
+> If that evidence isn't visible, don't claim loading was verified; attach the file and
+> explicitly ask Copilot to read and follow it before rerunning. Matching report headings
+> alone aren't proof.
+>
+> Read the six areas: **entry points; downstream dependencies; data & contract
+> changes; validation & edge cases; test surface; risk & rollback**. Check its file
+> references against the code, including Swagger and front-end types/pages where
+> relevant, and distinguish evidence from assumptions.
+>
+> **Boundary:** report-only is an instruction, not a read-only sandbox. Stop unexpected
+> edits; don't continue into implementation.
 
 #### 🧑‍💻 Participant Exercise
 
-> Run it on a *different* change:
+> Apply the same skill to a broader relationship change, in a fresh **Agent** chat:
 >
 > ```text
-> /impact-analysis Let a subscriber have more than one active line, each with its own rate plan.
+> Use the impact-analysis skill to assess letting a subscriber have more than one active line, each with its own rate plan. Identify what is already supported and what would need to change. Report only; do not edit files or implement the change.
 > ```
 >
-> Read the radius it maps. **Done when** you have an ordered implementation plan and know
-> which tests you'd touch — without having written any code yet.
+> Check skill use as above, then compare the wider impact with the Device demo.
+> **Done when** you have a code-grounded report, a short ordered implementation plan,
+> and know which existing tests cover the behavior and which tests you'd add or change —
+> without having written any code or changed files.
 >
 > **Go further:**
 >
 > ```text
-> Which step in your plan carries the most risk, and why?
+> Using the impact-analysis skill and the report above, which step in the plan carries the most risk, and why? What test would reduce that risk, and how would you roll it back? Report only; do not edit files.
 > ```
 
 ---
@@ -776,7 +794,7 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 
 ## Wrap-up & take-home (~10 min)
 
-**The loop:** **instructions → prompt → impact analysis → test-first → branch → PR → review.**
+**The loop:** **instructions → prompt → impact-analysis skill → test-first → branch → PR → review.**
 Everything today was one pass around it. The prompts, skills, and instructions in `.github/`
 are reusable team assets — copy the patterns into your own repos and adapt them to your domain.
 
@@ -792,8 +810,8 @@ are reusable team assets — copy the patterns into your own repos and adapt the
 |--------|----------|
 | Custom instructions | Encode team standards once; every prompt inherits them. |
 | Reusable prompts | Capture repeatable workflows as shared `/`-commands. |
-| Skills | Package domain logic + data so Copilot applies it consistently. |
-| Impact analysis | Map the blast radius before changing a shared contract. |
+| Skills | Package domain know-how, data, or procedures for on-demand use. |
+| Impact analysis | Use the `impact-analysis` skill to map the blast radius and plan before editing. |
 | Acceptance-test-first | Write the contract as tests first; red → green keeps scope honest. |
 | Branch-based build | One feature per branch stays isolated and reviewable. |
 | PR standards | Small, tested, well-described PRs earn a reviewer's trust. |

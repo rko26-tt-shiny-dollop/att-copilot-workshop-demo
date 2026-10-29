@@ -167,7 +167,7 @@ data. No setup required.
 > wrong, and new hires keep hand-rolling them. Teach Copilot the rule once.
 >
 > **Background:** Agent skills (`.github/skills/*/SKILL.md`) package reusable,
-> domain-specific know-how that Copilot loads on demand — and a skill can **ship its own
+> domain-specific know-how that Copilot can load on demand — and a skill can **ship its own
 > data**, not just instructions. Our `identifier-validator` bundles a
 > `data/tac-reference.csv` lookup table (TAC → device) next to its IMEI/ICCID Luhn
 > rules; we also ship `api-endpoint`.
@@ -188,16 +188,44 @@ data. No setup required.
 > **Scenario:** Product wants to mark devices as discontinued and hide them from the
 > catalog. Before anyone writes code, you need to know what that touches.
 >
-> **Background:** Looking before you leap — mapping the blast radius — is the cheapest
-> place to catch a wrong turn.
+> **Background:** Lesson 2 packaged domain know-how and TAC data. Now
+> [`.github/skills/impact-analysis/SKILL.md`](../../.github/skills/impact-analysis/SKILL.md)
+> packages an engineering procedure: inspect the code, map the impact, then plan.
+> Skills are discovered by name and description and applied on demand, not always-on
+> repository instructions. Automatic selection isn't guaranteed; name the skill.
 
-> **You try:** Run `/impact-analysis` for: *"Add a `status` field to Device
-> (active/discontinued) and hide discontinued devices from the catalog."* Read the
-> report: which models, seed data, routes, Swagger, front-end types/pages, and tests
-> are affected?
+> **Example:** In a fresh **Agent** chat:
 >
-> **Done when:** you have an ordered implementation plan and know which tests you'd
-> touch — without having written any code yet.
+> ```text
+> Use the impact-analysis skill to assess adding a status field to Device (active/discontinued) and hiding discontinued devices from the catalog. Report only; do not edit files or implement the change.
+> ```
+>
+> **Check skill use:** look for loading or reading the skill's `SKILL.md` in available
+> tool activity ([VS Code guidance](https://code.visualstudio.com/docs/agent-customization/agent-skills#_verify-a-skill)).
+> If that evidence isn't visible, don't claim loading was verified; attach the file and
+> ask Copilot to read and follow it before rerunning. Matching headings alone aren't proof.
+>
+> Read the six areas: **entry points; downstream dependencies; data & contract changes;
+> validation & edge cases; test surface; risk & rollback**. Check file references
+> against the code and distinguish evidence from assumptions.
+
+> **You try:** Apply the same skill to a broader relationship change in a fresh
+> **Agent** chat, then compare its impact with the Device demo:
+>
+> ```text
+> Use the impact-analysis skill to assess letting a subscriber have more than one active line, each with its own rate plan. Identify what is already supported and what would need to change. Report only; do not edit files or implement the change.
+> ```
+>
+> **Done when:** you've checked skill use as above and have a code-grounded report,
+> a short ordered implementation plan, and know which existing tests cover the behavior
+> and which tests you'd add or change — with no code written or files changed.
+> Report-only is an instruction, not a read-only sandbox; stop unexpected edits.
+>
+> **Stretch:**
+>
+> ```text
+> Using the impact-analysis skill and the report above, which step in the plan carries the most risk, and why? What test would reduce that risk, and how would you roll it back? Report only; do not edit files.
+> ```
 
 ---
 
@@ -358,7 +386,7 @@ Review `docs/design/add-a-line.png` for the target.
 
 ## Wrap-up & take-home (~10 min)
 
-> **The loop:** **instructions → prompt → impact analysis → test-first → branch → PR → review.**
+> **The loop:** **instructions → prompt → impact-analysis skill → test-first → branch → PR → review.**
 > The prompts, skills, and instructions in `.github/` are reusable team assets — copy them into
 > your own repos.
 
@@ -372,8 +400,8 @@ analysis next?
 |--------|----------|
 | Custom instructions | Encode team standards once; every prompt inherits them. |
 | Reusable prompts | Capture repeatable workflows as shared `/`-commands. |
-| Skills | Package domain logic + data so Copilot applies it consistently. |
-| Impact analysis | Map the blast radius before changing a shared contract. |
+| Skills | Package domain know-how, data, or procedures for on-demand use. |
+| Impact analysis | Use the `impact-analysis` skill to map the blast radius and plan before editing. |
 | Acceptance-test-first | Write the contract as tests first; red → green keeps scope honest. |
 | Branch-based build | One feature per branch stays isolated and reviewable. |
 | PR standards | Small, tested, well-described PRs earn a reviewer's trust. |

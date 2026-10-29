@@ -58,7 +58,7 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 | 0 | Basics recap (surfaces, prompting, instructions, Agent) | 10 | app + `.github/copilot-instructions.md` | all of 0a–0d | tour, prompt rewrite, entity chain, Agent self-verify loop |
 | 1 | Reusable prompts | 15 | `.github/prompts/*.prompt.md` | `/scaffold-endpoint` | scaffold a new entity (full chain) |
 | 2 | Skills | 10 | `.github/skills/*` | identifier skill + bundled TAC data | validate & identify an IMEI |
-| 3 | Impact analysis | 10 | `impact-analysis.prompt.md` | run on Device.status | run it themselves |
+| 3 | Impact analysis | 10 | `.github/skills/impact-analysis/SKILL.md` | assess Device.status with the skill | assess subscriber multi-line impact; no edits |
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
 | 5 | Branch-based build | 15 | Add-a-Line + `Navigation.tsx` | plan + badge wiring | build the page |
 | 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | open the **catalog** PR (`/pr-description` + agent-run `gh pr create`) | customize `/pr-description`, then open + audit their **add-a-line** PR |
@@ -151,14 +151,15 @@ edits outside `api/`, remind them the prompt scopes to `api/`.
 ## Segment 2 — Skills (10 min)
 
 **Scenario:** *"New hires keep hand-rolling IMEI/ICCID checks and getting them wrong."*
-**Background:** skills package domain knowledge the agent loads on demand — including
+**Background:** skills package domain knowledge the agent can load on demand — including
 **bundled data**, not just prose. `identifier-validator` ships a
 `data/tac-reference.csv` (TAC → device) alongside its Luhn rules.
 **Demo:** *"Is IMEI 352090081234564 valid, and what device is it?"* — it runs the Luhn
 check **and** resolves TAC `35209008` → Apple iPhone 15 from the CSV. Open
 `identifier-validator/SKILL.md` and the `data/` folder to show where that came from.
 **Teaching line:** *instructions = always-on; prompt file = an action you invoke;
-skill = domain knowledge (and data) loaded when relevant.*
+skill = domain know-how, data, or a procedure loaded on demand. You can request a
+skill by name; automatic selection isn't guaranteed.*
 **Pitfall:** someone will hand-make an invalid IMEI, or use a TAC not in the table — use
 it to show the validator catching the bad check digit and the skill saying "not in the
 table" instead of guessing (ties into Segment 4 / the activation route).
@@ -167,11 +168,38 @@ table" instead of guessing (ties into Segment 4 / the activation route).
 
 **Scenario:** *"Product wants to mark devices discontinued and hide them from the
 catalog."*
-**Background:** mapping blast radius before coding is the cheapest place to catch a
-wrong turn.
-**Demo:** `/impact-analysis` on the Device `status` change. Read the radius: model,
-seed, store, route, Swagger, front-end types/pages, tests.
-**Pitfall:** don't let it start implementing — analysis only.
+**Background:** Lesson 2 used domain rules + TAC data; this skill packages a reusable
+engineering procedure. Open
+[`.github/skills/impact-analysis/SKILL.md`](../../.github/skills/impact-analysis/SKILL.md).
+Show the discovery metadata (`name`, `description`) and the report-only procedure.
+The body loads on demand, not on every request. Name the skill explicitly rather than
+counting on automatic selection.
+**Demo (~4 min):** use the playbook's Example in a fresh **Agent** chat:
+
+```text
+Use the impact-analysis skill to assess adding a status field to Device (active/discontinued) and hiding discontinued devices from the catalog. Report only; do not edit files or implement the change.
+```
+
+Check available tool activity for loading or reading that exact `SKILL.md`
+([VS Code verification guidance](https://code.visualstudio.com/docs/agent-customization/agent-skills#_verify-a-skill)).
+If no such evidence is exposed, say loading wasn't verified; attach the file and ask
+Copilot to read and follow it before rerunning. Report shape isn't proof of loading.
+Read the six areas: entry points; downstream dependencies; data & contract changes;
+validation & edge cases; test surface; risk & rollback. Check cited code rather than
+assuming model, seed, store, routes, Swagger, front-end types/pages, and tests all
+need changes. Keep confirmed impact distinct from unknowns.
+**They do (~5 min):** extend the demo to subscriber relationships in a fresh **Agent** chat:
+
+```text
+Use the impact-analysis skill to assess letting a subscriber have more than one active line, each with its own rate plan. Identify what is already supported and what would need to change. Report only; do not edit files or implement the change.
+```
+
+Success = a code-grounded report, short ordered plan, and existing/new test surface
+with no implementation or edits. Don't assume multi-line support is absent.
+**Debrief (~1 min):** compare the impact; use the playbook's risk/test/rollback follow-up
+if time permits. The procedure is reusable; the code evidence changes with the request.
+**Pitfall:** report-only is a procedural boundary, not a permission restriction.
+Stop unexpected edits; do not hand off to implementation in this segment.
 
 ## Segment 4 — Acceptance-test-first (20 min) — CRITICAL PATH
 
@@ -295,7 +323,7 @@ reviews the diff; it never bypasses branch protection or required approvals.
 
 ## Wrap-up & take-home (10 min)
 
-Recap the safe-change loop: **instructions → prompt → impact analysis → test-first →
+Recap the safe-change loop: **instructions → prompt → impact-analysis skill → test-first →
 branch → PR → review.** Then land it as a take-home, not just a summary:
 
 - **Reflect (2 min).** Ask the three questions from the handout out loud; take one or two
