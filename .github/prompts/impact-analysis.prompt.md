@@ -1,4 +1,5 @@
 ---
+name: impact-analysis
 agent: agent
 description: Analyze the blast radius of a proposed change before implementing it.
 ---

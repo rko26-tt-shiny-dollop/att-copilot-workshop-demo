@@ -1,4 +1,5 @@
 ---
+name: scaffold-endpoint
 agent: agent
 description: Scaffold a new REST endpoint following the repo's API conventions.
 ---

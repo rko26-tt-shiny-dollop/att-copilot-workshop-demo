@@ -60,7 +60,7 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 | 3 | Impact analysis | 15 | `impact-analysis.prompt.md` | run on Device.status | run it themselves |
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
 | 5 | Branch-based build | 15 | Add-a-Line + `Navigation.tsx` | plan + badge wiring | build the page |
-| 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | `/pr-description` | open their PR |
+| 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | `/pr-description` + agent-run `gh pr create` | audit their PR |
 | 7 | Copilot review | 10 | PR #1 | review on PR #1 | review their PR |
 
 Buffer lives in Segments 1–3. **Critical path is Segment 4** (cart API). If behind,
@@ -224,9 +224,13 @@ work gets its own branch.
 
 **Scenario:** *"Your change is ready; make it easy for a reviewer to trust."*
 **Background:** the repo ships a PR template + written standards for consistency.
-**Demo:** `/pr-description` from the diff; open a PR; show the template auto-fill and
-walk `docs/PR-STANDARDS.md` (small scope, tests, Swagger, checklist).
-**They do:** open their own PR.
+**Setup:** continue on `feat/catalog-filter`; have them commit + push the catalog work first.
+**Demo:** `/pr-description` from the diff, then — in the same chat — have Copilot open the
+PR using that draft as the body (it runs `gh pr create`; review before approving; let it
+pick a conventional-commit title). Show the template applied; walk `docs/PR-STANDARDS.md`
+(small scope, tests, Swagger, checklist). Note: `--fill` would use commit messages, not the
+generated draft.
+**They do:** self-audit their catalog-filter PR against PR-STANDARDS and fix gaps.
 
 ## Segment 7 — Copilot review (10 min)
 

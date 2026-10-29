@@ -295,10 +295,17 @@ Review `docs/design/add-a-line.png` for the target.
 > **Background:** The repo ships a PR template and written standards so every PR
 > arrives in a consistent, reviewable shape.
 
-> **You try:** Run `/pr-description` to draft the description from your diff, then open
-> a PR (`gh pr create` or the GitHub UI). The template
-> (`.github/pull_request_template.md`) auto-populates. Check your PR against
+> **Continue on `feat/catalog-filter`.** First commit and push your work:
+> `git add -A && git commit -m "Add device catalog category filter" && git push -u origin feat/catalog-filter`.
+>
+> **You try:** Run `/pr-description` to draft the description from your diff. Then, in the
+> **same chat**, ask Copilot to open the PR using that draft as the body — it runs
+> `gh pr create` for you (review before approving; let it pick a conventional-commit title).
+> The template (`.github/pull_request_template.md`) is applied. Check your PR against
 > `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
+>
+> *(`gh pr create --fill` fills the body from commit messages, not the `/pr-description`
+> draft.)*
 >
 > **Done when:** build/lint/tests pass and your PR reads cleanly to a reviewer.
 

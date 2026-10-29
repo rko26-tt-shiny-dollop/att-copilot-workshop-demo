@@ -562,26 +562,39 @@ arrives in a consistent, reviewable shape.
 
 #### ▶️ Example (follow along)
 
+> You'll continue on the `feat/catalog-filter` branch from Section 5. First, commit and
+> push your work so the PR has something to show:
+>
+> ```bash
+> git add -A && git commit -m "Add device catalog category filter"
+> git push -u origin feat/catalog-filter
+> ```
+>
 > Draft the description from the diff:
 >
 > ```text
 > /pr-description
 > ```
 >
-> Open a PR so the template (`.github/pull_request_template.md`) auto-populates:
+> Then, in the **same chat**, have Copilot open the PR using that draft as the body:
 >
-> ```bash
-> gh pr create --fill
+> ```text
+> Open a pull request for this branch using the description you just generated as the body. Choose a concise, conventional-commit-style title.
 > ```
 >
-> Check it against `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
+> Copilot runs `gh pr create` for you (review the command before you approve it), and the
+> template (`.github/pull_request_template.md`) is applied. Check the result against
+> `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
+>
+> *(Why not `gh pr create --fill`? `--fill` populates the body from your **commit
+> messages**, not the `/pr-description` draft — fine for a quick PR, but it won't use the
+> richer description you just generated.)*
 
 #### 🧑‍💻 Participant Exercise
 
-> Open your own PR for your Add-a-Line work the same way. Then go further: self-audit it
-> against `docs/PR-STANDARDS.md` line by line and fix anything that falls short before
-> requesting review. **Done when** build/lint/tests pass and your PR reads cleanly to a
-> reviewer.
+> Self-audit the PR you just opened against `docs/PR-STANDARDS.md` line by line, and fix
+> anything that falls short before requesting review. **Done when** build/lint/tests pass
+> and your PR reads cleanly to a reviewer.
 
 ---
 

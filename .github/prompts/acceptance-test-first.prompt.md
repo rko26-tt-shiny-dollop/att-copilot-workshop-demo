@@ -1,4 +1,5 @@
 ---
+name: acceptance-test-first
 agent: agent
 description: Drive a change acceptance-test-first (red → green → refactor).
 ---
