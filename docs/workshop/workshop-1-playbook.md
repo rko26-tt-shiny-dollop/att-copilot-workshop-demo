@@ -362,7 +362,7 @@ let the skill supply the procedure rather than spelling it out in every prompt.
 > a skill:
 >
 > ```text
-> Product wants to add a status field to Device (active/discontinued) and hide discontinued devices from the catalog. Before we implement this, assess the impact across this codebase: what would be affected and what could break? Report only; do not edit files.
+> Product wants to add a status field to Device (active/discontinued) and hide discontinued devices from the catalog. Assess the impact on this application before we implement anything. Do not edit files.
 > ```
 >
 > **Check discovery:** inspect available tool activity for loading or reading
@@ -391,7 +391,7 @@ let the skill supply the procedure rather than spelling it out in every prompt.
 > naming or attaching a skill:
 >
 > ```text
-> We want subscribers to have multiple active lines, each with its own rate plan. Before we commit to the change, assess what the code already supports, what would need to change, and the regression risks. Report only; do not edit files.
+> Product wants subscribers to have multiple active lines, each with its own rate plan. Assess the impact on this application before we implement anything. Do not edit files.
 > ```
 >
 > Check discovery as above, then compare the impact with the Device example.
