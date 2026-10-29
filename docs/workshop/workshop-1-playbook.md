@@ -585,10 +585,6 @@ arrives in a consistent, reviewable shape.
 > Copilot runs `gh pr create` for you (review the command before you approve it), and the
 > template (`.github/pull_request_template.md`) is applied. Check the result against
 > `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
->
-> *(Why not `gh pr create --fill`? `--fill` populates the body from your **commit
-> messages**, not the `/pr-description` draft — fine for a quick PR, but it won't use the
-> richer description you just generated.)*
 
 #### 🧑‍💻 Participant Exercise
 

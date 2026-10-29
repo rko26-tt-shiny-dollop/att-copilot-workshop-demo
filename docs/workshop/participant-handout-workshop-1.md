@@ -304,9 +304,6 @@ Review `docs/design/add-a-line.png` for the target.
 > The template (`.github/pull_request_template.md`) is applied. Check your PR against
 > `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
 >
-> *(`gh pr create --fill` fills the body from commit messages, not the `/pr-description`
-> draft.)*
->
 > **Done when:** build/lint/tests pass and your PR reads cleanly to a reviewer.
 
 ---
