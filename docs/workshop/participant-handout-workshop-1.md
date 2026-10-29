@@ -328,42 +328,31 @@ Review `docs/design/add-a-line.png` for the target.
 
 ## 7. Code Review Using Copilot (~15 min)
 
-> **Scenario:** Reviews pile up and get shallow. Use Copilot as a fast first-pass
-> reviewer — on your diff in VS Code and on the PR on GitHub.com — then keep a human
-> accountable for the final call.
+> **Review → evaluate → fix.** Inspect the diff, investigate findings, and check CI.
+> A human owns the decision; a review with no findings can be valid.
 >
-> **Background:** Start with PR basics — read the **diff** in **Files changed**, leave
-> **inline comments** on specific lines, check **CI**. Copilot adds two review surfaces:
-> a **chat review** in VS Code and **Copilot code review** on GitHub.com, both reading
-> your changes with repository context, including supported custom instructions. A force multiplier, not a
-> replacement for judgment.
-
-> **Follow along — a controlled convention check:** on the `feat/catalog-filter` PR
-> from Lesson 6, compare an initial review with a second review after deliberately adding
-> `any` and ad-hoc CSS. Use [Lesson 7 in the playbook](workshop-1-playbook.md#7-code-review-using-copilot-15-min)
-> for the repo-root `instruction-demo.patch` commands, clean-state checks, manual fallback
-> for different generated code, and correction commit. Never force a failed patch check
-> or stage the local Lesson 6 prompt edit. A review with no findings can be valid; a generic `any`
-> warning alone does not prove instruction influence. Fix both violations and push
-> corrections before moving on. If you skipped the catalog branch, watch the example
-> rather than applying the patch to Add-a-Line.
->
-> **You try — return to `feat/add-a-line` and review your own Add-a-Line PR, two ways:**
+> **You try — check out `feat/add-a-line` and review your actual Add-a-Line PR:**
 > 1. **Chat review (VS Code):** on your branch, ask Copilot Chat to *"review the changes on
 >    this branch for correctness, missing tests, and unintended changes; cite file and line."*
 > 2. **Copilot code review (GitHub.com):** under **Reviewers**, request a review from
->    **Copilot**. Pick the **effort** (**Lite** = quick; **Balanced** = deeper — use it here,
->    the change crosses UI, cart state, and tests). You get a PR overview plus inline comments
->    tagged **High / Med / Low** severity (severity prioritizes; it isn't an approval).
-> 3. **Implement + triage:** for a suggestion, **Commit suggestion**; for more, fix in VS Code
->    and push; if CI fails, read the log, fix, push. Resolve each thread; dismiss noise with a
->    short reason. Copilot leaves *comments*, not an approval.
+>    **Copilot** on your PR. Unlike chat's checked-out branch, this surface reviews the
+>    PR diff; the playbook's reference PR example may show a different diff.
+> 3. **Evaluate + fix:** investigate findings, fix valid issues, run relevant checks,
+>    and push. Resolve addressed threads; explain dismissed findings.
 >
-> A reference PR already exists to practice on:
-> [#1 — provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1).
+> **Discussion fallback:** read existing feedback on the original repository's
+> [PR #4](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/4).
+> Open the link directly; forks and clones don't copy PRs. Evaluate the comments rather
+> than assuming they are verified bugs or requesting another review.
 >
 > **Done when:** every thread is resolved or consciously dismissed, CI is green, and a human
 > (you) has made the final call.
+
+> **Optional extension, not part of the 15-minute core:** the playbook's
+> [Backup Copilot Code Review Example](workshop-1-playbook.md#backup-copilot-code-review-example-optional)
+> uses `instruction-demo.patch` on `feat/catalog-filter` to explore convention influence.
+> Follow its safe application/fallback and cleanup steps only if doing that extension;
+> fix both intentional violations before merging.
 
 ---
 

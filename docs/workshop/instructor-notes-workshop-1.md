@@ -62,7 +62,7 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
 | 5 | Branch-based build | 15 | Add-a-Line + `Navigation.tsx` | plan + badge wiring | build the page |
 | 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | open the **catalog** PR (`/pr-description` + agent-run `gh pr create`) | customize `/pr-description`, then open + audit their **add-a-line** PR |
-| 7 | Code Review Using Copilot | 15 | PR #1 | PR basics + chat & GitHub.com review on PR #1 | review their add-a-line PR (chat + GitHub.com), triage |
+| 7 | Code Review Using Copilot | 15 | checked-out branch + PR #1; PR #4 feedback fallback | distinguish chat/PR review, evaluate findings, fix | review their actual add-a-line PR, investigate and fix valid feedback |
 | — | **Wrap-up & take-home** | 10 | — | loop recap, takeaways, next steps | reflect; note next steps |
 
 Buffer is thin now that Segments 2–3 run 10 min each. **Critical path is Segment 4**
@@ -262,36 +262,29 @@ flow in the demo.
 
 ## Segment 7 — Code Review Using Copilot (15 min)
 
-**Scenario:** *"Reviews pile up and go shallow."*
-**Background:** start with PR basics (diff in **Files changed**, inline comments, CI). Copilot
-adds two review surfaces — a VS Code **chat review** and **Copilot code review** on GitHub.com
-— both using repository context, including supported custom instructions. A human still owns the final call;
-Copilot submits *comments*, not an approval.
+**Core: review → evaluate → fix.** Inspect the diff, investigate findings, and check CI.
+A human owns the decision; no findings can be a valid result.
 **Demo:**
-- **PR basics:** on **PR #1**, walk Files changed, leave an inline comment, show the CI/merge box.
-- **Chat review (VS Code):** on a feature branch, ask Copilot Chat to review the branch's
-  changes (correctness, missing tests, unintended changes; cite file + line). Compare to your
-  own read.
-- **Copilot code review (GitHub.com):** on **PR #1**, request a review from **Copilot**; show
-  the **effort** toggle (Lite vs Balanced) and per-finding **severity** (High/Med/Low). Validate
-  before acting — severity prioritizes, it doesn't approve.
-- **Implementing fixes:** Commit suggestion for small ones; fix-in-VS-Code-and-push for larger;
-  if CI is red, open the log and push a fix. Resolve threads as you go.
-PR #1 (pre-made, green, self-contained) keeps live material even if an attendee's PR isn't ready.
-- **Controlled convention check:** use the `feat/catalog-filter` PR opened in Segment 6.
-  Follow the [playbook's Lesson 7](workshop-1-playbook.md#7-code-review-using-copilot-15-min)
-  to compare an initial review with another review after applying repo-root
-  `instruction-demo.patch`. It deliberately adds explicit `any` and ad-hoc CSS. Verify
-  the branch, empty index, and clean target paths; keep the Segment 6 prompt edit
-  unstaged. The patch targets one generated filter, not pristine `main`: stop on a
-  failed `git apply --check` and inspect for already-applied edits or use the documented
-  manual fallback. Never force it. A review with no findings can be valid; compare actual feedback
-  with the two repo rules, without treating a generic `any` warning as proof of
-  instruction influence. Request another review explicitly after pushing, then fix
-  both violations and push corrections even if neither was flagged. Do not merge the
-  planted violations. Time-box discussion to leave room for Add-a-Line review.
-**They do:** review their own add-a-line PR both ways (chat + GitHub.com **Balanced**), triage
-every comment (fix valid, dismiss noise with a reason), and get CI green.
+- **Chat review (VS Code):** review the checked-out feature branch's changes; compare
+  findings with your own read.
+- **Copilot code review (GitHub.com):** inspect the review surface on reference **PR #1**;
+  demonstrate requesting Copilot under **Reviewers** on a PR you own. The reference PR
+  and checked-out branch need not have the same diff.
+- **Evaluate and fix:** investigate before applying suggestions, run relevant checks,
+  push corrections, and resolve addressed threads.
+**Discussion fallback:** open existing feedback on the original repository's
+[PR #4](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/4).
+Comments raised stale cart references at checkout, unintended plan selection, and
+missing focus styling; treat these as findings to evaluate, not independently verified
+bugs. Forks/clones don't copy PRs, so use the direct link; no new review is required.
+**They do:** review their actual `feat/add-a-line` PR with both surfaces, investigate
+feedback, fix valid issues, explain dismissals, and get CI green. No planted diff required.
+**Optional backup, outside the 15-minute core:** the playbook's
+[Backup Copilot Code Review Example](workshop-1-playbook.md#backup-copilot-code-review-example-optional)
+uses the catalog-filter PR and unchanged `instruction-demo.patch`. Follow its conditional
+apply, staged-diff inspection, and collapsed manual fallback. Compare actual feedback
+with the two repo rules without promising findings or proof of instruction influence;
+fix both intentional violations and push corrections before merging.
 **Optional (if the Copilot app / agent merge is available):** mention PR-scoped review sessions
 and the **Fix** / **Fix failing checks** buttons, and **agent merge** — enable only after a human
 reviews the diff; it never bypasses branch protection or required approvals.
