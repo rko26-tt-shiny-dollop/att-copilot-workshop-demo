@@ -646,8 +646,15 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 
 #### ▶️ Example (follow along)
 
-> 1. **Copilot chat review (VS Code).** With your feature branch checked out, ask Copilot
->    Chat to review that branch's changes:
+> Review **your own catalog-filter feature** from Lesson 6 on both surfaces.
+> In the VS Code terminal, switch to its branch:
+>
+> ```bash
+> git checkout feat/catalog-filter
+> ```
+>
+> 1. **Copilot chat review (VS Code).** Ask Copilot Chat to review the checked-out
+>    `feat/catalog-filter` branch's changes:
 >
 >    ```text
 >    Review the changes on this branch for correctness, missing tests, and unintended changes. Prioritize concrete issues that could block merging, and cite file and line for each finding.
@@ -655,22 +662,14 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 >
 >    Compare its findings against your own read of the diff.
 >
-> 2. **Copilot code review (GitHub.com).** Open the reference
->    [#1 — provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1)
->    to inspect the PR review surface and any existing feedback. On a PR you own, request
->    **Copilot** under **Reviewers**. This reviews the PR diff, which is not necessarily
->    the same diff as your checked-out branch in the chat example.
+> 2. **Copilot code review (GitHub.com).** Open **your own `feat/catalog-filter` PR**
+>    created in Lesson 6 in your workshop repository. Request **Copilot** under
+>    **Reviewers**. You're reviewing the same feature as in VS Code, now using the
+>    pushed PR diff.
 >
 > **Evaluate and fix:** investigate each finding against the code. Apply valid suggestions
 > or fix in VS Code, run relevant checks, and push. Explain dismissed findings and resolve
 > addressed threads; if CI fails, read the log and fix the cause.
->
-> **Discussion fallback:** existing feedback on the original repository's
-> [PR #4](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/4)
-> raised stale cart references at checkout, unintended plan selection, and missing focus
-> styling. Use those comments to practice evaluating findings, not as independently
-> verified bugs. Open the link directly: forks and clones don't copy PRs. No new review
-> of the reference PR is needed.
 
 #### 🧑‍💻 Participant Exercise
 
@@ -680,8 +679,7 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 > unsupported findings with a short explanation.
 >
 > **Done when** every finding has been evaluated, valid issues are addressed, CI is
-> green, and you have made the final call. No findings is also a valid result; use PR #4
-> above for discussion if useful.
+> green, and you have made the final call. No findings is also a valid result.
 
 #### Backup Copilot Code Review Example (optional)
 

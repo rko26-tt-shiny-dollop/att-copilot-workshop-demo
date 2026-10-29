@@ -62,7 +62,7 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
 | 5 | Branch-based build | 15 | Add-a-Line + `Navigation.tsx` | plan + badge wiring | build the page |
 | 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | open the **catalog** PR (`/pr-description` + agent-run `gh pr create`) | customize `/pr-description`, then open + audit their **add-a-line** PR |
-| 7 | Code Review Using Copilot | 15 | checked-out branch + PR #1; PR #4 feedback fallback | distinguish chat/PR review, evaluate findings, fix | review their actual add-a-line PR, investigate and fix valid feedback |
+| 7 | Code Review Using Copilot | 15 | own `feat/catalog-filter` branch + PR | review same feature in chat and on GitHub, evaluate findings, fix | review their actual add-a-line PR, investigate and fix valid feedback |
 | — | **Wrap-up & take-home** | 10 | — | loop recap, takeaways, next steps | reflect; note next steps |
 
 Buffer is thin now that Segments 2–3 run 10 min each. **Critical path is Segment 4**
@@ -265,14 +265,14 @@ flow in the demo.
 **Core: review → evaluate → fix.** Inspect the diff, investigate findings, and check CI.
 A human owns the decision; no findings can be a valid result.
 **Demo:**
-- **Chat review (VS Code):** review the checked-out feature branch's changes; compare
-  findings with your own read.
-- **Copilot code review (GitHub.com):** inspect the review surface on reference **PR #1**;
-  demonstrate requesting Copilot under **Reviewers** on a PR you own. The reference PR
-  and checked-out branch need not have the same diff.
+- **Chat review (VS Code):** check out `feat/catalog-filter` and review that branch's
+  changes; compare findings with your own read.
+- **Copilot code review (GitHub.com):** open your own catalog-filter PR from Segment 6
+  and request Copilot under **Reviewers**. Participants use their own PRs in their
+  workshop repositories, reviewing the same feature on both surfaces.
 - **Evaluate and fix:** investigate before applying suggestions, run relevant checks,
   push corrections, and resolve addressed threads.
-**Discussion fallback:** open existing feedback on the original repository's
+**Optional instructor-only discussion aid:** open existing feedback on the original repository's
 [PR #4](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/4).
 Comments raised stale cart references at checkout, unintended plan selection, and
 missing focus styling; treat these as findings to evaluate, not independently verified

@@ -331,19 +331,18 @@ Review `docs/design/add-a-line.png` for the target.
 > **Review → evaluate → fix.** Inspect the diff, investigate findings, and check CI.
 > A human owns the decision; a review with no findings can be valid.
 >
+> **Follow along:** check out `feat/catalog-filter` in VS Code and review its changes
+> in Copilot Chat. Then open **your own catalog-filter PR** from Lesson 6 in your
+> workshop repository and request Copilot under **Reviewers** — the same feature,
+> reviewed through its pushed PR diff.
+>
 > **You try — check out `feat/add-a-line` and review your actual Add-a-Line PR:**
 > 1. **Chat review (VS Code):** on your branch, ask Copilot Chat to *"review the changes on
 >    this branch for correctness, missing tests, and unintended changes; cite file and line."*
 > 2. **Copilot code review (GitHub.com):** under **Reviewers**, request a review from
->    **Copilot** on your PR. Unlike chat's checked-out branch, this surface reviews the
->    PR diff; the playbook's reference PR example may show a different diff.
+>    **Copilot** on your own Add-a-Line PR to review the pushed diff.
 > 3. **Evaluate + fix:** investigate findings, fix valid issues, run relevant checks,
 >    and push. Resolve addressed threads; explain dismissed findings.
->
-> **Discussion fallback:** read existing feedback on the original repository's
-> [PR #4](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/4).
-> Open the link directly; forks and clones don't copy PRs. Evaluate the comments rather
-> than assuming they are verified bugs or requesting another review.
 >
 > **Done when:** every thread is resolved or consciously dismissed, CI is green, and a human
 > (you) has made the final call.
