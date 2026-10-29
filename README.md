@@ -20,7 +20,7 @@ standards, and Copilot review.
   Lesson 3 uses the report-only
   [`impact-analysis` skill](.github/skills/impact-analysis/SKILL.md) to assess changes
   before implementation.
-- **`docs/`** — workshop participant handout, instructor notes, participant setup,
+- **`docs/`** — workshop playbook, participant setup,
   PR standards, and the Add-a-Line design mockup.
 
 ## Domain model
@@ -58,14 +58,12 @@ during the workshop.
 
 ## Workshop
 
-Facilitators: start with `docs/workshop/instructor-notes-workshop-1.md` — the single internal
-run-sheet (agenda map, per-segment scenarios, talk track, timing, answer keys). Hand
-participants `docs/workshop/participant-handout-workshop-1.md` (self-guided exercises) and
-`docs/workshop/participant-setup.md` (pre-work). The workshop surface is **VS Code**.
+Use the [Workshop 1 playbook](docs/workshop/workshop-1-playbook.md) for both
+instructor-led workshops and independent learning in **VS Code**. It is the single
+workshop guide, with Scenario → Example → Participant Exercise for each lesson.
+When working independently, complete each Example before its Participant Exercise.
 
-For a single run-along document that merges the instructor demos and participant
-exercises into one client-facing flow (Scenario → Example → Participant Exercise per
-lesson), use `docs/workshop/workshop-1-playbook.md`.
+Complete [participant setup](docs/workshop/participant-setup.md) before starting.
 
 ## Scripts
 
