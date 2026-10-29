@@ -624,28 +624,58 @@ arrives in a consistent, reviewable shape.
 
 ---
 
-## 7. Copilot review (~10 min)
+## 7. Code Review Using Copilot (~10 min)
 
 **Scenario:** Reviews pile up and get shallow. Use Copilot as a fast first-pass
-reviewer — then keep a human accountable for the final call.
+reviewer — on your diff in VS Code and on the PR on GitHub.com — then keep a human
+accountable for the final call.
 
-**Background:** Copilot code review reads your diff (and the repo's instructions and
-skills) and leaves inline comments. It's a force multiplier, not a replacement for
-judgment.
+**Background:** A review starts with the basics: read the **diff**, leave **inline
+comments** on specific lines, and check **CI**. Copilot adds two review surfaces on top
+of that — a **chat review** in VS Code and **Copilot code review** on GitHub.com — both
+of which read your changes alongside the repo's instructions and skills. They're a force
+multiplier, not a replacement for judgment.
+
+#### PR basics (orient first)
+
+> On a PR, open the **Files changed** tab and read the diff as a reviewer would: does it
+> match the description, are there tests, any unrelated changes? Hover a line and click
+> **+** to leave an inline **comment** — that's the unit of a review. Back on the
+> **Conversation** tab, check the **CI checks** and any merge blockers at the bottom.
 
 #### ▶️ Example (follow along)
 
-> Request a **Copilot code review** and triage the comments — fix the valid ones, dismiss
-> the noise — using a reference example PR that already exists:
-> [#1 — provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1).
+> We'll review two ways, using the reference PR that already exists —
+> [#1 — provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1):
+>
+> 1. **Copilot chat review (VS Code).** On a feature branch, ask Copilot Chat to review the
+>    branch's changes:
+>
+>    ```text
+>    Review the changes on this branch for correctness, missing tests, and unintended changes. Prioritize concrete issues that could block merging, and cite file and line for each finding.
+>    ```
+>
+>    Compare its findings against your own read of the diff.
+>
+> 2. **Copilot code review (GitHub.com).** On PR #1, under **Reviewers**, request a review
+>    from **Copilot**. Choose the review **effort** — **Lite** for quick, targeted feedback
+>    or **Balanced** for deeper analysis on a cross-cutting change. Copilot adds a PR overview
+>    plus inline comments, each tagged **High / Medium / Low** severity. Validate every
+>    finding before acting — severity *prioritizes*, it doesn't approve.
+>
+> **Implementing the feedback:** for a suggested change, use **Commit suggestion** to apply it
+> directly; for anything larger, fix it in VS Code, push, and the thread updates. If a CI check
+> fails, open its log, fix the cause, and push. Resolve each thread as you address it. Copilot
+> submits **comments**, not an approval — a human still makes the final call.
 
 #### 🧑‍💻 Participant Exercise
 
-> Request a **Copilot code review** on *your own* PR (in VS Code via the Copilot review
-> action on your changes, and/or on GitHub.com by requesting a review from **Copilot**).
-> Triage every comment: fix the valid ones, consciously dismiss the noise, and leave a
-> short reply explaining each dismissal. **Done when** you've resolved or explicitly
-> dismissed every review comment, and you — a human — have made the final call.
+> Review *your own* Add-a-Line PR with both surfaces: a Copilot **chat review** in VS Code,
+> then request **Copilot code review** on GitHub.com (try **Balanced** — the change crosses UI,
+> cart state, and tests). Triage every comment: fix the valid ones (apply the suggestion or
+> push a fix) and consciously dismiss the noise with a short reply saying why. **Done when**
+> every thread is resolved or explicitly dismissed, CI is green, and you — a human — have made
+> the final call.
 
 ---
 

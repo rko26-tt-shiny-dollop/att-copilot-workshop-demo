@@ -317,23 +317,34 @@ Review `docs/design/add-a-line.png` for the target.
 
 ---
 
-## 7. Copilot review (~10 min)
+## 7. Code Review Using Copilot (~10 min)
 
 > **Scenario:** Reviews pile up and get shallow. Use Copilot as a fast first-pass
-> reviewer — then keep a human accountable for the final call.
+> reviewer — on your diff in VS Code and on the PR on GitHub.com — then keep a human
+> accountable for the final call.
 >
-> **Background:** Copilot code review reads your diff (and the repo's instructions and
-> skills) and leaves inline comments. It's a force multiplier, not a replacement for
-> judgment.
+> **Background:** Start with PR basics — read the **diff** in **Files changed**, leave
+> **inline comments** on specific lines, check **CI**. Copilot adds two review surfaces:
+> a **chat review** in VS Code and **Copilot code review** on GitHub.com, both reading
+> your changes with the repo's instructions and skills. A force multiplier, not a
+> replacement for judgment.
 
-> **You try:** Request a **Copilot code review** on your PR (in VS Code via the Copilot
-> review action on your changes, and/or on GitHub.com by requesting a review from
-> **Copilot**). Triage its comments: fix the valid ones, dismiss the noise. A
-> reference example PR already exists:
+> **You try — review your own Add-a-Line PR, two ways:**
+> 1. **Chat review (VS Code):** on your branch, ask Copilot Chat to *"review the changes on
+>    this branch for correctness, missing tests, and unintended changes; cite file and line."*
+> 2. **Copilot code review (GitHub.com):** under **Reviewers**, request a review from
+>    **Copilot**. Pick the **effort** (**Lite** = quick; **Balanced** = deeper — use it here,
+>    the change crosses UI, cart state, and tests). You get a PR overview plus inline comments
+>    tagged **High / Med / Low** severity (severity prioritizes; it isn't an approval).
+> 3. **Implement + triage:** for a suggestion, **Commit suggestion**; for more, fix in VS Code
+>    and push; if CI fails, read the log, fix, push. Resolve each thread; dismiss noise with a
+>    short reason. Copilot leaves *comments*, not an approval.
+>
+> A reference PR already exists to practice on:
 > [#1 — provisioning status filter](https://github.com/rko26-tt-shiny-dollop/att-copilot-workshop-demo/pull/1).
 >
-> **Done when:** you've resolved or consciously dismissed every review comment, and a
-> human (you) has made the final call.
+> **Done when:** every thread is resolved or consciously dismissed, CI is green, and a human
+> (you) has made the final call.
 
 ---
 

@@ -61,7 +61,7 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
 | 5 | Branch-based build | 15 | Add-a-Line + `Navigation.tsx` | plan + badge wiring | build the page |
 | 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | open the **catalog** PR (`/pr-description` + agent-run `gh pr create`) | customize `/pr-description`, then open + audit their **add-a-line** PR |
-| 7 | Copilot review | 10 | PR #1 | review on PR #1 | review their PR |
+| 7 | Code Review Using Copilot | 10 | PR #1 | PR basics + chat & GitHub.com review on PR #1 | review their add-a-line PR (chat + GitHub.com), triage |
 
 Buffer lives in Segments 1–3. **Critical path is Segment 4** (cart API). If behind,
 compress 1–3 and protect 4–5.
@@ -243,16 +243,29 @@ add-a-line PR — a light callback to the Seg 5 scope-creep lesson; warn them no
 it in. If short on time and they skipped the catalog branch in Seg 5, they still saw the full
 flow in the demo.
 
-## Segment 7 — Copilot review (10 min)
+## Segment 7 — Code Review Using Copilot (10 min)
 
 **Scenario:** *"Reviews pile up and go shallow."*
-**Background:** Copilot review reads the diff (plus repo instructions/skills) and
-comments inline; a human still owns the final call.
-**Demo:** request a Copilot review on **PR #1** (pre-made, green, self-contained) so
-you always have live material even if an attendee's PR isn't ready. Show triage: fix
-valid, dismiss noise. Mention review **effort** (Lite vs Balanced) and per-finding
-**severity** on GitHub.com.
-**They do:** review their own PR.
+**Background:** start with PR basics (diff in **Files changed**, inline comments, CI). Copilot
+adds two review surfaces — a VS Code **chat review** and **Copilot code review** on GitHub.com
+— both reading the diff plus repo instructions/skills. A human still owns the final call;
+Copilot submits *comments*, not an approval.
+**Demo:**
+- **PR basics:** on **PR #1**, walk Files changed, leave an inline comment, show the CI/merge box.
+- **Chat review (VS Code):** on a feature branch, ask Copilot Chat to review the branch's
+  changes (correctness, missing tests, unintended changes; cite file + line). Compare to your
+  own read.
+- **Copilot code review (GitHub.com):** on **PR #1**, request a review from **Copilot**; show
+  the **effort** toggle (Lite vs Balanced) and per-finding **severity** (High/Med/Low). Validate
+  before acting — severity prioritizes, it doesn't approve.
+- **Implementing fixes:** Commit suggestion for small ones; fix-in-VS-Code-and-push for larger;
+  if CI is red, open the log and push a fix. Resolve threads as you go.
+PR #1 (pre-made, green, self-contained) keeps live material even if an attendee's PR isn't ready.
+**They do:** review their own add-a-line PR both ways (chat + GitHub.com **Balanced**), triage
+every comment (fix valid, dismiss noise with a reason), and get CI green.
+**Optional (if the Copilot app / agent merge is available):** mention PR-scoped review sessions
+and the **Fix** / **Fix failing checks** buttons, and **agent merge** — enable only after a human
+reviews the diff; it never bypasses branch protection or required approvals.
 
 ---
 
