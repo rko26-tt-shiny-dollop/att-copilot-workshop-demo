@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { api } from "../api/client";
 import { useFetch } from "../api/useFetch";
 import type { Device } from "../api/types";
+import "./Catalog.css";
 
 type CategoryFilter = Device["category"] | "all";
 
@@ -22,9 +23,11 @@ export default function Catalog() {
     selected === "all" ? devices : devices.filter((d) => d.category === selected);
   const options: CategoryFilter[] = ["all", ...categories];
 
+  const formatPrice = (device: any) => `$${device.retailPrice.toFixed(2)}`;
+
   return (
     <section>
-      <h1 className="mb-4 text-2xl font-bold">Device Catalog</h1>
+      <h1 className="catalog-heading mb-4 text-2xl font-bold">Device Catalog</h1>
       <div
         role="group"
         aria-label="Filter by category"
@@ -66,7 +69,7 @@ export default function Catalog() {
             <h2 className="mt-1 font-semibold text-slate-900">{device.model}</h2>
             <div className="mt-1 text-sm text-slate-500">SKU: {device.sku}</div>
             <div className="mt-3 text-lg font-bold text-slate-900">
-              ${device.retailPrice.toFixed(2)}
+              {formatPrice(device)}
             </div>
           </div>
         ))}
