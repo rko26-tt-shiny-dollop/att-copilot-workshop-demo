@@ -547,8 +547,15 @@ flow: merge the API, then branch the feature that consumes it.
 >
 > 4. Review the plan, hand it to **Agent** to build, and verify on **:5137**.
 >
-> **Done when** `git branch` shows both `feat/add-a-line` and `feat/catalog-filter`, the
-> catalog filter works, and your two features never shared a branch.
+> 5. Commit your catalog work so it's captured on its branch, ready to open a PR in the
+>    next section:
+>
+>    ```bash
+>    git add -A && git commit -m "Add device catalog category filter"
+>    ```
+>
+> **Done when** `git branch` shows both `feat/add-a-line` and `feat/catalog-filter`, both
+> are committed, the catalog filter works, and your two features never shared a branch.
 
 ---
 
@@ -562,12 +569,12 @@ arrives in a consistent, reviewable shape.
 
 #### ▶️ Example (follow along)
 
-> You'll continue on the `feat/catalog-filter` branch from Section 5. First, commit and
-> push your work so the PR has something to show:
+> We'll open the PR for your **Add-a-Line** feature. It's already committed on
+> `feat/add-a-line` from Section 5 — switch to it and push so the PR has something to show:
 >
 > ```bash
-> git add -A && git commit -m "Add device catalog category filter"
-> git push -u origin feat/catalog-filter
+> git checkout feat/add-a-line
+> git push -u origin feat/add-a-line
 > ```
 >
 > Draft the description from the diff:
@@ -588,9 +595,23 @@ arrives in a consistent, reviewable shape.
 
 #### 🧑‍💻 Participant Exercise
 
-> Self-audit the PR you just opened against `docs/PR-STANDARDS.md` line by line, and fix
-> anything that falls short before requesting review. **Done when** build/lint/tests pass
-> and your PR reads cleanly to a reviewer.
+> Now run the whole flow yourself on your **catalog filter** feature — all the way to an
+> open PR:
+>
+> 1. Switch to your branch and push it:
+>
+>    ```bash
+>    git checkout feat/catalog-filter
+>    git push -u origin feat/catalog-filter
+>    ```
+>
+> 2. Run `/pr-description`, then in the **same chat** ask Copilot to open the PR using that
+>    draft as the body (let it pick a conventional-commit title).
+> 3. Self-audit the PR against `docs/PR-STANDARDS.md` line by line and fix anything that
+>    falls short before requesting review.
+>
+> **Done when** build/lint/tests pass, both `feat/add-a-line` and `feat/catalog-filter`
+> have an open PR, and your catalog PR reads cleanly to a reviewer.
 
 ---
 

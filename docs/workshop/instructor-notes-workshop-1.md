@@ -60,7 +60,7 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 | 3 | Impact analysis | 15 | `impact-analysis.prompt.md` | run on Device.status | run it themselves |
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
 | 5 | Branch-based build | 15 | Add-a-Line + `Navigation.tsx` | plan + badge wiring | build the page |
-| 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | `/pr-description` + agent-run `gh pr create` | audit their PR |
+| 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | open the **add-a-line** PR (`/pr-description` + agent-run `gh pr create`) | open + audit their **catalog** PR |
 | 7 | Copilot review | 10 | PR #1 | review on PR #1 | review their PR |
 
 Buffer lives in Segments 1–3. **Critical path is Segment 4** (cart API). If behind,
@@ -214,8 +214,10 @@ higher-reasoning model for the **Plan** step, then back to Auto to build.
 **They do:** build the page + badge; verify on **:5137**. **Then — the real point:**
 commit the Add-a-Line work, then start a *fresh* branch off `main` (`git checkout main &&
 git checkout -b feat/catalog-filter`) for an **unrelated** feature — a category filter on
-the Device Catalog (`frontend/src/pages/Catalog.tsx`) — planned then built. Payoff: `git
-branch` shows two separate branches; unrelated work never shared a branch.
+the Device Catalog (`frontend/src/pages/Catalog.tsx`) — planned, built, then **committed**
+too (`git add -A && git commit -m "Add device catalog category filter"`) so both branches
+are ready to open PRs in Seg 6. Payoff: `git branch` shows two separate branches; unrelated
+work never shared a branch.
 **Pitfall:** time sink — time-box hard; the backend cart from Seg 4 is the real win. If
 short on time, they can skip the catalog-filter branch but should still *see* why unrelated
 work gets its own branch.
@@ -224,13 +226,17 @@ work gets its own branch.
 
 **Scenario:** *"Your change is ready; make it easy for a reviewer to trust."*
 **Background:** the repo ships a PR template + written standards for consistency.
-**Setup:** continue on `feat/catalog-filter`; have them commit + push the catalog work first.
-**Demo:** `/pr-description` from the diff, then — in the same chat — have Copilot open the
-PR using that draft as the body (it runs `gh pr create`; review before approving; let it
-pick a conventional-commit title). Show the template applied; walk `docs/PR-STANDARDS.md`
-(small scope, tests, Swagger, checklist). Note: `--fill` would use commit messages, not the
-generated draft.
-**They do:** self-audit their catalog-filter PR against PR-STANDARDS and fix gaps.
+**Setup:** both `feat/add-a-line` and `feat/catalog-filter` are committed from Seg 5.
+**Demo — open the add-a-line PR:** `git checkout feat/add-a-line && git push -u origin
+feat/add-a-line`, then `/pr-description` from the diff, then — in the same chat — have
+Copilot open the PR using that draft as the body (it runs `gh pr create`; review before
+approving; let it pick a conventional-commit title). Show the template applied; walk
+`docs/PR-STANDARDS.md` (small scope, tests, Swagger, checklist). Note: `--fill` would use
+commit messages, not the generated draft.
+**They do:** run the same flow on their **catalog-filter** branch (`git checkout
+feat/catalog-filter && git push …`, `/pr-description`, agent-run `gh pr create`), then
+self-audit that PR against PR-STANDARDS and fix gaps. If short on time and they skipped the
+catalog branch in Seg 5, they still saw the full flow in the demo.
 
 ## Segment 7 — Copilot review (10 min)
 
