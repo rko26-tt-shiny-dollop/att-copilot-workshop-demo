@@ -1,6 +1,6 @@
 ---
 name: impact-analysis
-description: Analyze the blast radius of a proposed change in the Wireless Activation Console. Use before implementing a feature, refactor, or API/contract change to identify affected code, dependencies, tests, risks, and an ordered plan without editing files.
+description: Assess the impact of proposed changes in the Wireless Activation Console before code is written. Use when asked what a change would affect or break, which callers and contracts depend on it, what tests need updating, or how to sequence the change safely. Produce a code-grounded impact report and ordered implementation plan without editing files.
 ---
 
 # Impact analysis

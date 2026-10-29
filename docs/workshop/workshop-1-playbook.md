@@ -351,44 +351,50 @@ Luhn rules; we also ship `api-endpoint`.
 catalog. Before anyone writes code, you need to know what that touches.
 
 **Background:** Lesson 2 packaged domain know-how and TAC data; now a skill packages a
-reusable **engineering procedure**. Open
-[`.github/skills/impact-analysis/SKILL.md`](../../.github/skills/impact-analysis/SKILL.md):
-it maps the blast radius before coding. Copilot can discover the skill by its name and
-description and load its instructions on demand — unlike always-on repository
-instructions. Selection isn't guaranteed, so we'll explicitly name the skill.
+reusable **engineering procedure**. Copilot can match a request to a skill's name and
+description, then load its detailed instructions on demand — unlike always-on
+repository instructions. Describe the proposed change and the analysis you need;
+let the skill supply the procedure rather than spelling it out in every prompt.
 
 #### ▶️ Example (follow along)
 
-> In a fresh **Agent** chat, use the skill to assess a Device `status` change:
+> In a fresh **Agent** chat, ask for an impact assessment without naming or attaching
+> a skill:
 >
 > ```text
-> Use the impact-analysis skill to assess adding a status field to Device (active/discontinued) and hiding discontinued devices from the catalog. Report only; do not edit files or implement the change.
+> Product wants to add a status field to Device (active/discontinued) and hide discontinued devices from the catalog. Before we implement this, assess the impact across this codebase: what would be affected and what could break? Report only; do not edit files.
 > ```
 >
-> **Check skill use:** inspect available tool activity for loading or reading
+> **Check discovery:** inspect available tool activity for loading or reading
 > `.github/skills/impact-analysis/SKILL.md`, as described in
 > [VS Code's skill verification guidance](https://code.visualstudio.com/docs/agent-customization/agent-skills#_verify-a-skill).
-> If that evidence isn't visible, don't claim loading was verified; attach the file and
-> explicitly ask Copilot to read and follow it before rerunning. Matching report headings
-> alone aren't proof.
+> Automatic selection can vary. If that evidence isn't visible, record discovery as
+> unverified; matching report headings alone aren't proof. If the skill wasn't selected,
+> confirm the repository root is open and review how its description matches the request
+> before retrying in a fresh chat. Naming or attaching the skill would demonstrate
+> explicit use, not automatic discovery.
 >
-> Read the six areas: **entry points; downstream dependencies; data & contract
-> changes; validation & edge cases; test surface; risk & rollback**. Check its file
-> references against the code, including Swagger and front-end types/pages where
-> relevant, and distinguish evidence from assumptions.
+> After the response, open
+> [`.github/skills/impact-analysis/SKILL.md`](../../.github/skills/impact-analysis/SKILL.md).
+> Compare the request with its discovery description. The body supplies the six report
+> areas: **entry points; downstream dependencies; data & contract changes; validation
+> & edge cases; test surface; risk & rollback**. Check the report's file references
+> against the code, including Swagger and front-end types/pages where relevant, and
+> distinguish evidence from assumptions.
 >
 > **Boundary:** report-only is an instruction, not a read-only sandbox. Stop unexpected
 > edits; don't continue into implementation.
 
 #### 🧑‍💻 Participant Exercise
 
-> Apply the same skill to a broader relationship change, in a fresh **Agent** chat:
+> Assess a broader relationship change in a fresh **Agent** chat, again without
+> naming or attaching a skill:
 >
 > ```text
-> Use the impact-analysis skill to assess letting a subscriber have more than one active line, each with its own rate plan. Identify what is already supported and what would need to change. Report only; do not edit files or implement the change.
+> We want subscribers to have multiple active lines, each with its own rate plan. Before we commit to the change, assess what the code already supports, what would need to change, and the regression risks. Report only; do not edit files.
 > ```
 >
-> Check skill use as above, then compare the wider impact with the Device demo.
+> Check discovery as above, then compare the impact with the Device example.
 > **Done when** you have a code-grounded report, a short ordered implementation plan,
 > and know which existing tests cover the behavior and which tests you'd add or change —
 > without having written any code or changed files.
@@ -396,7 +402,7 @@ instructions. Selection isn't guaranteed, so we'll explicitly name the skill.
 > **Go further:**
 >
 > ```text
-> Using the impact-analysis skill and the report above, which step in the plan carries the most risk, and why? What test would reduce that risk, and how would you roll it back? Report only; do not edit files.
+> Which step in this plan carries the most risk, and why? What test would reduce that risk, and how would you roll it back? Report only; do not edit files.
 > ```
 
 ---
@@ -811,7 +817,7 @@ are reusable team assets — copy the patterns into your own repos and adapt the
 | Custom instructions | Encode team standards once; every prompt inherits them. |
 | Reusable prompts | Capture repeatable workflows as shared `/`-commands. |
 | Skills | Package domain know-how, data, or procedures for on-demand use. |
-| Impact analysis | Use the `impact-analysis` skill to map the blast radius and plan before editing. |
+| Impact analysis | Pair a clear change-assessment request with a discoverable, report-only skill. |
 | Acceptance-test-first | Write the contract as tests first; red → green keeps scope honest. |
 | Branch-based build | One feature per branch stays isolated and reviewable. |
 | PR standards | Small, tested, well-described PRs earn a reviewer's trust. |
