@@ -588,23 +588,39 @@ arrives in a consistent, reviewable shape.
 
 #### 🧑‍💻 Participant Exercise
 
-> Now run the whole flow yourself on your **Add-a-Line** feature. It's already committed on
-> `feat/add-a-line` from Section 5, so take it to an open PR on your own:
+> First make the PR flow your own, then run it end to end on your **Add-a-Line** feature
+> (already committed on `feat/add-a-line` from Section 5):
 >
-> 1. Switch to the branch and push it:
+> 1. **Customize the reusable prompt.** Open `.github/prompts/pr-description.prompt.md` and
+>    extend it to do something useful for a reviewer — pick one:
+>
+>    - add a **"How to verify"** section with manual test steps,
+>    - add a **"Linked issues"** section that references related issues (`Closes #…`), or
+>    - have it also propose a **conventional-commit PR title**.
+>
+>    This is the Section 1 reusable-prompt idea again — you're *improving* a shared team
+>    asset, not just consuming it.
+>
+> 2. Switch to the branch and push it:
 >
 >    ```bash
 >    git checkout feat/add-a-line
 >    git push -u origin feat/add-a-line
 >    ```
 >
-> 2. Run `/pr-description`, then in the **same chat** ask Copilot to open the PR using that
->    draft as the body (let it pick a conventional-commit title).
-> 3. Self-audit the PR against `docs/PR-STANDARDS.md` line by line and fix anything that
+> 3. Run `/pr-description` and **confirm your new section actually appears** (verify, don't
+>    assume). Then, in the **same chat**, ask Copilot to open the PR using that draft as the
+>    body (let it pick a conventional-commit title).
+>
+> 4. Self-audit the PR against `docs/PR-STANDARDS.md` line by line and fix anything that
 >    falls short before requesting review.
 >
-> **Done when** build/lint/tests pass, both `feat/catalog-filter` and `feat/add-a-line`
-> have an open PR, and your add-a-line PR reads cleanly to a reviewer.
+> Your prompt tweak is a local experiment — keep it out of the PR. The PR is built from your
+> committed branch, so don't `git add` the edited prompt file into it.
+>
+> **Done when** your customized `/pr-description` produces the new section, both
+> `feat/catalog-filter` and `feat/add-a-line` have an open PR, and your add-a-line PR reads
+> cleanly to a reviewer.
 
 ---
 

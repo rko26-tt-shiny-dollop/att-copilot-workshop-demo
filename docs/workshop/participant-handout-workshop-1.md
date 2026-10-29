@@ -302,13 +302,18 @@ Review `docs/design/add-a-line.png` for the target.
 > approving; let it pick a conventional-commit title). The template
 > (`.github/pull_request_template.md`) is applied; check it against `docs/PR-STANDARDS.md`.
 >
-> **🧑‍💻 You try — open your Add-a-Line PR.** It's already committed on `feat/add-a-line`.
-> Switch and push: `git checkout feat/add-a-line && git push -u origin feat/add-a-line`. Run
-> `/pr-description`, open the PR the same way, then self-audit it against
-> `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
+> **🧑‍💻 You try — customize the prompt, then open your Add-a-Line PR.** First make
+> `/pr-description` your own: open `.github/prompts/pr-description.prompt.md` and add one
+> useful thing for a reviewer — a **"How to verify"** section, a **"Linked issues"** section
+> (`Closes #…`), or a proposed **conventional-commit title** (the Section 1 reusable-prompt
+> idea again). Then switch and push:
+> `git checkout feat/add-a-line && git push -u origin feat/add-a-line`. Run `/pr-description`,
+> **confirm your new section appears** (verify, don't assume), open the PR the same way, then
+> self-audit against `docs/PR-STANDARDS.md`. Keep the prompt tweak out of the PR — it's built
+> from your committed branch, so don't `git add` the edited prompt file.
 >
-> **Done when:** build/lint/tests pass, both branches have an open PR, and your add-a-line
-> PR reads cleanly to a reviewer.
+> **Done when:** your customized `/pr-description` shows the new section, both branches have
+> an open PR, and your add-a-line PR reads cleanly to a reviewer.
 
 ---
 

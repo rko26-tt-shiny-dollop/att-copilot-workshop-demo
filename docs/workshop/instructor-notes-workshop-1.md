@@ -60,7 +60,7 @@ answer keys, and recovery plays. Participants get `participant-handout-workshop-
 | 3 | Impact analysis | 15 | `impact-analysis.prompt.md` | run on Device.status | run it themselves |
 | 4 | Acceptance-test-first | 20 | `api/src/routes/addALine.acceptance.test.ts` | red→green | do it themselves |
 | 5 | Branch-based build | 15 | Add-a-Line + `Navigation.tsx` | plan + badge wiring | build the page |
-| 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | open the **catalog** PR (`/pr-description` + agent-run `gh pr create`) | open + audit their **add-a-line** PR |
+| 6 | PR standards | 10 | `pull_request_template.md`, `PR-STANDARDS.md` | open the **catalog** PR (`/pr-description` + agent-run `gh pr create`) | customize `/pr-description`, then open + audit their **add-a-line** PR |
 | 7 | Copilot review | 10 | PR #1 | review on PR #1 | review their PR |
 
 Buffer lives in Segments 1–3. **Critical path is Segment 4** (cart API). If behind,
@@ -232,10 +232,16 @@ diff, then — in the same chat — have Copilot open the PR using that draft as
 runs `gh pr create`; review before approving; let it pick a conventional-commit title).
 Show the template applied; walk `docs/PR-STANDARDS.md` (small scope, tests, Swagger,
 checklist). Note: `--fill` would use commit messages, not the generated draft.
-**They do:** run the same flow on their **add-a-line** branch (`git checkout feat/add-a-line
-&& git push …`, `/pr-description`, agent-run `gh pr create`), then self-audit that PR
-against PR-STANDARDS and fix gaps. If short on time and they skipped the catalog branch in
-Seg 5, they still saw the full flow in the demo.
+**They do:** first **customize `/pr-description`** — edit
+`.github/prompts/pr-description.prompt.md` to add one reviewer-useful thing (a "How to
+verify" section, "Linked issues" / `Closes #…`, or a proposed conventional-commit title) — a
+callback to Seg 1 (reusable prompts). Then run the flow on their **add-a-line** branch (`git
+checkout feat/add-a-line && git push …`, `/pr-description` — *confirm the new section
+appears*, agent-run `gh pr create`) and self-audit against PR-STANDARDS. **Reinforce
+isolation:** the prompt edit stays uncommitted, so it's naturally excluded from the
+add-a-line PR — a light callback to the Seg 5 scope-creep lesson; warn them not to `git add`
+it in. If short on time and they skipped the catalog branch in Seg 5, they still saw the full
+flow in the demo.
 
 ## Segment 7 — Copilot review (10 min)
 
