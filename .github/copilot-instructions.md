@@ -37,12 +37,12 @@ ActivationOrder, ActivationOrderLine, Provisioning.
 
 ## Testing expectations
 
+- **Verify, don't assume.** Report the actual output of commands you run. Never state that a test or build passes or fails without executing it, and run the full affected suite before reporting a change as green. If a suite is small, run all of it rather than only the specs you touched.
 - API tests use **Vitest** + **supertest** and live next to the code as
   `*.test.ts`. Every new endpoint needs at least a happy-path and an error test.
 - Frontend end-to-end tests use **Playwright** under `frontend/tests/e2e`.
 - Prefer **acceptance-test-first**: write the failing test, then implement.
-- The default API suite must stay green. Work-in-progress acceptance tests are
-  committed as `describe.skip` with a comment explaining the exercise.
+- The default API suite must stay green. Work-in-progress tests that aren't ready to pass are committed as `describe.skip` with a comment explaining why.
 
 ## Branch & PR standards
 
@@ -52,8 +52,9 @@ ActivationOrder, ActivationOrderLine, Provisioning.
 - Builds, lint, and the default test suites must pass before review.
 - Request a Copilot code review on every PR.
 
-## Out of scope / intentional gaps
+## Planned: Add-a-Line / service cart
 
-- The **Add-a-Line / service cart** feature is intentionally unimplemented — it is
-  the workshop build exercise. See `docs/design/add-a-line.png` and the skipped
-  acceptance tests in `api/src/routes/addALine.acceptance.test.ts`.
+- A subscriber assembles a cart of device + rate-plan lines and checks out to create an
+  activation order. The design lives in `docs/design/add-a-line.png`, and the acceptance
+  tests in `api/src/routes/addALine.acceptance.test.ts` define the contract for the
+  endpoints. Build it following the "new entities" pattern above.

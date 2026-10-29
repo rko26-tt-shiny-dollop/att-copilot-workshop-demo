@@ -1,5 +1,6 @@
 ---
-mode: agent
+name: pr-description
+agent: agent
 description: Write a high-quality pull request description from the current diff.
 ---
 
