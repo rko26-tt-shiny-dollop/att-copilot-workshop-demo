@@ -347,11 +347,12 @@ Review `docs/design/add-a-line.png` for the target.
 > **Done when:** every thread is resolved or consciously dismissed, CI is green, and a human
 > (you) has made the final call.
 
-> **Optional extension, not part of the 15-minute core:** the playbook's
-> [Backup Copilot Code Review Example](workshop-1-playbook.md#backup-copilot-code-review-example-optional)
-> uses `instruction-demo.patch` on `feat/catalog-filter` to explore convention influence.
-> Follow its safe application/fallback and cleanup steps only if doing that extension;
-> fix both intentional violations before merging.
+> **If earlier reviews returned no findings:** use the playbook's
+> [Backup Copilot Code Review Example](workshop-1-playbook.md#backup-copilot-code-review-example--if-earlier-reviews-have-no-findings)
+> on `feat/catalog-filter` to practice a change, another review, and evaluating feedback.
+> Skip it if you already worked through findings. A clean review is valid; the deliberate
+> violations aren't guaranteed to produce findings. Follow the safe application/fallback
+> and cleanup steps, fixing both violations before merging.
 
 ---
 

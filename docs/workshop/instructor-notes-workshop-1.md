@@ -278,10 +278,12 @@ Comments raised stale cart references at checkout, unintended plan selection, an
 missing focus styling; treat these as findings to evaluate, not independently verified
 bugs. Forks/clones don't copy PRs, so use the direct link; no new review is required.
 **They do:** review their actual `feat/add-a-line` PR with both surfaces, investigate
-feedback, fix valid issues, explain dismissals, and get CI green. No planted diff required.
-**Optional backup, outside the 15-minute core:** the playbook's
-[Backup Copilot Code Review Example](workshop-1-playbook.md#backup-copilot-code-review-example-optional)
-uses the catalog-filter PR and unchanged `instruction-demo.patch`. Follow its conditional
+feedback, fix valid issues, explain dismissals, and get CI green.
+**Backup if earlier reviews returned no findings:** use the playbook's
+[Backup Copilot Code Review Example](workshop-1-playbook.md#backup-copilot-code-review-example--if-earlier-reviews-have-no-findings)
+to practice a change, another review, and evaluating feedback on the catalog-filter PR.
+Skip it if participants already worked through findings. A clean review is valid;
+the deliberate violations don't guarantee findings. The patch is unchanged. Follow its conditional
 apply, staged-diff inspection, and collapsed manual fallback. Compare actual feedback
 with the two repo rules without promising findings or proof of instruction influence;
 fix both intentional violations and push corrections before merging.

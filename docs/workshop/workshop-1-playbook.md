@@ -681,11 +681,17 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 > **Done when** every finding has been evaluated, valid issues are addressed, CI is
 > green, and you have made the final call. No findings is also a valid result.
 
-#### Backup Copilot Code Review Example (optional)
+#### Backup Copilot Code Review Example — if earlier reviews have no findings
 
-> **Outside the 15-minute core path:** explore convention influence using the
-> `feat/catalog-filter` PR from Lesson 6. The patch deliberately adds explicit `any`
-> and ad-hoc CSS, contrary to `.github/copilot-instructions.md`.
+> If Copilot’s reviews of your earlier PRs returned no findings, use this backup to
+> practice introducing a change, requesting another review, and evaluating the feedback.
+> If you already worked through review findings, skip this example.
+>
+> A clean review is a valid outcome. These deliberate convention violations provide
+> something specific to inspect, but Copilot is not guaranteed to flag them.
+>
+> Use the `feat/catalog-filter` PR from Lesson 6. The patch deliberately adds explicit
+> `any` and ad-hoc CSS, contrary to `.github/copilot-instructions.md`.
 >
 > From the repo root in the VS Code terminal, save files and ensure there are no
 > unrelated staged changes or unfinished catalog edits. Leave Lesson 6's local prompt
