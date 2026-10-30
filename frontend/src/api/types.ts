@@ -43,3 +43,28 @@ export interface Provisioning {
   activatedAt: string | null;
   notes: string;
 }
+
+export interface DeviceOem {
+  id: number;
+  name: string;
+  country: string;
+}
+
+export interface Cart {
+  id: number;
+  subscriberId: number;
+  status: "open" | "checked_out";
+  createdAt: string;
+}
+
+export interface CartLine {
+  id: number;
+  cartId: number;
+  deviceId: number;
+  ratePlanId: number;
+}
+
+export interface CartView extends Cart {
+  lines: CartLine[];
+  lineCount: number;
+}
