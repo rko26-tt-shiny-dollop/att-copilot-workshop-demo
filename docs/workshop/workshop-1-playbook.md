@@ -829,13 +829,22 @@ instead, but it accepts the same `SKILL.md` if you copy it there.
 >    git push -u origin feat/add-a-line-ui
 >    ```
 >
-> 3. Open the API PR first. Check out `feat/cart-api` and, in a fresh **Agent** chat,
->    ask for the description in your own words, as in the Example. **Confirm your new
->    section actually appears** (verify, don't assume). If Lesson 5's agent report
->    listed business rules beyond the acceptance criteria or follow-ups, check they're
->    under **Risk & rollout**. Then, in the **same chat**, ask Copilot to open the PR
->    using that draft as the body, with the suggested title or, if the skill does not
->    suggest one, a conventional-commit title it chooses.
+> 3. Open the API PR first:
+>
+>    - Check out the API branch:
+>
+>      ```bash
+>      git checkout feat/cart-api
+>      ```
+>
+>    - In a fresh **Agent** chat, ask for a PR description in your own words, similar
+>      to the Example.
+>    - Check that the draft includes what you added to the skill in step 1 (for example,
+>      a **How to verify** section or a suggested title). If it's missing, check the tool
+>      activity to see whether the skill was used, as in the Example, and ask again.
+>    - In the **same chat**, ask Copilot to open the PR using the draft as the body. Use
+>      the title from the draft, or ask Copilot to choose a conventional-commit title if
+>      there isn't one.
 >
 >    Repeat for `feat/add-a-line-ui`. The UI calls endpoints that only the API PR adds, so
 >    say in its description that it depends on the API PR.
@@ -846,7 +855,7 @@ instead, but it accepts the same `SKILL.md` if you copy it there.
 > Your skill tweak is a local experiment — keep it out of the PR. The PR is built from your
 > committed branch, so don't `git add` the edited skill file into it.
 >
-> **Done when** your customized skill produces the new section,
+> **Done when** both Add-a-Line drafts include what you added to the skill,
 > `feat/catalog-filter`, `feat/cart-api`, and `feat/add-a-line-ui` each have an open PR,
 > the UI PR names its dependency on the API PR, and both Add-a-Line PRs read cleanly to a
 > reviewer.
