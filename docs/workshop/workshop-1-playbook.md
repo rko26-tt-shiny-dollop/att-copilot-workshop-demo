@@ -788,11 +788,14 @@ instead, but it accepts the same `SKILL.md` if you copy it there.
 > Write the pull request description for this branch so it's ready for review.
 > ```
 >
-> **Check discovery** as in Lesson 3: look in the tool activity for a read of
+> **Check discovery** as in Lesson 3: look in the tool activity for an entry such as
+> **Read skill `pr-description`**, which shows it loaded
 > `.agents/skills/pr-description/SKILL.md`. If you can't see one, treat discovery as
 > unverified. If the skill is listed in the `/` menu, you can also run it yourself.
 >
-> Then, in the **same chat**, have Copilot open the PR using that draft as the body:
+> Then, in the **same chat**, have Copilot open the PR using that draft as the body. If
+> the draft suggests a title, ask Copilot to use it. If the skill does not suggest a
+> title, then in the same chat, ask Copilot to choose one as it opens the PR:
 >
 > ```text
 > Open a pull request for this branch using the description you just generated as the body. Choose a concise, conventional-commit-style title.
@@ -831,7 +834,8 @@ instead, but it accepts the same `SKILL.md` if you copy it there.
 >    section actually appears** (verify, don't assume). If Lesson 5's agent report
 >    listed business rules beyond the acceptance criteria or follow-ups, check they're
 >    under **Risk & rollout**. Then, in the **same chat**, ask Copilot to open the PR
->    using that draft as the body (let it pick a conventional-commit title).
+>    using that draft as the body, with the suggested title or, if the skill does not
+>    suggest one, a conventional-commit title it chooses.
 >
 >    Repeat for `feat/add-a-line-ui`. The UI calls endpoints that only the API PR adds, so
 >    say in its description that it depends on the API PR.
