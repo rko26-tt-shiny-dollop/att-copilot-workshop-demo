@@ -4,6 +4,7 @@ import swaggerUi from "swagger-ui-express";
 import { createStore, type Store } from "./repositories/store.js";
 import { crudRouter } from "./routes/crud.js";
 import { activationRouter } from "./routes/activation.js";
+import { provisioningRouter } from "./routes/provisioning.js";
 import { swaggerDocument } from "./swagger.js";
 
 /** Build the Express app. A store can be injected for tests. */
@@ -23,7 +24,7 @@ export function createApp(store: Store = createStore()): Express {
   app.use("/api/rate-plans", crudRouter(store.ratePlans, "RatePlan"));
   app.use("/api/subscribers", crudRouter(store.subscribers, "Subscriber"));
   app.use("/api/activation-orders", activationRouter(store));
-  app.use("/api/provisionings", crudRouter(store.provisionings, "Provisioning"));
+  app.use("/api/provisionings", provisioningRouter(store));
 
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

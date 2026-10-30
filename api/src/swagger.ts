@@ -36,7 +36,22 @@ export const swaggerDocument = {
       },
     },
     "/api/provisionings": {
-      get: { summary: "List provisioning records", responses: { "200": { description: "Provisioning list" } } },
+      get: {
+        summary: "List provisioning records",
+        parameters: [
+          {
+            name: "status",
+            in: "query",
+            required: false,
+            description: "Filter by provisioning status (pending, in_progress, activated, failed).",
+            schema: { type: "string", enum: ["pending", "in_progress", "activated", "failed"] },
+          },
+        ],
+        responses: {
+          "200": { description: "Provisioning list" },
+          "400": { description: "Invalid status filter" },
+        },
+      },
     },
   },
 };
