@@ -38,7 +38,7 @@ shared baseline, then make a real, well-tested change — an **Add-a-Line / serv
 cart** feature — safely, from idea to reviewed pull request. The throughline we'll
 build toward is one repeatable loop:
 
-> **instructions → prompt → impact-analysis skill → test-first → branch → PR → review.**
+> **instructions → prompt → impact-analysis skill → test-first agents → branch → PR → review.**
 
 **Before you start:** complete `docs/workshop/participant-setup.md` and confirm
 `make dev` serves the API on **http://localhost:3000** and the console on
@@ -407,45 +407,82 @@ let the skill supply the procedure rather than spelling it out in every prompt.
 
 ---
 
-## 4. Acceptance-test-first development (~20 min)
+## 4. Acceptance-test-first development with custom agents (~20 min)
 
 **Scenario:** We're adding an **Add-a-Line / service cart**: a subscriber builds a
-cart of device + rate-plan lines and checks out to create an activation order.
-We'll write the acceptance tests *first*, then make them pass.
+cart of device + rate-plan lines and checks out to create an activation order. The
+acceptance tests already define the feature. Make them pass without letting the agent
+that writes the code also judge its own work.
 
-**Background:** When the test encodes the acceptance criteria, it becomes the spec.
-The agent can then implement against a concrete, runnable target and self-correct
-until it's green.
+**Background:** When the test encodes the acceptance criteria, it becomes the spec. A
+**custom agent** (`.github/agents/*.agent.md`) packages a role: instructions plus the
+tools it may use. A custom agent can delegate to other custom agents as **subagents**,
+each working in its own context with its own tools. Our **Acceptance Test First** agent
+coordinates two workers:
+
+| Agent | Role | Tools |
+|-------|------|-------|
+| [Acceptance Test First](../../.github/agents/acceptance-test-first.agent.md) | Confirms the tests fail, delegates, re-runs the tests itself, routes review findings, reports | `agent`, `read`, `search`, `execute` (no `edit`) |
+| [Implementer](../../.github/agents/implementer.agent.md) | Writes production code to pass the tests; never edits tests | `edit`, `read`, `search`, `execute` |
+| [Spec Reviewer](../../.github/agents/spec-reviewer.agent.md) | Reviews in a fresh context; labels findings blocking or follow-up | `read`, `search` |
+
+The reviewer didn't write the code and can't edit it, so it checks the change rather than
+defending it. Blocking findings go back to Implementer once; follow-ups come to you.
+
+This lesson uses VS Code's **Local** harness. There, the coordinator's `agents` property
+limits it to the named workers, enforced by configuration. Custom agents also appear in
+the Copilot harness, but it doesn't support the `agents` property. See
+[subagents in VS Code](https://code.visualstudio.com/docs/agents/run/subagents).
 
 #### ▶️ Example (follow along)
 
-> Open `api/src/routes/addALine.acceptance.test.ts` — the **skipped** Add-a-Line suite —
-> and `docs/design/add-a-line.png` for the target, then:
->
-> 1. remove `.skip` from the `describe`,
-> 2. run the suite and watch it go **red**:
->
->    ```bash
->    cd api && npm test
->    ```
->
-> 3. run the acceptance-test-first prompt and let Copilot implement the cart API
->    (`POST /api/carts`, `/api/carts/:id/lines`, `/api/carts/:id/checkout`) until the
->    suite is **green**:
+> 1. Open `api/src/routes/addALine.acceptance.test.ts`, the **skipped** Add-a-Line suite,
+>    and `docs/design/add-a-line.png` for the target. Change `describe.skip(` to
+>    `describe(`. The agent won't edit tests, so if you forget, it stops and asks you to.
+> 2. Start a new chat, select **Local** in the **Session Target** control, then select
+>    **Acceptance Test First** in the agent picker. The two workers aren't listed; they're
+>    hidden from the picker.
+> 3. Send:
 >
 >    ```text
->    /acceptance-test-first implement the cart API so the Add-a-Line acceptance suite passes
+>    Make the Add-a-Line acceptance suite pass.
 >    ```
+>
+> **What good looks like:**
+>
+> - **Red first:** before any code changes, the coordinator runs `make test` and reports
+>   the 3 cart tests failing with `404` while the existing tests pass.
+> - **Delegation:** the chat shows subagent entries for the implementation and the review.
+>   Open one to see which agent ran it; the Spec Reviewer entry only reads and searches.
+> - **Independent check:** after Implementer reports back, the coordinator runs
+>   `make test` itself rather than trusting the report.
+> - **Bounded review:** the reviewer returns `PASS`, or blocking findings (for example, a
+>   missing Swagger entry) are fixed in one round and re-reviewed.
+> - **Follow-ups for you:** missing error-path tests and design decisions are listed for
+>   you to decide, not built.
+> - **Tests untouched:** `git diff api/src/routes/addALine.acceptance.test.ts` shows only
+>   your `.skip` removal, and `make test` passes when you run it.
+>
+> If the run ends with `CHANGES NEEDED`, read the blocking finding and resolve it before
+> you commit. Stopping there is the review working, not failing.
 
 #### 🧑‍💻 Participant Exercise
 
-> Make sure you followed along with the previous Example and all tests are passing. Now
-> you'll play the **acceptance-test-first** role yourself: *you* write the failing spec,
-> then hand the implementation to Copilot.
+> Complete the Example first; this exercise builds on the cart API it created. This
+> time *you* write the failing spec and the same agent implements it.
 >
-> 1. **Write the test by hand.** Open `api/src/routes/addALine.acceptance.test.ts` and paste
->    this as a new `it(...)` block **just before the closing `});` of the `describe`** (right
->    after the "checks out a cart" test):
+> 1. **See how the agents are configured.** Open the three files in `.github/agents/`
+>    and find:
+>    - `tools`: the coordinator has no `edit` tool, so code changes must be delegated;
+>      Spec Reviewer can only read and search.
+>    - `agents: ['Implementer', 'Spec Reviewer']`: the only subagents the coordinator
+>      can call.
+>    - `user-invocable: false`: hides each worker from the agent picker.
+>    - `disable-model-invocation: true`: stops other agents from calling the workers on
+>      their own. The coordinator still can, because its `agents` list names them.
+> 2. **Write the test by hand.** In `api/src/routes/addALine.acceptance.test.ts`, paste
+>    this as a new `it(...)` block **just before the closing `});` of the `describe`**
+>    (right after the "checks out a cart" test):
 >
 >    ```ts
 >    it("removes a line from a cart and decrements the count", async () => {
@@ -461,35 +498,49 @@ until it's green.
 >      expect(res.body.lineCount).toBe(0);
 >    });
 >    ```
-> 2. **Run it and watch it go red.** Run from the root directory and watch for the failing
->    test:
+>
+>    This test also expects the add-line response to include a `lineId`. That's part of
+>    the contract your test defines.
+> 3. **Run it and watch it go red** from the repository root:
 >
 >    ```bash
->    cd api && npm test
+>    make test
 >    ```
 >
 >    It fails because no delete route exists yet.
->
->    *(This test also assumes the add-line response exposes a `lineId`. That's part of the
->    contract your test defines — Copilot will add it when it implements the endpoint.)*
-> 3. **Now prompt Copilot to _implement only_** — your test is already written, so don't
->    let it author the test:
+> 4. **Hand the implementation to the agent.** In a new **Local** chat with **Acceptance
+>    Test First** selected, send:
 >
 >    ```text
->    /acceptance-test-first implement a DELETE /api/carts/:id/lines/:lineId endpoint so my remove-line test passes, without breaking the others
+>    Make the new remove-line acceptance test pass without breaking the rest of the suite.
 >    ```
 >
-> Writing the failing test yourself is the whole point: if you instead ask Copilot to
-> "make my new test pass" before you've written it, it will author *both* the test and the
-> code and you'll never see the red step. Also pick a behavior that genuinely doesn't
-> exist yet — the Example's implementation already covers the common error cases (unknown
-> subscriber, unknown device, empty-cart checkout), so those would pass on the first run.
+> **What good looks like:**
 >
-> **Done when** the Add-a-Line suite (including your new remove-line test) passes and
-> nothing else broke.
+> - The coordinator's red run shows only the remove-line test failing (`404` instead of
+>   `200`).
+> - Implementer adds the `DELETE` route and returns `lineId` from add-line, without
+>   changing your test.
+> - The new endpoint is documented in `api/src/swagger.ts`; if Implementer misses it, the
+>   reviewer flags it as blocking.
+> - Follow-ups suggest error tests, such as a missing line, a line from another cart, or
+>   a checked-out cart. Each is a candidate for your next failing test.
 >
-> **Tip:** if the agent stalls, describe the **symptom** (*"POST /carts/:id/lines
-> returns 404"*), not the fix, and let it investigate.
+> **Done when** `make test` passes with your remove-line test included, the reviewer
+> reports no blocking findings, and the test file contains only your changes.
+>
+> Writing the failing test yourself is the point: the coordinator won't write tests, so
+> without one it has nothing to implement against. Pick behavior that doesn't exist yet;
+> a test that passes on the first run proves nothing.
+>
+> **Troubleshooting:**
+>
+> - **The agent isn't in the picker:** confirm the repository root is open and **Local**
+>   is selected.
+> - **No subagent activity:** in **Configure Tools**, make sure **Run Subagent** is
+>   enabled.
+> - **The agent stalls:** describe the **symptom** (*"POST /carts/:id/lines returns
+>   404"*), not the fix, and let it investigate.
 
 > **Before you move on — commit the cart API to `main`.** You've been working directly on
 > `main`, and this cart API is the foundation the next section's UI builds on. Commit it so
@@ -800,9 +851,9 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 
 ## Wrap-up & take-home (~10 min)
 
-**The loop:** **instructions → prompt → impact-analysis skill → test-first → branch → PR → review.**
-Everything today was one pass around it. The prompts, skills, and instructions in `.github/`
-are reusable team assets — copy the patterns into your own repos and adapt them to your domain.
+**The loop:** **instructions → prompt → impact-analysis skill → test-first agents → branch → PR → review.**
+Everything today was one pass around it. The instructions, prompts, skills, and custom agents in
+`.github/` are reusable team assets — copy the patterns into your own repos and adapt them to your domain.
 
 ### Reflect
 
@@ -818,7 +869,7 @@ are reusable team assets — copy the patterns into your own repos and adapt the
 | Reusable prompts | Capture repeatable workflows as shared `/`-commands. |
 | Skills | Package domain know-how, data, or procedures for on-demand use. |
 | Impact analysis | Pair a clear change-assessment request with a discoverable, report-only skill. |
-| Acceptance-test-first | Write the contract as tests first; red → green keeps scope honest. |
+| Acceptance-test-first agents | Write the contract as tests first; a coordinator delegates implementation and independent review. |
 | Branch-based build | One feature per branch stays isolated and reviewable. |
 | PR standards | Small, tested, well-described PRs earn a reviewer's trust. |
 | Code review with Copilot | An AI first pass catches more, faster — a human still owns the merge. |
@@ -829,7 +880,7 @@ are reusable team assets — copy the patterns into your own repos and adapt the
   workflow you repeat as a reusable prompt.
 - **This month:** build a skill for a recurring domain task, and adopt acceptance-test-first
   on one feature — with `/pr-description` + a Copilot review on the PR.
-- **This quarter:** grow a shared `.github/` library (instructions, prompts, skills) for your
+- **This quarter:** grow a shared `.github/` library (instructions, prompts, skills, agents) for your
   team, and start measuring the impact on your delivery.
 
 This is **Workshop 1 of 3** — Workshops 2 and 3 build directly on what you set up today, so
@@ -839,4 +890,5 @@ keep these assets around.
 
 - [GitHub Copilot docs](https://docs.github.com/en/copilot)
 - [VS Code Copilot customization](https://code.visualstudio.com/docs/copilot/copilot-customization) — custom instructions and prompt files
+- [Custom agents in VS Code](https://code.visualstudio.com/docs/agent-customization/custom-agents) and [subagents](https://code.visualstudio.com/docs/agents/run/subagents) — roles, tools, and delegation
 - [awesome-copilot](https://github.com/github/awesome-copilot) — community prompts, instructions, and skills

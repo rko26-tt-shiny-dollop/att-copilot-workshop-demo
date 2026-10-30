@@ -3,8 +3,8 @@
 A small, full-stack demo app used to teach **GitHub Copilot team practices** to
 intermediate users in a wireless/telecom context. It powers a 2-hour workshop that
 covers prompting, custom instructions, Agent Mode, reusable prompts, skills, impact
-analysis, acceptance-test-first development, branch-based implementation, PR
-standards, and Copilot review.
+analysis, acceptance-test-first development with custom agents, branch-based
+implementation, PR standards, and Copilot review.
 
 > Loosely based on the `octocat_supply` demo, re-themed to wireless device & SIM
 > activation and rate-plan management.
@@ -16,10 +16,12 @@ standards, and Copilot review.
   provisioning. Includes IMEI/ICCID (Luhn) validation and Swagger docs.
 - **`frontend/`** — React + Vite + Tailwind console (catalog, plans, subscribers,
   orders, provisioning).
-- **`.github/`** — `copilot-instructions.md`, reusable **prompts**, and **skills**.
-  Lesson 3 uses the report-only
+- **`.github/`** — `copilot-instructions.md`, reusable **prompts**, **skills**, and
+  custom **agents**. Lesson 3 uses the report-only
   [`impact-analysis` skill](.github/skills/impact-analysis/SKILL.md) to assess changes
-  before implementation.
+  before implementation. Lesson 4 uses the
+  [Acceptance Test First agent](.github/agents/acceptance-test-first.agent.md), which
+  delegates implementation and review to worker agents.
 - **`docs/`** — workshop playbook, participant setup,
   PR standards, and the Add-a-Line design mockup.
 
