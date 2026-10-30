@@ -11,8 +11,8 @@ Complete these steps **before** the workshop so we can start on time.
 - A GitHub account with Copilot enabled.
 
 > Custom instructions (`.github/copilot-instructions.md`), prompt files
-> (`.github/prompts`), skills (`.github/skills`), and custom agents (`.github/agents`)
-> work out of the box in current VS Code — no settings to enable.
+> (`.github/prompts`), skills (`.github/skills` and `.agents/skills`), and custom agents
+> (`.github/agents`) work out of the box in current VS Code — no settings to enable.
 
 ## Get the code
 

@@ -22,6 +22,9 @@ agents, PR standards, and Copilot review.
   before implementation. Lesson 5 uses the
   [Acceptance Test First agent](.github/agents/acceptance-test-first.agent.md), which
   delegates implementation and review to worker agents.
+- **`.agents/skills/`** — the portable
+  [`pr-description` skill](.agents/skills/pr-description/SKILL.md) that Lesson 6 uses
+  to draft PR descriptions from the repository's PR template.
 - **`docs/`** — workshop playbook, participant setup,
   PR standards, and the Add-a-Line design mockup.
 

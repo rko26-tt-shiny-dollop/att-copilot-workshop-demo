@@ -307,9 +307,6 @@ team assets and work out of the box in current VS Code.
 > git restore . && git clean -fd api/src
 > git status --short
 > ```
->
-> **Go further:** open `pr-description.prompt.md` and note how a team standardizes PR
-> write-ups — you'll use it in Section 6.
 
 ---
 
@@ -765,7 +762,15 @@ Copilot harness also runs custom agents and subagents, but it delegates through 
 for a reviewer to trust.
 
 **Background:** The repo ships a PR template and written standards so every PR
-arrives in a consistent, reviewable shape.
+arrives in a consistent, reviewable shape. The `pr-description` skill applies them to
+the branch's actual diff. Unlike the earlier skills, it lives in
+[`.agents/skills/`](../../.agents/skills/pr-description/SKILL.md), a shared location
+for agents that follow the open [Agent Skills](https://agentskills.io) standard.
+VS Code and GitHub Copilot read project skills there, and so does OpenAI Codex.
+`gh skill install` puts GitHub Copilot project skills there by default. Use it to share
+one skill across several agents, or for skills you install from elsewhere.
+`.github/skills/` stays Copilot's native location. Claude Code reads `.claude/skills/`
+instead, but it accepts the same `SKILL.md` if you copy it there.
 
 #### ▶️ Example (follow along)
 
@@ -777,11 +782,15 @@ arrives in a consistent, reviewable shape.
 > git push -u origin feat/catalog-filter
 > ```
 >
-> Draft the description from the diff:
+> In a fresh **Agent** chat, ask for the description without naming the skill:
 >
 > ```text
-> /pr-description
+> Write the pull request description for this branch so it's ready for review.
 > ```
+>
+> **Check discovery** as in Lesson 3: look in the tool activity for a read of
+> `.agents/skills/pr-description/SKILL.md`. If you can't see one, treat discovery as
+> unverified. If the skill is listed in the `/` menu, you can also run it yourself.
 >
 > Then, in the **same chat**, have Copilot open the PR using that draft as the body:
 >
@@ -789,9 +798,10 @@ arrives in a consistent, reviewable shape.
 > Open a pull request for this branch using the description you just generated as the body. Choose a concise, conventional-commit-style title.
 > ```
 >
-> Copilot runs `gh pr create` for you (review the command before you approve it), and the
-> template (`.github/pull_request_template.md`) is applied. Check the result against
-> `docs/PR-STANDARDS.md`: small scope, tests, Swagger, filled checklist.
+> Copilot runs `gh pr create` for you (review the command before you approve it). The
+> skill points at the template (`.github/pull_request_template.md`) and
+> `docs/PR-STANDARDS.md` rather than copying them. Check the result against those
+> standards: small scope, tests, Swagger, filled checklist.
 
 #### 🧑‍💻 Participant Exercise
 
@@ -799,15 +809,15 @@ arrives in a consistent, reviewable shape.
 > the UI on `feat/add-a-line-ui` (Lesson 4) and the cart API on `feat/cart-api`
 > (Lesson 5):
 >
-> 1. **Customize the reusable prompt.** Open `.github/prompts/pr-description.prompt.md` and
+> 1. **Customize the team skill.** Open `.agents/skills/pr-description/SKILL.md` and
 >    extend it to do something useful for a reviewer — pick one:
 >
 >    - add a **"How to verify"** section with manual test steps,
 >    - add a **"Linked issues"** section that references related issues (`Closes #…`), or
 >    - have it also propose a **conventional-commit PR title**.
 >
->    This is the Section 1 reusable-prompt idea again — you're *improving* a shared team
->    asset, not just consuming it.
+>    You're *improving* a shared team asset, not just consuming it. Once committed, an
+>    improvement in `.agents/skills/` reaches every agent that reads that folder.
 >
 > 2. Push both branches:
 >
@@ -816,10 +826,12 @@ arrives in a consistent, reviewable shape.
 >    git push -u origin feat/add-a-line-ui
 >    ```
 >
-> 3. Open the API PR first. Check out `feat/cart-api`, run `/pr-description`, and
->    **confirm your new section actually appears** (verify, don't assume). Then, in the
->    **same chat**, ask Copilot to open the PR using that draft as the body (let it pick a
->    conventional-commit title).
+> 3. Open the API PR first. Check out `feat/cart-api` and, in a fresh **Agent** chat,
+>    ask for the description in your own words, as in the Example. **Confirm your new
+>    section actually appears** (verify, don't assume). If Lesson 5's agent report
+>    listed business rules beyond the acceptance criteria or follow-ups, check they're
+>    under **Risk & rollout**. Then, in the **same chat**, ask Copilot to open the PR
+>    using that draft as the body (let it pick a conventional-commit title).
 >
 >    Repeat for `feat/add-a-line-ui`. The UI calls endpoints that only the API PR adds, so
 >    say in its description that it depends on the API PR.
@@ -827,10 +839,10 @@ arrives in a consistent, reviewable shape.
 > 4. Self-audit the PR against `docs/PR-STANDARDS.md` line by line and fix anything that
 >    falls short before requesting review.
 >
-> Your prompt tweak is a local experiment — keep it out of the PR. The PR is built from your
-> committed branch, so don't `git add` the edited prompt file into it.
+> Your skill tweak is a local experiment — keep it out of the PR. The PR is built from your
+> committed branch, so don't `git add` the edited skill file into it.
 >
-> **Done when** your customized `/pr-description` produces the new section,
+> **Done when** your customized skill produces the new section,
 > `feat/catalog-filter`, `feat/cart-api`, and `feat/add-a-line-ui` each have an open PR,
 > the UI PR names its dependency on the API PR, and both Add-a-Line PRs read cleanly to a
 > reviewer.
@@ -894,7 +906,7 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 > `any` and ad-hoc CSS, contrary to `.github/copilot-instructions.md`.
 >
 > From the repo root in the VS Code terminal, save files and ensure there are no
-> unrelated staged changes or unfinished catalog edits. Leave Lesson 6's local prompt
+> unrelated staged changes or unfinished catalog edits. Leave Lesson 6's local skill
 > experiment unstaged; don't discard it. Switch branches, then inspect the status.
 > **Stop if switching fails.**
 >
@@ -978,7 +990,8 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 
 **The loop:** **instructions → prompt → impact-analysis skill → branch → test-first agents → PR → review.**
 Everything today was one pass around it. The instructions, prompts, skills, and custom agents in
-`.github/` are reusable team assets — copy the patterns into your own repos and adapt them to your domain.
+`.github/` — plus the portable skill in `.agents/skills/` — are reusable team assets. Copy the
+patterns into your own repos and adapt them to your domain.
 
 ### Reflect
 
@@ -996,7 +1009,7 @@ Everything today was one pass around it. The instructions, prompts, skills, and 
 | Impact analysis | Pair a clear change-assessment request with a discoverable, report-only skill. |
 | Branch-based build | One feature per branch, named by an agreed convention, stays isolated and reviewable. |
 | Acceptance-test-first agents | Agree acceptance criteria and codify them as tests first; a coordinator delegates implementation and independent review. |
-| PR standards | Small, tested, well-described PRs earn a reviewer's trust. |
+| PR standards | Small, tested, well-described PRs earn a reviewer's trust; a portable skill applies the team template. |
 | Code review with Copilot | An AI first pass catches more, faster — a human still owns the merge. |
 
 ### Next steps
@@ -1004,7 +1017,7 @@ Everything today was one pass around it. The instructions, prompts, skills, and 
 - **This week:** add a `.github/copilot-instructions.md` to one real repo, and capture one
   workflow you repeat as a reusable prompt.
 - **This month:** build a skill for a recurring domain task, and adopt acceptance-test-first
-  on one feature — with `/pr-description` + a Copilot review on the PR.
+  on one feature — with a PR-description skill + a Copilot review on the PR.
 - **This quarter:** grow a shared `.github/` library (instructions, prompts, skills, agents) for your
   team, and start measuring the impact on your delivery.
 
