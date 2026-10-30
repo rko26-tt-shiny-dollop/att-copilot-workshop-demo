@@ -582,12 +582,14 @@ Test First** agent handles the Develop step by coordinating two workers:
 
 | Agent | Role | Tools |
 |-------|------|-------|
-| [Acceptance Test First](../../.github/agents/acceptance-test-first.agent.md) | Confirms the tests fail, delegates, re-runs the tests itself, routes review findings, reports | `agent`, `read`, `search`, `execute` (no `edit`) |
-| [Implementer](../../.github/agents/implementer.agent.md) | Writes production code to pass the tests; never edits tests | `edit`, `read`, `search`, `execute` |
+| [Acceptance Test First](../../.github/agents/acceptance-test-first.agent.md) | Confirms the tests fail, delegates, re-runs tests, lint, and type-check itself, checks the new tests fail on the old code, routes review findings, reports | `agent`, `read`, `search`, `execute` (no `edit`) |
+| [Implementer](../../.github/agents/implementer.agent.md) | Writes production code to pass the tests, adding its own error-path tests first (the inner loop); never changes existing tests | `edit`, `read`, `search`, `execute` |
 | [Spec Reviewer](../../.github/agents/spec-reviewer.agent.md) | Reviews in a fresh context; labels findings blocking or follow-up | `read`, `search` |
 
 The reviewer didn't write the code and can't edit it, so it checks the change rather than
-defending it. Blocking findings go back to Implementer once; follow-ups come to you.
+defending it. The coordinator doesn't take Implementer's word that its new tests went red
+first: it runs them against the code from before the change in a temporary copy of the
+repository. Blocking findings go back to Implementer once; follow-ups come to you.
 
 This lesson uses VS Code's **Local** harness. These agent files rely on two Local
 features: the coordinator's `agents` list limits it to the named workers, and naming a
@@ -627,20 +629,35 @@ Copilot harness also runs custom agents and subagents, but it delegates through 
 >   existing tests pass.
 > - **Delegation:** the chat shows subagent entries for the implementation and the review.
 >   Open one to see which agent ran it; the Spec Reviewer entry only reads and searches.
+>   Expand collapsed steps to see status lines such as `🔁 Inner red check`; the final
+>   summary is headed `✅ Report`.
 > - **The API gets built:** Implementer creates the cart models, stores, routes, the
 >   `/api/carts` registration in `api/src/app.ts`, and the Swagger docs. File names can
 >   vary.
-> - **Independent check:** after Implementer reports back, the coordinator runs
->   `make test` itself rather than trusting the report.
+> - **Inner loop:** Implementer adds a new test file (for example,
+>   `api/src/routes/carts.test.ts`) with error-path tests, such as an unknown subscriber
+>   returning `404`, written and run before the code.
+> - **Independent checks:** after Implementer reports back, the coordinator runs
+>   `make test`, lint, and type-check itself. It then runs the new tests against the code
+>   from before the change; the report lists each one with the failure it produced there.
 > - **Bounded review:** the reviewer returns `PASS`, or blocking findings (for example, a
 >   missing Swagger entry) are fixed in one round and re-reviewed.
-> - **Follow-ups for you:** missing error-path tests and design decisions are listed for
->   you to decide, not built.
-> - **Tests untouched:** `git diff api/src/routes/addALine.acceptance.test.ts` shows only
->   your `.skip` removal, and `make test` passes when you run it.
+> - **Rules for the team:** the report lists business rules Implementer added beyond the
+>   criteria (for example, what checking out an empty cart returns) and follow-ups for you
+>   to decide. These choices can differ between runs, which is why they go back to the
+>   team instead of being accepted silently.
+> - **Existing tests untouched:** `git diff api/src/routes/addALine.acceptance.test.ts`
+>   shows only your `.skip` removal, and `make test` passes when you run it.
 >
 > If the run ends with `CHANGES NEEDED`, read the blocking finding and resolve it before
 > you commit. Stopping there is the review working, not failing.
+>
+> **Commit the cart API before the exercise.** The exercise's red check runs new tests
+> against your last commit, so it needs the cart API committed:
+>
+> ```bash
+> git add -A && git commit -m "Add cart API (Add-a-Line acceptance suite)"
+> ```
 
 #### 🧑‍💻 Participant Exercise
 
@@ -705,17 +722,22 @@ Copilot harness also runs custom agents and subagents, but it delegates through 
 >   `200`).
 > - Implementer adds a `DELETE` route to the existing cart routes and returns `lineId`
 >   from add-line, without changing your test.
+> - Implementer's inner tests cover the error paths, such as an unknown line, a line from
+>   another cart, or a checked-out cart. Each one fails against your Example commit
+>   before the code is written.
 > - The new endpoint is documented in `api/src/swagger.ts`; if Implementer misses it, the
 >   reviewer flags it as blocking.
-> - Follow-ups suggest error tests, such as a missing line, a line from another cart, or
->   a checked-out cart. Each is a candidate for your next failing test.
+> - Follow-ups may point out gaps in your criterion. For example, your test uses a
+>   one-line cart, so code that removed the wrong line would still pass. Each gap is a
+>   candidate for your next acceptance test.
 >
 > **Done when** `make test` passes with your remove-line test included, the reviewer
-> reports no blocking findings, and the test file contains only your changes.
+> reports no blocking findings, and your acceptance test file contains only your changes.
 >
-> Writing the failing test yourself is the point: the coordinator won't write tests, so
-> without one it has nothing to implement against. Pick behavior that doesn't exist yet;
-> a test that passes on the first run proves nothing.
+> Writing the acceptance test yourself is the point: the agents won't write or change
+> acceptance tests, so without one they have nothing to implement against. Implementer's
+> own tests only cover details of the behavior you asked for. Pick behavior that doesn't
+> exist yet; a test that passes on the first run proves nothing.
 >
 > **Troubleshooting:**
 >
@@ -726,10 +748,10 @@ Copilot harness also runs custom agents and subagents, but it delegates through 
 > - **The agent stalls:** describe the **symptom** (*"POST /carts/:id/lines returns
 >   404"*), not the fix, and let it investigate.
 
-> **Before you move on — commit the cart API to its branch:**
+> **Before you move on — commit the remove-line change to the cart API branch:**
 >
 > ```bash
-> git add -A && git commit -m "Add cart API (Add-a-Line acceptance suite)"
+> git add -A && git commit -m "Add cart line removal"
 > ```
 >
 > The UI (`feat/add-a-line-ui`) and the API (`feat/cart-api`) now live on separate
