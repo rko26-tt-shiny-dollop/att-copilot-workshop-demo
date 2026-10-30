@@ -429,10 +429,12 @@ coordinates two workers:
 The reviewer didn't write the code and can't edit it, so it checks the change rather than
 defending it. Blocking findings go back to Implementer once; follow-ups come to you.
 
-This lesson uses VS Code's **Local** harness. There, the coordinator's `agents` property
-limits it to the named workers, enforced by configuration. Custom agents also appear in
-the Copilot harness, but it doesn't support the `agents` property. See
-[subagents in VS Code](https://code.visualstudio.com/docs/agents/run/subagents).
+This lesson uses VS Code's **Local** harness. These agent files rely on two Local
+features: the coordinator's `agents` list limits it to the named workers, and naming a
+worker there lets the coordinator call it despite `disable-model-invocation: true`. The
+Copilot harness also runs custom agents and subagents, but it delegates through its own
+`task` tool, so these files would need adjusting. See
+[subagents by harness](https://code.visualstudio.com/docs/agents/run/subagents#_subagents-by-harness).
 
 #### ▶️ Example (follow along)
 
