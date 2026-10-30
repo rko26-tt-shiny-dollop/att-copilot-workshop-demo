@@ -556,7 +556,9 @@ tests just before the code, so each piece of code is built to meet a requirement
 written down. Acceptance tests are requirements the team agrees on before anyone writes
 code. Whoever implements the feature treats them as fixed: changing one means going back to
 the team, not editing the test to make it pass. That keeps the agreed standard enforced,
-and any change to it is visible in review.
+and any change to it is visible in review. Developers can still add their own tests for
+details the criteria don't cover. That TDD cycle inside the acceptance-test cycle is often
+called the inner loop.
 
 **How the criteria are codified:** `api/src/routes/addALine.acceptance.test.ts` lists the
 criteria in its header comment, then turns them into tests. Each test follows
