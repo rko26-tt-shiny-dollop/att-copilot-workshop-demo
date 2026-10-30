@@ -539,8 +539,8 @@ Copilot harness also runs custom agents and subagents, but it delegates through 
 >
 > - **The agent isn't in the picker:** confirm the repository root is open and **Local**
 >   is selected.
-> - **No subagent activity:** in **Configure Tools**, make sure **Run Subagent** is
->   enabled.
+> - **No subagent activity:** confirm you started a new **Local** chat with **Acceptance
+>   Test First** selected; its `tools` list includes `agent`, which it needs to delegate.
 > - **The agent stalls:** describe the **symptom** (*"POST /carts/:id/lines returns
 >   404"*), not the fix, and let it investigate.
 
