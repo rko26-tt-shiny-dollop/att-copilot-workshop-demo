@@ -846,8 +846,9 @@ instead, but it accepts the same `SKILL.md` if you copy it there.
 >      the title from the draft, or ask Copilot to choose a conventional-commit title if
 >      there isn't one.
 >
->    Repeat for `feat/add-a-line-ui`. The UI calls endpoints that only the API PR adds, so
->    say in its description that it depends on the API PR.
+>    Repeat for `feat/add-a-line-ui`. Its diff shows calls to cart endpoints that aren't
+>    on `main`, but not that your API PR adds them. Check that the draft names the API PR
+>    (for example, `Depends on #12`). If it doesn't, give Copilot the PR number.
 >
 > 4. Self-audit the PR against `docs/PR-STANDARDS.md` line by line and fix anything that
 >    falls short before requesting review.
