@@ -540,7 +540,8 @@ judge its own work.
 **Background:** **Acceptance criteria** are the conditions a feature must meet to be
 accepted, written in plain language that product, QA, and developers agree on.
 **Acceptance-test-first development** (often called ATDD) turns those criteria into
-automated tests *before* any code exists, then builds until they pass:
+automated tests *before* any code exists, then builds until they pass. A simple pattern
+often followed is:
 
 1. **Discuss:** the team works through the feature's real-world scenarios. Here, that's
    the Add-a-Line mockup.
@@ -550,9 +551,12 @@ automated tests *before* any code exists, then builds until they pass:
 4. **Demo:** the finished feature is shown to stakeholders for feedback. Here, that's the
    pull request and review in Lessons 6–7.
 
-How it differs from test-driven development (TDD): TDD is a developer writing small unit
-tests alongside the code. Acceptance tests check the feature from the outside (here,
-through the HTTP API), and whoever implements the feature doesn't get to rewrite them.
+How it differs from test-driven development (TDD): in TDD, a developer writes their own
+tests just before the code, so each piece of code is built to meet a requirement they've
+written down. Acceptance tests are requirements the team agrees on before anyone writes
+code. Whoever implements the feature treats them as fixed: changing one means going back to
+the team, not editing the test to make it pass. That keeps the agreed standard enforced,
+and any change to it is visible in review.
 
 **How the criteria are codified:** `api/src/routes/addALine.acceptance.test.ts` lists the
 criteria in its header comment, then turns them into tests. Each test follows
