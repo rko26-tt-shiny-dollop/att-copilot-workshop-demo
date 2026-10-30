@@ -38,7 +38,7 @@ shared baseline, then make a real, well-tested change — an **Add-a-Line / serv
 cart** feature — safely, from idea to reviewed pull request. The throughline we'll
 build toward is one repeatable loop:
 
-> **instructions → prompt → impact-analysis skill → test-first agents → branch → PR → review.**
+> **instructions → prompt → impact-analysis skill → branch → test-first agents → PR → review.**
 
 **Before you start:** complete `docs/workshop/participant-setup.md` and confirm
 `make dev` serves the API on **http://localhost:3000** and the console on
@@ -239,7 +239,7 @@ files, and runs commands (build/test) to verify its own work.
 > ```
 >
 > Notice it reports a few **skipped** tests — that's the Add-a-Line starter we'll pick up
-> in Section 4.
+> in Section 5.
 
 #### 🧑‍💻 Participant Exercise
 
@@ -298,6 +298,14 @@ team assets and work out of the box in current VS Code.
 >
 > ```bash
 > cd api && npm run build && npm test
+> ```
+>
+> Then discard the Example's changes and yours, so later lessons start from a clean
+> `main`. `git status --short` should print nothing afterward:
+>
+> ```bash
+> git restore . && git clean -fd api/src
+> git status --short
 > ```
 >
 > **Go further:** open `pr-description.prompt.md` and note how a team standardizes PR
@@ -407,178 +415,49 @@ let the skill supply the procedure rather than spelling it out in every prompt.
 
 ---
 
-## 4. Acceptance-test-first development with custom agents (~20 min)
+## 4. Branch-based implementation (~15 min)
 
-**Scenario:** We're adding an **Add-a-Line / service cart**: a subscriber builds a
-cart of device + rate-plan lines and checks out to create an activation order. The
-acceptance tests already define the feature. Make them pass without letting the agent
-that writes the code also judge its own work.
-
-**Background:** When the test encodes the acceptance criteria, it becomes the spec. A
-**custom agent** (`.github/agents/*.agent.md`) packages a role: instructions plus the
-tools it may use. A custom agent can delegate to other custom agents as **subagents**,
-each working in its own context with its own tools. Our **Acceptance Test First** agent
-coordinates two workers:
-
-| Agent | Role | Tools |
-|-------|------|-------|
-| [Acceptance Test First](../../.github/agents/acceptance-test-first.agent.md) | Confirms the tests fail, delegates, re-runs the tests itself, routes review findings, reports | `agent`, `read`, `search`, `execute` (no `edit`) |
-| [Implementer](../../.github/agents/implementer.agent.md) | Writes production code to pass the tests; never edits tests | `edit`, `read`, `search`, `execute` |
-| [Spec Reviewer](../../.github/agents/spec-reviewer.agent.md) | Reviews in a fresh context; labels findings blocking or follow-up | `read`, `search` |
-
-The reviewer didn't write the code and can't edit it, so it checks the change rather than
-defending it. Blocking findings go back to Implementer once; follow-ups come to you.
-
-This lesson uses VS Code's **Local** harness. These agent files rely on two Local
-features: the coordinator's `agents` list limits it to the named workers, and naming a
-worker there lets the coordinator call it despite `disable-model-invocation: true`. The
-Copilot harness also runs custom agents and subagents, but it delegates through its own
-`task` tool, so these files would need adjusting. See
-[subagents by harness](https://code.visualstudio.com/docs/agents/run/subagents#_subagents-by-harness).
-
-#### ▶️ Example (follow along)
-
-> 1. Open `api/src/routes/addALine.acceptance.test.ts`, the **skipped** Add-a-Line suite,
->    and `docs/design/add-a-line.png` for the target. Change `describe.skip(` to
->    `describe(`. The agent won't edit tests, so if you forget, it stops and asks you to.
-> 2. Start a new chat, select **Local** in the **Session Target** control, then select
->    **Acceptance Test First** in the agent picker. The two workers aren't listed; they're
->    hidden from the picker.
-> 3. Send:
->
->    ```text
->    Make the Add-a-Line acceptance suite pass.
->    ```
->
-> **What good looks like:**
->
-> - **Red first:** before any code changes, the coordinator runs `make test` and reports
->   the 3 cart tests failing with `404` while the existing tests pass.
-> - **Delegation:** the chat shows subagent entries for the implementation and the review.
->   Open one to see which agent ran it; the Spec Reviewer entry only reads and searches.
-> - **Independent check:** after Implementer reports back, the coordinator runs
->   `make test` itself rather than trusting the report.
-> - **Bounded review:** the reviewer returns `PASS`, or blocking findings (for example, a
->   missing Swagger entry) are fixed in one round and re-reviewed.
-> - **Follow-ups for you:** missing error-path tests and design decisions are listed for
->   you to decide, not built.
-> - **Tests untouched:** `git diff api/src/routes/addALine.acceptance.test.ts` shows only
->   your `.skip` removal, and `make test` passes when you run it.
->
-> If the run ends with `CHANGES NEEDED`, read the blocking finding and resolve it before
-> you commit. Stopping there is the review working, not failing.
-
-#### 🧑‍💻 Participant Exercise
-
-> Complete the Example first; this exercise builds on the cart API it created. This
-> time *you* write the failing spec and the same agent implements it.
->
-> 1. **See how the agents are configured.** Open the three files in `.github/agents/`
->    and find:
->    - `tools`: the coordinator has no `edit` tool, so code changes must be delegated;
->      Spec Reviewer can only read and search.
->    - `agents: ['Implementer', 'Spec Reviewer']`: the only subagents the coordinator
->      can call.
->    - `user-invocable: false`: hides each worker from the agent picker.
->    - `disable-model-invocation: true`: stops other agents from calling the workers on
->      their own. The coordinator still can, because its `agents` list names them.
-> 2. **Write the test by hand.** In `api/src/routes/addALine.acceptance.test.ts`, paste
->    this as a new `it(...)` block **just before the closing `});` of the `describe`**
->    (right after the "checks out a cart" test):
->
->    ```ts
->    it("removes a line from a cart and decrements the count", async () => {
->      const app = createApp();
->      const cart = await request(app).post("/api/carts").send({ subscriberId: 1 });
->      const line = await request(app)
->        .post(`/api/carts/${cart.body.id}/lines`)
->        .send({ deviceId: 1, ratePlanId: 1 });
->      const res = await request(app).delete(
->        `/api/carts/${cart.body.id}/lines/${line.body.lineId}`
->      );
->      expect(res.status).toBe(200);
->      expect(res.body.lineCount).toBe(0);
->    });
->    ```
->
->    This test also expects the add-line response to include a `lineId`. That's part of
->    the contract your test defines.
-> 3. **Run it and watch it go red** from the repository root:
->
->    ```bash
->    make test
->    ```
->
->    It fails because no delete route exists yet.
-> 4. **Hand the implementation to the agent.** In a new **Local** chat with **Acceptance
->    Test First** selected, send:
->
->    ```text
->    Make the new remove-line acceptance test pass without breaking the rest of the suite.
->    ```
->
-> **What good looks like:**
->
-> - The coordinator's red run shows only the remove-line test failing (`404` instead of
->   `200`).
-> - Implementer adds the `DELETE` route and returns `lineId` from add-line, without
->   changing your test.
-> - The new endpoint is documented in `api/src/swagger.ts`; if Implementer misses it, the
->   reviewer flags it as blocking.
-> - Follow-ups suggest error tests, such as a missing line, a line from another cart, or
->   a checked-out cart. Each is a candidate for your next failing test.
->
-> **Done when** `make test` passes with your remove-line test included, the reviewer
-> reports no blocking findings, and the test file contains only your changes.
->
-> Writing the failing test yourself is the point: the coordinator won't write tests, so
-> without one it has nothing to implement against. Pick behavior that doesn't exist yet;
-> a test that passes on the first run proves nothing.
->
-> **Troubleshooting:**
->
-> - **The agent isn't in the picker:** confirm the repository root is open and **Local**
->   is selected.
-> - **No subagent activity:** confirm you started a new **Local** chat with **Acceptance
->   Test First** selected; its `tools` list includes `agent`, which it needs to delegate.
-> - **The agent stalls:** describe the **symptom** (*"POST /carts/:id/lines returns
->   404"*), not the fix, and let it investigate.
-
-> **Before you move on — commit the cart API to `main`.** You've been working directly on
-> `main`, and this cart API is the foundation the next section's UI builds on. Commit it so
-> it's safely captured and any branch you cut next inherits it:
->
-> ```bash
-> git add -A && git commit -m "Add cart API (Add-a-Line acceptance suite)"
-> ```
->
-> That's the real-world handoff: finish and commit the API, *then* branch the UI off it.
-
----
-
-## 5. Branch-based implementation (~15 min)
-
-**Scenario:** You committed the cart API to `main` in the last section; now build the UI
-for it — on its own branch, so it never collides with anyone else's work.
+**Scenario:** Two pieces of work are about to start: the Add-a-Line page UI and an
+unrelated Device Catalog filter. Each gets its own branch, so neither one blocks or
+tangles the other.
 
 **Background:** A branch keeps one unit of work isolated until it's reviewed and merged.
-*Unrelated* features each get their **own** branch off `main`, so two pieces of work in
-flight never collide. You'll build against the provided design so the result matches what
-was specified.
+Before you start any task, update `main` and branch from it, so the work starts from the
+latest code.
 
-**Why branch off `main`:** `main` now has the cart API you just committed, so cutting your
-branch from it means the UI work starts with that API already in place — that's the normal
-flow: merge the API, then branch the feature that consumes it.
+**Naming standard:** A team agrees on one branch-naming convention and writes it down.
+Ours is in `docs/PR-STANDARDS.md`: `type/short-description`, where the type says what kind
+of change it is, such as `feat` for new behavior or `fix` for a bug fix.
+`.github/copilot-instructions.md` repeats the rule, so Copilot follows it too.
+
+**About the Add-a-Line UI:** The page calls a cart API (`/api/carts`) that doesn't exist
+yet; Lesson 5 builds it from its acceptance tests. Building a UI against agreed endpoints
+first is common when front-end and back-end work run in parallel. Until then, the page
+loads devices and rate plans, but **Add** and **Review & check out** return `404`.
 
 #### ▶️ Example (follow along)
 
-> Create a branch off `main` (it inherits the committed cart API):
+> 1. Start from the latest `main`. `git status --short` should print nothing; if
+>    Lesson 1 changes remain, discard them first.
 >
-> ```bash
-> git checkout -b feat/add-a-line
-> ```
+>    ```bash
+>    git checkout main && git pull
+>    git status --short
+>    ```
 >
-> In **Plan** mode, attach the design and plan the page + badge wiring. Notice the
+> 2. Ask Copilot for a branch name, and check it against the convention:
+>
+>    ```text
+>    Suggest a branch name for building the Add-a-Line page UI.
+>    ```
+>
+>    It should follow `type/short-description`. We'll use `feat/add-a-line-ui`:
+>
+>    ```bash
+>    git checkout -b feat/add-a-line-ui
+>    ```
+>
+> 3. In **Plan** mode, attach the design and plan the page + badge wiring. Notice the
 > **structure** — a clear goal, the context files, then grouped requirements and
 > constraints. That shape is the lesson here: it pre-answers what Plan would otherwise
 > stop to ask, so you get a plan instead of a Q&A. Notice too what's *absent* — the
@@ -605,41 +484,250 @@ flow: merge the API, then branch the feature that consumes it.
 >
 > Constraints:
 > - Match the mockup's layout as closely as the design allows.
+> - Front end only: the cart API is built separately, so don't add or change API code.
 > ```
 >
 > Review the plan, hand it to **Agent** to build, and verify in the browser on **:5137**.
+> The page and its device list should load; **Add** returns `404` until Lesson 5 builds
+> the cart API.
+>
+> Commit the UI on its branch:
+>
+> ```bash
+> git add -A && git commit -m "Add-a-Line page + cart badge"
+> ```
 
 #### 🧑‍💻 Participant Exercise
 
-> Make sure you've followed along with the Example — we'll now practice using separate
-> branches to keep features isolated. Your Add-a-Line work lives on `feat/add-a-line`.
-> This next feature is **unrelated**, so it gets its **own** branch off `main` — not
-> another commit on top of your cart branch.
+> Make sure you've followed along with the Example. Your Add-a-Line UI is committed on
+> `feat/add-a-line-ui`. This next feature is **unrelated**, so it gets its **own** branch
+> off `main`, not another commit on top of the UI branch.
 >
-> 1. Commit your Add-a-Line work so it's safely captured on its branch:
->
->    ```bash
->    git add -A && git commit -m "Add-a-Line page + cart badge"
->    ```
->
-> 2. Start a fresh branch from `main` for this unrelated feature:
+> 1. Start a fresh branch from the latest `main`:
 >
 >    ```bash
->    git checkout main
+>    git checkout main && git pull
 >    git checkout -b feat/catalog-filter
 >    ```
 >
-> 3. In **Plan** mode, plan a self-contained feature on a *different* page — a category
+> 2. In **Plan** mode, plan a self-contained feature on a *different* page — a category
 >    filter for the Device Catalog:
 >
 >    ```text
 >    Plan a category filter for the Device Catalog in #file:frontend/src/pages/Catalog.tsx: a row of buttons (one per device category, plus an "All" option) that filters the visible device cards client-side, using the devices already fetched.
 >    ```
 >
-> 4. Review the plan, hand it to **Agent** to build, and verify on **:5137**.
+> 3. Review the plan, hand it to **Agent** to build, and verify on **:5137**.
 >
-> **Done when** `git branch` shows both `feat/add-a-line` and `feat/catalog-filter`, the
+> 4. Commit it on its branch:
+>
+>    ```bash
+>    git add -A && git commit -m "Add device catalog category filter"
+>    ```
+>
+> **Done when** `git branch` shows both `feat/add-a-line-ui` and `feat/catalog-filter`, the
 > catalog filter works, and your two features never shared a branch.
+
+---
+
+## 5. Acceptance-test-first development with custom agents (~20 min)
+
+**Scenario:** The Add-a-Line page from Lesson 4 calls a cart API that doesn't exist yet.
+Before any cart code was written, the team captured what the API must do as acceptance
+tests. Now build the API to pass them, without letting the agent that writes the code also
+judge its own work.
+
+**Background:** **Acceptance criteria** are the conditions a feature must meet to be
+accepted, written in plain language that product, QA, and developers agree on.
+**Acceptance-test-first development** (often called ATDD) turns those criteria into
+automated tests *before* any code exists, then builds until they pass:
+
+1. **Discuss:** the team works through the feature's real-world scenarios. Here, that's
+   the Add-a-Line mockup.
+2. **Distill:** the scenarios become clear, unambiguous acceptance criteria.
+3. **Develop:** the criteria become automated tests that fail first (red); code is
+   written until they pass (green).
+4. **Demo:** the finished feature is shown to stakeholders for feedback. Here, that's the
+   pull request and review in Lessons 6–7.
+
+How it differs from test-driven development (TDD): TDD is a developer writing small unit
+tests alongside the code. Acceptance tests check the feature from the outside (here,
+through the HTTP API), and whoever implements the feature doesn't get to rewrite them.
+
+**How the criteria are codified:** `api/src/routes/addALine.acceptance.test.ts` lists the
+criteria in its header comment, then turns them into tests. Each test follows
+Given/When/Then: given a cart, when you call an endpoint, then check the response.
+
+| Acceptance criterion (header comment) | How it's tested |
+|---------------------------------------|-----------------|
+| A cart can be created for a subscriber. | Test 1: `POST /api/carts` returns `201` and an `id`. |
+| Devices + rate plans can be added as cart lines. | Test 2: `POST /api/carts/:id/lines` returns `201`. |
+| The cart reports a line count. | Tests 1 and 2: `lineCount` is `0`, then `1`. |
+| Checking out a cart creates an ActivationOrder **with matching lines**. | Test 3: checks only `201` and an `AO-` order number. |
+
+Notice the last row: "with matching lines" isn't tested, so an implementation could pass
+while creating an empty order. Reviewing criteria against tests before you build is how
+teams catch gaps like this.
+
+**Custom agents:** A **custom agent** (`.github/agents/*.agent.md`) packages a role:
+instructions plus the tools it may use. A custom agent can delegate to other custom agents
+as **subagents**, each working in its own context with its own tools. Our **Acceptance
+Test First** agent handles the Develop step by coordinating two workers:
+
+| Agent | Role | Tools |
+|-------|------|-------|
+| [Acceptance Test First](../../.github/agents/acceptance-test-first.agent.md) | Confirms the tests fail, delegates, re-runs the tests itself, routes review findings, reports | `agent`, `read`, `search`, `execute` (no `edit`) |
+| [Implementer](../../.github/agents/implementer.agent.md) | Writes production code to pass the tests; never edits tests | `edit`, `read`, `search`, `execute` |
+| [Spec Reviewer](../../.github/agents/spec-reviewer.agent.md) | Reviews in a fresh context; labels findings blocking or follow-up | `read`, `search` |
+
+The reviewer didn't write the code and can't edit it, so it checks the change rather than
+defending it. Blocking findings go back to Implementer once; follow-ups come to you.
+
+This lesson uses VS Code's **Local** harness. These agent files rely on two Local
+features: the coordinator's `agents` list limits it to the named workers, and naming a
+worker there lets the coordinator call it despite `disable-model-invocation: true`. The
+Copilot harness also runs custom agents and subagents, but it delegates through its own
+`task` tool, so these files would need adjusting. See
+[subagents by harness](https://code.visualstudio.com/docs/agents/run/subagents#_subagents-by-harness).
+
+#### ▶️ Example (follow along)
+
+> 1. Create the API's branch from the latest `main`. The cart API is new behavior, so it's
+>    a `feat` branch:
+>
+>    ```bash
+>    git checkout main && git pull
+>    git checkout -b feat/cart-api
+>    ```
+>
+> 2. Open `api/src/routes/addALine.acceptance.test.ts` next to
+>    `docs/design/add-a-line.png`. Match each criterion in the header comment to the test
+>    that checks it, using the table above.
+> 3. The suite is **skipped**. Change `describe.skip(` to `describe(`. The agent won't
+>    edit tests, so if you forget, it stops and asks you to.
+> 4. Start a new chat, select **Local** in the **Session Target** control, then select
+>    **Acceptance Test First** in the agent picker. The two workers aren't listed; they're
+>    hidden from the picker.
+> 5. Send:
+>
+>    ```text
+>    Make the Add-a-Line acceptance suite pass.
+>    ```
+>
+> **What good looks like:**
+>
+> - **Red first:** before any code changes, the coordinator runs `make test` and reports
+>   the 3 cart tests failing with `404`, because no cart routes exist yet, while the
+>   existing tests pass.
+> - **Delegation:** the chat shows subagent entries for the implementation and the review.
+>   Open one to see which agent ran it; the Spec Reviewer entry only reads and searches.
+> - **The API gets built:** Implementer creates the cart models, stores, routes, the
+>   `/api/carts` registration in `api/src/app.ts`, and the Swagger docs. File names can
+>   vary.
+> - **Independent check:** after Implementer reports back, the coordinator runs
+>   `make test` itself rather than trusting the report.
+> - **Bounded review:** the reviewer returns `PASS`, or blocking findings (for example, a
+>   missing Swagger entry) are fixed in one round and re-reviewed.
+> - **Follow-ups for you:** missing error-path tests and design decisions are listed for
+>   you to decide, not built.
+> - **Tests untouched:** `git diff api/src/routes/addALine.acceptance.test.ts` shows only
+>   your `.skip` removal, and `make test` passes when you run it.
+>
+> If the run ends with `CHANGES NEEDED`, read the blocking finding and resolve it before
+> you commit. Stopping there is the review working, not failing.
+
+#### 🧑‍💻 Participant Exercise
+
+> Complete the Example first; this exercise extends the cart API it created. This time
+> *you* do the Distill and Develop steps: add a criterion, codify it as a test, and hand
+> it to the same agent.
+>
+> 1. **See how the agents are configured.** Open the three files in `.github/agents/`
+>    and find:
+>    - `tools`: the coordinator has no `edit` tool, so code changes must be delegated;
+>      Spec Reviewer can only read and search.
+>    - `agents: ['Implementer', 'Spec Reviewer']`: the only subagents the coordinator
+>      can call.
+>    - `user-invocable: false`: hides each worker from the agent picker.
+>    - `disable-model-invocation: true`: stops other agents from calling the workers on
+>      their own. The coordinator still can, because its `agents` list names them.
+> 2. **Add the criterion.** In the header comment of
+>    `api/src/routes/addALine.acceptance.test.ts`, add a line to the criteria list:
+>
+>    ```text
+>     *  - A line can be removed from a cart, and the line count goes down.
+>    ```
+>
+> 3. **Codify it as a test.** In `api/src/routes/addALine.acceptance.test.ts`, paste
+>    this as a new `it(...)` block **just before the closing `});` of the `describe`**
+>    (right after the "checks out a cart" test):
+>
+>    ```ts
+>    it("removes a line from a cart and decrements the count", async () => {
+>      const app = createApp();
+>      const cart = await request(app).post("/api/carts").send({ subscriberId: 1 });
+>      const line = await request(app)
+>        .post(`/api/carts/${cart.body.id}/lines`)
+>        .send({ deviceId: 1, ratePlanId: 1 });
+>      const res = await request(app).delete(
+>        `/api/carts/${cart.body.id}/lines/${line.body.lineId}`
+>      );
+>      expect(res.status).toBe(200);
+>      expect(res.body.lineCount).toBe(0);
+>    });
+>    ```
+>
+>    This test also expects the add-line response to include a `lineId`. That's part of
+>    the contract your test defines.
+> 4. **Run it and watch it go red** from the repository root:
+>
+>    ```bash
+>    make test
+>    ```
+>
+>    It fails because no delete route exists yet.
+> 5. **Hand the implementation to the agent.** In a new **Local** chat with **Acceptance
+>    Test First** selected, send:
+>
+>    ```text
+>    Make the new remove-line acceptance test pass without breaking the rest of the suite.
+>    ```
+>
+> **What good looks like:**
+>
+> - The coordinator's red run shows only the remove-line test failing (`404` instead of
+>   `200`).
+> - Implementer adds a `DELETE` route to the existing cart routes and returns `lineId`
+>   from add-line, without changing your test.
+> - The new endpoint is documented in `api/src/swagger.ts`; if Implementer misses it, the
+>   reviewer flags it as blocking.
+> - Follow-ups suggest error tests, such as a missing line, a line from another cart, or
+>   a checked-out cart. Each is a candidate for your next failing test.
+>
+> **Done when** `make test` passes with your remove-line test included, the reviewer
+> reports no blocking findings, and the test file contains only your changes.
+>
+> Writing the failing test yourself is the point: the coordinator won't write tests, so
+> without one it has nothing to implement against. Pick behavior that doesn't exist yet;
+> a test that passes on the first run proves nothing.
+>
+> **Troubleshooting:**
+>
+> - **The agent isn't in the picker:** confirm the repository root is open and **Local**
+>   is selected.
+> - **No subagent activity:** confirm you started a new **Local** chat with **Acceptance
+>   Test First** selected; its `tools` list includes `agent`, which it needs to delegate.
+> - **The agent stalls:** describe the **symptom** (*"POST /carts/:id/lines returns
+>   404"*), not the fix, and let it investigate.
+
+> **Before you move on — commit the cart API to its branch:**
+>
+> ```bash
+> git add -A && git commit -m "Add cart API (Add-a-Line acceptance suite)"
+> ```
+>
+> The UI (`feat/add-a-line-ui`) and the API (`feat/cart-api`) now live on separate
+> branches. In Lesson 6 you'll open a pull request for each.
 
 ---
 
@@ -653,11 +741,11 @@ arrives in a consistent, reviewable shape.
 
 #### ▶️ Example (follow along)
 
-> You'll continue on the `feat/catalog-filter` branch from Section 5 — the feature you just
-> built. First, commit and push it so the PR has something to show:
+> Start with the catalog filter you committed on `feat/catalog-filter` in Lesson 4.
+> Switch to its branch and push it so the PR has something to show:
 >
 > ```bash
-> git add -A && git commit -m "Add device catalog category filter"
+> git checkout feat/catalog-filter
 > git push -u origin feat/catalog-filter
 > ```
 >
@@ -679,8 +767,9 @@ arrives in a consistent, reviewable shape.
 
 #### 🧑‍💻 Participant Exercise
 
-> First make the PR flow your own, then run it end to end on your **Add-a-Line** feature
-> (already committed on `feat/add-a-line` from Section 5):
+> First make the PR flow your own, then run it end to end on your **Add-a-Line** work:
+> the UI on `feat/add-a-line-ui` (Lesson 4) and the cart API on `feat/cart-api`
+> (Lesson 5):
 >
 > 1. **Customize the reusable prompt.** Open `.github/prompts/pr-description.prompt.md` and
 >    extend it to do something useful for a reviewer — pick one:
@@ -692,16 +781,20 @@ arrives in a consistent, reviewable shape.
 >    This is the Section 1 reusable-prompt idea again — you're *improving* a shared team
 >    asset, not just consuming it.
 >
-> 2. Switch to the branch and push it:
+> 2. Push both branches:
 >
 >    ```bash
->    git checkout feat/add-a-line
->    git push -u origin feat/add-a-line
+>    git push -u origin feat/cart-api
+>    git push -u origin feat/add-a-line-ui
 >    ```
 >
-> 3. Run `/pr-description` and **confirm your new section actually appears** (verify, don't
->    assume). Then, in the **same chat**, ask Copilot to open the PR using that draft as the
->    body (let it pick a conventional-commit title).
+> 3. Open the API PR first. Check out `feat/cart-api`, run `/pr-description`, and
+>    **confirm your new section actually appears** (verify, don't assume). Then, in the
+>    **same chat**, ask Copilot to open the PR using that draft as the body (let it pick a
+>    conventional-commit title).
+>
+>    Repeat for `feat/add-a-line-ui`. The UI calls endpoints that only the API PR adds, so
+>    say in its description that it depends on the API PR.
 >
 > 4. Self-audit the PR against `docs/PR-STANDARDS.md` line by line and fix anything that
 >    falls short before requesting review.
@@ -709,9 +802,10 @@ arrives in a consistent, reviewable shape.
 > Your prompt tweak is a local experiment — keep it out of the PR. The PR is built from your
 > committed branch, so don't `git add` the edited prompt file into it.
 >
-> **Done when** your customized `/pr-description` produces the new section, both
-> `feat/catalog-filter` and `feat/add-a-line` have an open PR, and your add-a-line PR reads
-> cleanly to a reviewer.
+> **Done when** your customized `/pr-description` produces the new section,
+> `feat/catalog-filter`, `feat/cart-api`, and `feat/add-a-line-ui` each have an open PR,
+> the UI PR names its dependency on the API PR, and both Add-a-Line PRs read cleanly to a
+> reviewer.
 
 ---
 
@@ -750,7 +844,8 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 
 #### 🧑‍💻 Participant Exercise
 
-> Check out `feat/add-a-line` and review **your actual Add-a-Line PR** with both surfaces:
+> Check out `feat/cart-api` and review **your cart API PR**, the agent-built code from
+> Lesson 5, with both surfaces:
 > a chat review in VS Code, then request Copilot code review on GitHub.com. Investigate
 > the feedback, fix valid issues, run relevant checks, and push corrections. Dismiss
 > unsupported findings with a short explanation.
@@ -853,7 +948,7 @@ before acting, and check **CI**. Copilot provides a first pass; a human owns the
 
 ## Wrap-up & take-home (~10 min)
 
-**The loop:** **instructions → prompt → impact-analysis skill → test-first agents → branch → PR → review.**
+**The loop:** **instructions → prompt → impact-analysis skill → branch → test-first agents → PR → review.**
 Everything today was one pass around it. The instructions, prompts, skills, and custom agents in
 `.github/` are reusable team assets — copy the patterns into your own repos and adapt them to your domain.
 
@@ -871,8 +966,8 @@ Everything today was one pass around it. The instructions, prompts, skills, and 
 | Reusable prompts | Capture repeatable workflows as shared `/`-commands. |
 | Skills | Package domain know-how, data, or procedures for on-demand use. |
 | Impact analysis | Pair a clear change-assessment request with a discoverable, report-only skill. |
-| Acceptance-test-first agents | Write the contract as tests first; a coordinator delegates implementation and independent review. |
-| Branch-based build | One feature per branch stays isolated and reviewable. |
+| Branch-based build | One feature per branch, named by an agreed convention, stays isolated and reviewable. |
+| Acceptance-test-first agents | Agree acceptance criteria and codify them as tests first; a coordinator delegates implementation and independent review. |
 | PR standards | Small, tested, well-described PRs earn a reviewer's trust. |
 | Code review with Copilot | An AI first pass catches more, faster — a human still owns the merge. |
 

@@ -71,7 +71,7 @@ identical to local.
 ## What to expect
 
 We'll build the **Add-a-Line / service cart** feature together using Copilot —
-planning, writing acceptance tests first, implementing on a branch, opening a PR, and
-running a code review with Copilot. We'll follow along together in
+planning, implementing on branches, building from acceptance tests written first, opening
+PRs, and running a code review with Copilot. We'll follow along together in
 `docs/workshop/workshop-1-playbook.md`, which has every scenario, example, and
 hands-on exercise.
