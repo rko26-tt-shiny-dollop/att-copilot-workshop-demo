@@ -391,7 +391,7 @@ let the skill supply the procedure rather than spelling it out in every prompt.
 > naming or attaching a skill:
 >
 > ```text
-> Product wants subscribers to have multiple active lines, each with its own rate plan. Assess the impact.
+> We need to support subscribers with multiple active lines, each with its own rate plan. Assess the impact.
 > ```
 >
 > Check discovery as above, then compare the impact with the Device example.
