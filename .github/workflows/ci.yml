@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: API checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: api/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Build and type-check
+        run: npm run build
+      - name: Run full API suite
+        run: npm test
+      - name: Lint
+        run: npm run lint
+
+  frontend:
+    name: Frontend checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      CI: "true"
+      PORT: "3000"
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: |
+            api/package-lock.json
+            frontend/package-lock.json
+      - name: Install frontend dependencies
+        run: npm --prefix frontend ci
+      - name: Install API dependencies
+        run: npm --prefix api ci
+      - name: Build and type-check frontend
+        run: npm --prefix frontend run build
+      - name: Lint frontend
+        run: npm --prefix frontend run lint
+      - name: Build API for end-to-end tests
+        run: npm --prefix api run build
+      - name: Install Chromium and system dependencies
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+      - name: Run full Playwright suite with API
+        run: |
+          node api/dist/index.js > "$RUNNER_TEMP/api.log" 2>&1 &
+          api_pid=$!
+          trap 'kill "$api_pid" 2>/dev/null || true' EXIT
+          curl --fail --silent --show-error --retry 20 --retry-connrefused \
+            --retry-delay 1 --max-time 2 http://localhost:3000/api/health
+          npm --prefix frontend run test:e2e
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: frontend-failure-diagnostics
+          path: |
+            frontend/test-results/
+            frontend/playwright-report/
+            ${{ runner.temp }}/api.log
+          if-no-files-found: ignore
+          retention-days: 7
